@@ -1,5 +1,5 @@
 package Model;
 
 public class M {
-    private int id;
+    private int id; // good
 }
