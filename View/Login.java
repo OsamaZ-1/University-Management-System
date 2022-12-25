@@ -2,7 +2,6 @@ package View;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.FontUIResource;
-import javax.swing.SpringLayout;
 import javax.swing.text.FlowView;
 
 import java.awt.*;
@@ -68,7 +67,7 @@ public class Login{
         foot = new JPanel();
 
         //Layouts and designs
-        loginFrame.setLayout(new FlowLayout(FlowLayout.CENTER,0,5));
+        loginFrame.setLayout(new GridLayout(3,1));
         loginFrame.getContentPane().setBackground(new Color(114,128,255));
         registerButton.setBackground(Color.GREEN);
         loginButton.setBackground(Color.red);
@@ -82,7 +81,7 @@ public class Login{
         head.setBackground(new Color(114,128,255));
 
         springLayout = new SpringLayout();
-        center.setPreferredSize(new Dimension(400,250));
+        center.setPreferredSize(new Dimension(400,350));
         center.setBackground(new Color(114,128,255));
         center.setLayout(springLayout);
         springLayout.putConstraint(SpringLayout.WEST, userIcon, 50, SpringLayout.WEST, loginFrame);
@@ -105,15 +104,15 @@ public class Login{
         springLayout.putConstraint(SpringLayout.WEST, enterEmail, 53, SpringLayout.EAST, emailIcon);
         springLayout.putConstraint(SpringLayout.WEST, enterPassword, 53, SpringLayout.EAST, passwordIcon);
 
-        foot.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
-        foot.setPreferredSize(new Dimension(400,70));
+        foot.setLayout(new BoxLayout(foot, BoxLayout.X_AXIS));
+        foot.setPreferredSize(new Dimension(400,30));
         foot.setBackground(new Color(114,128,255));
 
         welcomeLabel.setAlignmentX(Box.CENTER_ALIGNMENT);
         mainIcon.setAlignmentX(Box.CENTER_ALIGNMENT);
 
         //adding components to Panels
-        head.add(Box.createRigidArea(new Dimension(400,20)));
+        head.add(Box.createRigidArea(new Dimension(400,30)));
         head.add(welcomeLabel);
         head.add(Box.createRigidArea(new Dimension(400,30)));
         head.add(mainIcon);
@@ -127,6 +126,7 @@ public class Login{
         center.add(enterEmail);
         center.add(enterPassword);
         
+        foot.add(Box.createRigidArea(new Dimension(150,30)));
         foot.add(loginButton);
         foot.add(registerButton);
 
@@ -135,7 +135,7 @@ public class Login{
         loginFrame.add(foot);
 
         loginFrame.setTitle("Login Page");
-        loginFrame.setSize(500,520);
+        loginFrame.setSize(450,620);
         loginFrame.setLocationRelativeTo(null);
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.setVisible(true);
@@ -165,5 +165,10 @@ public class Login{
   public JButton getRegisterButton()
   {
     return this.registerButton;
+  }
+
+  public JFrame getLoginFrame()
+  {
+    return this.loginFrame;
   }
 }
