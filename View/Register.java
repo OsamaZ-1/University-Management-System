@@ -55,14 +55,14 @@ public class Register{
     public Register()
     {   
         //Initializations
-        logo = new ImageIcon("INFO404-PROJECT/Images/main_Icon.png");
-        userModeLogo = new ImageIcon("INFO404-PROJECT/Images/person.png");
-        mailLogo = new ImageIcon("INFO404-PROJECT/Images/mail.png");
-        keyLogo = new ImageIcon("INFO404-PROJECT/Images/key.png");
-        phoneLogo = new ImageIcon("INFO404-PROJECT/Images/phone.png");
-        userLogo = new ImageIcon("INFO404-PROJECT/Images/user.png");
+        logo = new ImageIcon("./Images/main_Icon.png");
+        userModeLogo = new ImageIcon("./Images/person.png");
+        mailLogo = new ImageIcon("./Images/mail.png");
+        keyLogo = new ImageIcon("./Images/key.png");
+        phoneLogo = new ImageIcon("./Images/phone.png");
+        userLogo = new ImageIcon("./Images/user.png");
         firstNameField = new JTextField(15);
-        lastNameField = new JPasswordField(15);
+        lastNameField = new JTextField(15);
         passwordField = new JPasswordField(15);
         emailField = new JTextField(15);
         phoneNumberField = new JTextField(15);
