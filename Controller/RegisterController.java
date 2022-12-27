@@ -15,6 +15,9 @@ public class RegisterController {
     public RegisterController(){
         registerModel = new RegisterModel();
         registerView = new Register();
+
+        registerStudent();
+        goToLoginPage();
     }
 
     public void registerStudent(){
@@ -34,6 +37,16 @@ public class RegisterController {
                 }
             }
         });  
+    }
+
+    public void goToLoginPage(){
+        registerView.getLoginButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                registerView.getRegisterFrame().dispose();
+                new LoginController();
+            }
+        });
     }
 
 }

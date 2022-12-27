@@ -10,7 +10,7 @@ interface StudentDao {
         throws SQLException;
     public void delete(int id)
         throws SQLException;
-    public Student getStudent(int id)
+    public int uniqueStudentExists(String email, String pass)
         throws SQLException;
     public List<Student> getStudents()
         throws SQLException;

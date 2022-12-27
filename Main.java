@@ -1,10 +1,10 @@
-import Controller.RegisterController;
+import Controller.LoginController;
+import Controller.LoginController;
 
 public class Main {
 
     public static void main(String[] args) {
-        RegisterController c = new RegisterController();
-        c.registerStudent();
+        new LoginController();
     }
     
 }

@@ -30,8 +30,25 @@ public class StudentDaoImplementation implements StudentDao {
     }
 
     @Override
-    public Student getStudent(int id) throws SQLException {
-        return null;
+    public int uniqueStudentExists(String email, String pass) throws SQLException {
+        String query = "SELECT Id, Accepted FROM " + TABLE_NAME + " WHERE Password = ? AND Email = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, pass);
+        ps.setString(2, email);
+        ResultSet res = ps.executeQuery();
+        if (res.next()){
+            if (Integer.parseInt(res.getString(2)) == 0){
+                if (res.next())
+                    return 0; //more than one student with the same information were found
+                return 1; //a unique student was found but is not accepted yet
+            }
+            //check again to prioratize answer 0 over all others
+            if (res.next())
+                return 0;
+            return 2; //unique student was found and is accepted
+        }
+        else
+            return -1; //student with this information was not found
     }
 
     @Override

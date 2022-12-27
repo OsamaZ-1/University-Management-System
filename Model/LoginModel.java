@@ -1,14 +1,12 @@
 package Model;
 
 import java.sql.SQLException;
-
 import DAO.StudentDaoImplementation;
-import View.Login;
 
-public class RegisterModel {
+public class LoginModel {
     StudentDaoImplementation stdDao = new StudentDaoImplementation();
 
-    public int registerStudent(Student s) throws SQLException{
-        return stdDao.add(s);
+    public int getLoginStudent(String email, String pass) throws SQLException{
+        return stdDao.uniqueStudentExists(email, pass);
     }
 }
