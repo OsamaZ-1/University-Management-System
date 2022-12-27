@@ -7,7 +7,6 @@ import javax.swing.plaf.FontUIResource;
 import javax.swing.text.FlowView;
 import java.awt.*;
 import java.net.PasswordAuthentication;
-
 public class Register{
     //Icons
     private ImageIcon logo;
