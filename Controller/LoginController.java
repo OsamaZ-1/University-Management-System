@@ -28,17 +28,15 @@ public class LoginController {
                 try{
                     int res = loginModel.getLoginStudent(email, pass);
                     if (res == -1){
-                        //display not found error
-                        System.out.println("User not found.");
-                        System.out.println(pass + ' ' + email);
+                        loginView.displayErrorMessage(); //Wrong Credentials
                     }
                     else if (res == 0){
-                        //display more than one student were found error
-                        System.out.println("More than one student were found.");
+                        //student was not accepted yey
+                        System.out.println("Wait until acceptance");
                     }
                     else if (res == 1){
-                        //student was not accepted yet
-                        System.out.println("Wait until acceptance");
+                        //successfull login
+                        System.out.println("Login Succeeded");
                     }
                     else{
                         //take student to Transcript page

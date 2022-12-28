@@ -173,4 +173,9 @@ public class Login{
   {
     return this.loginFrame;
   }
+
+  public void displayErrorMessage()
+  {
+    JOptionPane.showMessageDialog(loginFrame, "Wrong Credentials!!!");
+  }
 }
