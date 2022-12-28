@@ -3,6 +3,9 @@ package Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
 import Model.RegisterModel;
 import Model.Student;
 import View.Register;
@@ -32,6 +35,7 @@ public class RegisterController {
                 Student s = new Student(Fname, Lname, password, email, phone);
                 try {
                     registerModel.registerStudent(s);
+                    registerView.displayRegisterMessage();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }

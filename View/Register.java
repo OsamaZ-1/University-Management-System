@@ -66,7 +66,7 @@ public class Register{
         passwordField = new JPasswordField(15);
         emailField = new JTextField(15);
         phoneNumberField = new JTextField(15);
-        userModeField = new JComboBox<String>(new String[]{"Select User Mode","Admin","Student","Instructor"});
+        userModeField = new JComboBox<String>(new String[]{"Select User Mode","Student","Instructor"});
         mainIcon = new JLabel(logo);
         emailIcon = new JLabel(mailLogo);
         passwordIcon = new JLabel(keyLogo);
@@ -241,5 +241,10 @@ public class Register{
     public JFrame getRegisterFrame()
     {
         return this.registerFrame;
+    }
+
+    public void displayRegisterMessage()
+    {
+        JOptionPane.showMessageDialog(registerFrame, "Successfully Registered");
     }
 }
