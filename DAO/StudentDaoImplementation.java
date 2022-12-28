@@ -38,9 +38,9 @@ public class StudentDaoImplementation implements StudentDao {
         ResultSet res = ps.executeQuery();
         if (res.next()){
             if (Integer.parseInt(res.getString(2)) == 0){
-                return 0; //a unique student was found but is not accepted yet
+                return 0; //student was found but is not accepted yet
             }
-            return 1; //unique student was found and is accepted
+            return 1; //student was found and is accepted
         }
         else
             return -1; //student with this information was not found

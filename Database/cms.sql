@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2022 at 08:48 PM
+-- Generation Time: Dec 28, 2022 at 06:54 PM
 -- Server version: 5.7.17
 -- PHP Version: 5.6.30
 
@@ -21,6 +21,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `cms`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `instructors`
+--
+
+CREATE TABLE `instructors` (
+  `Id` int(100) NOT NULL,
+  `Fname` varchar(100) NOT NULL,
+  `Lname` varchar(100) NOT NULL,
+  `Password` varchar(100) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Phone` int(10) NOT NULL,
+  `Accepted` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `instructors`
+--
+
+INSERT INTO `instructors` (`Id`, `Fname`, `Lname`, `Password`, `Email`, `Phone`, `Accepted`) VALUES
+(1, 'Mohammad', 'Dandash', 'hhhhhh', 'moe@dandash.com', 81721345, 0);
 
 -- --------------------------------------------------------
 
@@ -51,6 +74,12 @@ INSERT INTO `student` (`Id`, `Fname`, `Lname`, `Password`, `Email`, `Phone`, `Ac
 --
 
 --
+-- Indexes for table `instructors`
+--
+ALTER TABLE `instructors`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
@@ -60,6 +89,11 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `instructors`
+--
+ALTER TABLE `instructors`
+  MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `student`
 --

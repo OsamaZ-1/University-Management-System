@@ -33,10 +33,6 @@ public class LoginController {
                         System.out.println(pass + ' ' + email);
                     }
                     else if (res == 0){
-                        //display more than one student were found error
-                        System.out.println("More than one student were found.");
-                    }
-                    else if (res == 1){
                         //student was not accepted yet
                         System.out.println("Wait until acceptance");
                     }
