@@ -34,8 +34,10 @@ public class RegisterController {
                 int phone = Integer.parseInt(registerView.getPhoneNumberField().getText().toString());
                 Student s = new Student(Fname, Lname, password, email, phone);
                 try {
-                    registerModel.registerStudent(s);
-                    registerView.displayRegisterMessage();
+                    if(registerModel.registerStudent(s)==0)
+                        registerView.displayErrorMessage();
+                    else    
+                        registerView.displaySuccessMessage();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }

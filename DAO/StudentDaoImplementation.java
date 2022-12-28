@@ -38,18 +38,26 @@ public class StudentDaoImplementation implements StudentDao {
         ResultSet res = ps.executeQuery();
         if (res.next()){
             if (Integer.parseInt(res.getString(2)) == 0){
-                if (res.next())
-                    return 0; //more than one student with the same information were found
-                return 1; //a unique student was found but is not accepted yet
+                return 0; //a unique student was found but is not accepted yet
             }
-            //check again to prioratize answer 0 over all others
-            if (res.next())
-                return 0;
-            return 2; //unique student was found and is accepted
+            return 1; //unique student was found and is accepted
         }
         else
             return -1; //student with this information was not found
     }
+
+    @Override
+    public int studentEmailExist(String email) throws SQLException{
+        String query = "SELECT Id FROM " + TABLE_NAME + " WHERE Email = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, email);
+        ResultSet res = ps.executeQuery();
+        
+        if(res.next())
+            return 1; //student with same email already exist
+        return 0; //student with provided email doesn't exist    
+    }
+    
 
     @Override
     public List<Student> getStudents() throws SQLException {

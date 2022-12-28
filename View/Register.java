@@ -243,8 +243,13 @@ public class Register{
         return this.registerFrame;
     }
 
-    public void displayRegisterMessage()
+    public void displaySuccessMessage()
     {
         JOptionPane.showMessageDialog(registerFrame, "Successfully Registered");
+    }
+
+    public void displayErrorMessage()
+    {
+        JOptionPane.showMessageDialog(registerFrame, "Account with same email exist");
     }
 }
