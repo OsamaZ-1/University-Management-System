@@ -1,12 +1,6 @@
 package View;
 
-import javax.swing.border.MatteBorder;
-import javax.swing.plaf.DimensionUIResource;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.xml.transform.stax.StAXResult;
-import javax.swing.border.*;
-import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 import java.awt.*;
 
@@ -57,10 +51,10 @@ public class AdminPanel {
     public AdminPanel()
     {   
         //Initialization of components
-        logo = new ImageIcon("INFO404-PROJECT/Images/main_Icon.png");
-        studentLogo = new ImageIcon("INFO404-PROJECT/Images/student.png");
-        professorLogo = new ImageIcon("INFO404-PROJECT/Images/professor.png");
-        coursesLogo = new ImageIcon("INFO404-PROJECT/Images/courses.png");
+        logo = new ImageIcon("./Images/main_Icon.png");
+        studentLogo = new ImageIcon("./Images/student.png");
+        professorLogo = new ImageIcon("./Images/professor.png");
+        coursesLogo = new ImageIcon("./Images/courses.png");
         mainIcon = new JLabel(logo);
         studentIcon = new JLabel(studentLogo);
         professorIcon = new JLabel(professorLogo);
@@ -266,6 +260,5 @@ public class AdminPanel {
     public DefaultTableModel getTableModel()
     {
         return this.tableModel;
-    }
-    
+    }   
 }
