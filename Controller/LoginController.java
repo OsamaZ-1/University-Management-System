@@ -25,8 +25,15 @@ public class LoginController {
             public void actionPerformed(ActionEvent e){
                 String email = loginView.getEmailField().getText();
                 String pass = loginView.getPasswordField().getText().toString();
+                int userMode = loginView.getUserModeField().getSelectedIndex();
+
                 try{
-                    int res = loginModel.getLoginStudent(email, pass);
+                    int res = -2;
+                    if (userMode == 1)
+                        res = loginModel.getLoginStudent(email, pass);
+                    else if (userMode == 2)
+                        res = loginModel.getLoginInstructor(email, pass);
+
                     if (res == -1){
                         loginView.displayErrorMessage(); //Wrong Credentials
                     }
@@ -37,6 +44,10 @@ public class LoginController {
                     else if (res == 1){
                         //successfull login
                         System.out.println("Login Succeeded");
+                    }
+                    else if (res == -2){
+                        //user mode not selected
+                        System.out.println("You must select the User Mode.");
                     }
                     else{
                         //take student to Transcript page
