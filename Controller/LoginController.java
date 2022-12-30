@@ -29,9 +29,9 @@ public class LoginController {
 
                 try{
                     int res = -2;
-                    if (userMode == 1)
+                    if (userMode == 2)
                         res = loginModel.getLoginStudent(email, pass);
-                    else if (userMode == 2)
+                    else if (userMode == 3)
                         res = loginModel.getLoginInstructor(email, pass);
 
                     if (res == -1){
