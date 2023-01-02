@@ -18,4 +18,8 @@ interface StudentDao {
         throws SQLException;
     public void update(Student s)
         throws SQLException;
+    public Object[][] getStudentCoursesInformation(String email,String password)
+        throws SQLException;
+    public String[] getStudent(String email,String password)
+        throws SQLException;
 }

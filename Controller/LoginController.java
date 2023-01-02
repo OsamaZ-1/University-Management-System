@@ -44,6 +44,8 @@ public class LoginController {
                     else if (res == 1){
                         //successfull login
                         System.out.println("Login Succeeded");
+                        loginView.getLoginFrame().dispose();
+                        new StrudentTranscriptController(email,pass);
                     }
                     else if (res == -2){
                         //user mode not selected

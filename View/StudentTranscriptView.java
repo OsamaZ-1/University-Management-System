@@ -1,6 +1,7 @@
 package View;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import java.awt.*;
 import java.util.*;
@@ -30,6 +31,7 @@ public class StudentTranscriptView extends JFrame{
     private JScrollPane scrollPane;
     private Object[] tableColumns;
     private DefaultTableModel tableModelInfo;
+    private Object[][] s;
     
     //panels
     private JPanel studentInfoPanel;
@@ -54,9 +56,9 @@ public class StudentTranscriptView extends JFrame{
     	nameLabel.setFont(font);
     	idLabel=new JLabel("ID:");
     	idLabel.setFont(font);
-    	emailLabel=new JLabel("Email");
+    	emailLabel=new JLabel("Email:");
     	emailLabel.setFont(font);
-    	phoneLabel=new JLabel("Phone");
+    	phoneLabel=new JLabel("Phone:");
     	phoneLabel.setFont(font);
     	
     	earnedCreditsLabel=new JLabel("Earned Credits:");
@@ -84,19 +86,34 @@ public class StudentTranscriptView extends JFrame{
     	gpa.setFont(new Font ("AvantGarde", Font.BOLD, 25));
     	gpa.setForeground(new Color(200,10,10));
     	
-    	transcriptTable = new JTable();
+    	tableColumns = new Object[]{"Year","Crse Code","Title","Crd.","Grade","Observation"};
+    	
+    	transcriptTable = new JTable() {
+    		public Component prepareRenderer(TableCellRenderer render,int row,int col) {
+    			Component comp=super.prepareRenderer(render, row, col);
+    			Object value=getModel().getValueAt(row, col);
+    			if(value.equals("Passed")) {
+    				comp.setForeground(Color.green);
+    			}
+    			else if(value.equals("Failed")) {
+    				comp.setForeground(Color.red);
+    			}
+    			else {
+    				comp.setForeground(Color.blue);
+    			}
+    			
+    			return comp;
+    		}};
+    		
     	transcriptTable.setFont(fontTable);
-    	transcriptTable.setForeground(Color.BLUE);
     	transcriptTable.getTableHeader().setFont(font);
     	transcriptTable.getTableHeader().setForeground(Color.BLUE);
         scrollPane = new JScrollPane(transcriptTable);
         
-        tableColumns = new Object[]{"Year","Crse Code","Title","Crd.","Grade","Observation"};
         tableModelInfo = new DefaultTableModel();
         tableModelInfo.setColumnIdentifiers(tableColumns);
-        
         transcriptTable.setModel(tableModelInfo);
-    	
+        
         studentInfoPanel=new JPanel();
         infoP1=new JPanel();
         infoP2=new JPanel();
