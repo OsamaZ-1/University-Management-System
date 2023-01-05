@@ -86,7 +86,7 @@ public class StudentTranscriptView extends JFrame{
     	gpa.setFont(new Font ("AvantGarde", Font.BOLD, 25));
     	gpa.setForeground(new Color(200,10,10));
     	
-    	tableColumns = new Object[]{"Year","Crse Code","Title","Crd.","Grade","Observation"};
+    	tableColumns = new Object[]{"Year","Course Code","Title","Credits","Grade","Observation"};
     	
     	transcriptTable = new JTable() {
     		public Component prepareRenderer(TableCellRenderer render,int row,int col) {
@@ -126,16 +126,16 @@ public class StudentTranscriptView extends JFrame{
         trascriptPanel=new JPanel();
         mainPanel=new JPanel();
         
-        infoP1.setBackground(new Color(200,150,255));
-        infoP2.setBackground(new Color(200,150,255));
-        infoP3.setBackground(new Color(200,150,255));
-        infoP4.setBackground(new Color(200,150,255));
-        studentInfoPanel.setBackground(new Color(200,150,255));
+        infoP1.setBackground(new Color(114,128,255));
+        infoP2.setBackground(new Color(114,128,255));
+        infoP3.setBackground(new Color(114,128,255));
+        infoP4.setBackground(new Color(114,128,255));
+        studentInfoPanel.setBackground(new Color(114,128,255));
     	trascriptPanel.setBackground(new Color(240,240,240));
-    	studentGpaPanel.setBackground(new Color(200,150,255));
-    	gpaP1.setBackground(new Color(200,150,255));
-    	gpaP2.setBackground(new Color(200,150,255));
-    	gpaP3.setBackground(new Color(200,150,255));
+    	studentGpaPanel.setBackground(new Color(114,128,255));
+    	gpaP1.setBackground(new Color(114,128,255));
+    	gpaP2.setBackground(new Color(114,128,255));
+    	gpaP3.setBackground(new Color(114,128,255));
     	
     	borderLayout=new BorderLayout(1,1);
     	
