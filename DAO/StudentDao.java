@@ -22,4 +22,6 @@ interface StudentDao {
         throws SQLException;
     public String[] getStudent(String email,String password)
         throws SQLException;
+    public Student[] getWaitingAcceptanceStudent()
+        throws SQLException;
 }

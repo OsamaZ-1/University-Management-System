@@ -130,4 +130,30 @@ public class StudentDaoImplementation implements StudentDao {
 	}
        return information;
 	}
+
+    @Override
+    public Student[] getWaitingAcceptanceStudent() throws SQLException{
+        String query = "SELECT Fname, Lname, Password, Email, Phone FROM student WHERE Accepted = 0";
+        PreparedStatement ps = con.prepareStatement(query);
+        ResultSet res = ps.executeQuery();
+        //get number of unaccepted students to define the array
+        int len = 0;
+        while (res.next())
+            ++len;
+        
+        //query again to go back to first row and then define the array
+        res = ps.executeQuery();
+        Student[] unaccepted = new Student[len];
+        for (int i = 0; i < len; ++i){
+            res.next();
+            unaccepted[i] = new Student(
+                res.getString(1),
+                res.getString(2),
+                res.getString(3),
+                res.getString(4),
+                Integer.parseInt(res.getString(5))
+            );
+        }
+        return unaccepted;
+    }
 }

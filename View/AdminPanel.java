@@ -70,12 +70,23 @@ public class AdminPanel {
         logoutButton = new JButton("Logout");
         refreshActivity = new JButton("<html><center>Refresh<br/>Activities</center></html>");
         submitChanges = new JButton("<html><center>Submit<br/>Changes</center></html>");
+
+        //Activity Table
         table = new JTable();
         scrollPane = new JScrollPane(table);
-        tableModel = new DefaultTableModel();
-        tableColumns = new String[]{"Activity"};
-        tableModel.setColumnIdentifiers(tableColumns);
+        tableModel = new DefaultTableModel(){
+            @Override
+            //This allows having a checkbox in the 2nd column and string in the 1st
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == 1)
+                    return Boolean.class;
+                return String.class;
+             }
+        };
+        tableModel.addColumn("Activity");
+        tableModel.addColumn("Accept");
         table.setModel(tableModel);
+        table.getColumnModel().getColumn(0).setPreferredWidth(900);
         
         //Initializations of containers
         adminPanelFrame = new JFrame();

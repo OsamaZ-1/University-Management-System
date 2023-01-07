@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import Model.LoginModel;
-import Model.Student;
 import View.Login;
 
 public class LoginController {
