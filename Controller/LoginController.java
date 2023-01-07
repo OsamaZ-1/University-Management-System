@@ -38,22 +38,21 @@ public class LoginController {
                         loginView.displayErrorMessage(); //Wrong Credentials
                     }
                     else if (res == 0){
-                        //student was not accepted yey
+                        //student was not accepted yet
                         System.out.println("Wait until acceptance");
                     }
                     else if (res == 1){
                         //successfull login
-                        System.out.println("Login Succeeded");
+                        System.out.println("Student Login Succeeded");
                         loginView.getLoginFrame().dispose();
                         new StrudentTranscriptController(email,pass);
+                    }
+                    else if (res == 2){
+                        System.out.println("Instructor Login Succeeded");
                     }
                     else if (res == -2){
                         //user mode not selected
                         System.out.println("You must select the User Mode.");
-                    }
-                    else{
-                        //take student to Transcript page
-                        System.out.println("Transcript diplayed!");
                     }
                 }catch(SQLException e1) {e1.printStackTrace();}
             }

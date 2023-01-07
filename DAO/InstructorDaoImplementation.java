@@ -38,12 +38,12 @@ public class InstructorDaoImplementation implements InstructorDao{
         ResultSet res = ps.executeQuery();
         if (res.next()){
             if (Integer.parseInt(res.getString(2)) == 0){
-                return 0; //student was found but is not accepted yet
+                return 0; //instructor was found but is not accepted yet
             }
-            return 1; //student was found and is accepted
+            return 2; //instructor was found and is accepted
         }
         else
-            return -1; //student with this information was not found
+            return -1; //instructor with this information was not found
     }
 
     @Override
@@ -54,8 +54,8 @@ public class InstructorDaoImplementation implements InstructorDao{
         ResultSet res = ps.executeQuery();
         
         if(res.next())
-            return 1; //student with same email already exist
-        return 0; //student with provided email doesn't exist    
+            return 1; //instructor with same email already exist
+        return 0; //instructor with provided email doesn't exist    
     }
     
 
