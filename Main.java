@@ -1,6 +1,7 @@
 import java.sql.SQLException;
 
 import Controller.LoginController;
+import Controller.*;
 import Controller.StrudentTranscriptController;
 import View.AdminPanel;
 import View.StudentTranscriptView;

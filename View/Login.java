@@ -43,10 +43,10 @@ public class Login{
     public Login()
     {   
         //Initializations
-        logo = new ImageIcon("INFO404-PROJECT/Images/main_Icon.png");
-        userLogo = new ImageIcon("INFO404-PROJECT/Images/person.png");
-        mailLogo = new ImageIcon("INFO404-PROJECT/Images/mail.png");
-        keyLogo = new ImageIcon("INFO404-PROJECT/Images/key.png");
+        logo = new ImageIcon("Images/main_Icon.png");
+        userLogo = new ImageIcon("Images/person.png");
+        mailLogo = new ImageIcon("Images/mail.png");
+        keyLogo = new ImageIcon("Images/key.png");
         emailField = new JTextField(15);
         passwordField = new JPasswordField(15);
         userModeField = new JComboBox<String>(new String[]{"Select User Mode","Admin","Student","Instructor"});
