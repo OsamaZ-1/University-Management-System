@@ -1,14 +1,13 @@
 package Model;
 public class Student {
     private String fname,lname,password,email;
-    private int phone,id;
-    public Student(int id,String fname, String lname, String password,String email,int phone){
+    private int phone;
+    public Student(String fname, String lname, String password,String email,int phone){
         this.fname = fname;
         this.lname = lname;
         this.password = password;
         this.email = email;
         this.phone = phone;
-        this.id=id;
     }
     public String getFname() {
         return fname;
