@@ -10,4 +10,8 @@ public class AdminPanelModel {
     public Student[] getUnacceptedStudents() throws SQLException{
         return stdDao.getWaitingAcceptanceStudent();
     }
+
+    public int acceptStudent(String email, String pass) throws SQLException{
+        return stdDao.acceptStudent(email, pass);
+    }
 }

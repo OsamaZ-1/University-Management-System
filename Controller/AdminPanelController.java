@@ -1,6 +1,8 @@
 package Controller;
 
 import java.sql.SQLException;
+
+import javax.lang.model.util.ElementScanner14;
 import javax.swing.JCheckBox;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -13,17 +15,17 @@ import Model.AdminPanelModel;
 public class AdminPanelController {
     AdminPanel adminPanelView;
     AdminPanelModel adminPanelModel;
+    Student[] unaccepted;
 
     public AdminPanelController(){
         adminPanelView = new AdminPanel();
         adminPanelModel = new AdminPanelModel();
         setUnacceptedIntoTable();
+        submitChanges();
     }
 
     public void setUnacceptedIntoTable(){
-        Student[] unaccepted;
         DefaultTableModel model = adminPanelView.getTableModel();
-
         try{
             unaccepted = adminPanelModel.getUnacceptedStudents();
             for (Student st : unaccepted){
@@ -33,7 +35,7 @@ public class AdminPanelController {
                 + "Phone: " + st.getPhone() + " -- "
                 + "Has requested to join the system.";
 
-                model.addRow(new Object[]{activity, false});
+                model.addRow(new Object[]{activity, false, false});
             }
         }catch(SQLException e1){System.out.println(e1.getStackTrace());}
     }
@@ -42,10 +44,18 @@ public class AdminPanelController {
         adminPanelView.getSubmitButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                //this allows getting the value of the checkbox at i, j
-                //adminPanelView.getActivityTable().getModel().getValueAt(i, j)
-
-                //this function wil accept the students that the admin checked
+                try{
+                    for (int i = 0; i < unaccepted.length; ++i){
+                        boolean acc = (boolean) adminPanelView.getActivityTable().getModel().getValueAt(i, 1);
+                        boolean unacc = (boolean) adminPanelView.getActivityTable().getModel().getValueAt(i, 2);
+                        if ((acc && unacc) || (!acc && !unacc))
+                            continue;
+                        else if (acc && !unacc)
+                            adminPanelModel.acceptStudent(unaccepted[i].getEmail(), unaccepted[i].getPassword());
+                        else
+                            System.out.println("delete unaccepted student");
+                    }
+                }catch(SQLException e1){System.out.println(e1.getStackTrace());}
             }
         });
     }
