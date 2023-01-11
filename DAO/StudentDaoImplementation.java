@@ -156,4 +156,14 @@ public class StudentDaoImplementation implements StudentDao {
         }
         return unaccepted;
     }
+
+    @Override
+    public int acceptStudent(String email, String pass) throws SQLException{
+        String query = "UPDATE " + TABLE_NAME + " SET Accepted = 1 WHERE Email = ? AND Password = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, email);
+        ps.setString(2, pass);
+        int res = ps.executeUpdate();
+        return res;
+    }
 }

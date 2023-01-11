@@ -78,13 +78,14 @@ public class AdminPanel {
             @Override
             //This allows having a checkbox in the 2nd column and string in the 1st
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 1)
+                if (columnIndex == 1 || columnIndex == 2)
                     return Boolean.class;
                 return String.class;
              }
         };
         tableModel.addColumn("Activity");
         tableModel.addColumn("Accept");
+        tableModel.addColumn("Unaccept");
         table.setModel(tableModel);
         table.getColumnModel().getColumn(0).setPreferredWidth(900);
         
