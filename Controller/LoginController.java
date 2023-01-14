@@ -29,9 +29,9 @@ public class LoginController {
                 try{
                     int res = -2;
                     if (userMode == 2)
-                        res = loginModel.getLoginStudent(email, pass);
+                        res = loginModel.loginMember(email, pass,"Student");
                     else if (userMode == 3)
-                        res = loginModel.getLoginInstructor(email, pass);
+                        res = loginModel.loginMember(email, pass,"Instructor");
 
                     if (res == -1){
                         loginView.displayErrorMessage(); //Wrong Credentials
