@@ -62,7 +62,7 @@ public class StudentDaoImplementation implements StudentDao {
 
     @Override
     public List<Student> getStudents() throws SQLException {
-        String query = "SELECT Fname,Lname,Password,Email,Phone,Accepted FROM " + TABLE_NAME+" WHERE Accepted = 0";
+        String query = "SELECT Fname,Lname,Password,Email,Phone,Accepted FROM " + TABLE_NAME+" WHERE Accepted = 1";
         Statement stmt = con.createStatement();
         ResultSet res = stmt.executeQuery(query);
         List<Student> listStudents = new ArrayList<>();
