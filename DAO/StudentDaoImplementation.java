@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import Database.DatabaseConnection;
@@ -61,7 +62,16 @@ public class StudentDaoImplementation implements StudentDao {
 
     @Override
     public List<Student> getStudents() throws SQLException {
-        return null;
+        String query = "SELECT Fname,Lname,Password,Email,Phone,Accepted FROM " + TABLE_NAME+" WHERE Accepted = 0";
+        Statement stmt = con.createStatement();
+        ResultSet res = stmt.executeQuery(query);
+        List<Student> listStudents = new ArrayList<>();
+        while(res.next())
+        {
+            Student s = new Student(res.getString("Fname"), res.getString("Lname"), res.getString("Email"), res.getString("Password"), res.getInt("Phone"));
+            listStudents.add(s);
+        }
+        return listStudents;
     }
 
     @Override

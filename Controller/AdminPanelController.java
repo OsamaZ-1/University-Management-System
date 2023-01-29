@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javax.lang.model.util.ElementScanner14;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +23,8 @@ public class AdminPanelController {
         adminPanelModel = new AdminPanelModel();
         setUnacceptedIntoTable();
         submitChanges();
+        refreshActivity();
+        totalCIS();
     }
 
     public void setUnacceptedIntoTable(){
@@ -58,5 +61,29 @@ public class AdminPanelController {
                 }catch(SQLException e1){System.out.println(e1.getStackTrace());}
             }
         });
+    }
+
+    public void refreshActivity()
+    {
+        adminPanelView.getRefreshButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {   
+                adminPanelView.getTableModel().setRowCount(0);
+                setUnacceptedIntoTable();
+               
+            }
+        });
+    }
+
+    public void totalCIS() //total Courses, Instructors, Students
+    {   
+        try{
+            int[] total = adminPanelModel.totalCIS();
+            adminPanelView.getTotalCoursesLabel().setText("Total courses "+total[0]);
+            adminPanelView.getTotalProfessorsLabel().setText("Total professors "+total[1]);
+            adminPanelView.getTotalStudentsLabel().setText("Total students "+total[2]);
+        }catch(Exception e){System.out.println(e.getStackTrace());}
+        
     }
 }

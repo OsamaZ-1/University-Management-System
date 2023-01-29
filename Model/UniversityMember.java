@@ -4,7 +4,7 @@ public class UniversityMember {
     private String fname,lname,password,email;
     private int phone;
 
-    public UniversityMember(String fname, String lname, String password,String email,int phone){
+    public UniversityMember(String fname, String lname, String email,String password,int phone){
         this.fname = fname;
         this.lname = lname;
         this.password = password;

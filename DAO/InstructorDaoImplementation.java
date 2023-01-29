@@ -2,6 +2,7 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import Database.DatabaseConnection;
@@ -60,8 +61,18 @@ public class InstructorDaoImplementation implements InstructorDao{
     
 
     @Override
-    public List<Instructor> getInstructor() throws SQLException {
-        return null;
+    public List<Instructor> getInstructors() throws SQLException {
+        String query = "SELECT Fname,Lname,Password,Email,Phone,Accepted FROM " + TABLE_NAME + " WHERE Accepted = 0";
+        Statement stmt = con.createStatement();
+        ResultSet res = stmt.executeQuery(query);
+        List<Instructor> listInstructors = new ArrayList<>();
+        while(res.next())
+        {
+            Instructor s = new Instructor(res.getString("Fname"), res.getString("Lname"), res.getString("Password"), res.getString("Email"), res.getInt("Phone"));
+            listInstructors.add(s);
+        }
+        return listInstructors;
+       
     }
 
     @Override

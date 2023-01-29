@@ -51,7 +51,7 @@ public class Register{
     private JPanel center;
     private JPanel foot;
     private SpringLayout springLayout;
-
+    
     public Register()
     {   
         //Initializations

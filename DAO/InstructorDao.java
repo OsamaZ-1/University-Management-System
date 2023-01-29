@@ -13,7 +13,7 @@ interface InstructorDao {
         throws SQLException;
     public int instructorEmailExist(String email)
         throws SQLException;
-    public List<Instructor> getInstructor()
+    public List<Instructor> getInstructors()
         throws SQLException;
     public void update(Instructor s)
         throws SQLException;

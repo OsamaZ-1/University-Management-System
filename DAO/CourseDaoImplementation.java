@@ -1,5 +1,6 @@
 package DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
 import java.util.List;
@@ -10,18 +11,18 @@ import Model.Course;
 public class CourseDaoImplementation implements CourseDao{
 
 	static Connection connection=DatabaseConnection.getConnection();
-	private final String TABLE_COURSE="course";
+	private final String TABLE_NAME="course";
 	@Override
 	public int add(Course course) throws SQLException {
 		// TODO Auto-generated method stub
 		//get max id of course to set the code
-		String queryid="SELECT MAX(Id) FROM "+TABLE_COURSE;
+		String queryid="SELECT MAX(Id) FROM "+TABLE_NAME;
 		PreparedStatement psid=connection.prepareStatement(queryid);
 		ResultSet resultmaxid=psid.executeQuery();
 		resultmaxid.next();
 		int maxid=Integer.parseInt(resultmaxid.getString(1));
 		
-		String query= "INSERT INTO "+TABLE_COURSE+"(Name,Code,Credits,Hours,Major,Year) VALUES (?, ?, ?, ?, ?, ?)";
+		String query= "INSERT INTO "+TABLE_NAME+"(Name,Code,Credits,Hours,Major,Year) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedstatement = connection.prepareStatement(query);
         preparedstatement.setString(1, course.getName());
         
@@ -46,7 +47,7 @@ public class CourseDaoImplementation implements CourseDao{
 	@Override
 	public void update(Course course) throws SQLException {
 		// TODO Auto-generated method stub
-		String updatequery="UPDATE "+TABLE_COURSE+" SET Name=?, Credits=?, Hours=?, Major=? WHERE Code=?";
+		String updatequery="UPDATE "+TABLE_NAME+" SET Name=?, Credits=?, Hours=?, Major=? WHERE Code=?";
 		PreparedStatement preparedstatement=connection.prepareStatement(updatequery);
 		preparedstatement.setString(5, course.getCode());
 		preparedstatement.setString(1, course.getName());
@@ -59,7 +60,7 @@ public class CourseDaoImplementation implements CourseDao{
 	@Override
 	public void delete(Course course) throws SQLException {
 		// TODO Auto-generated method stub
-		String deletequery="DELETE FROM "+TABLE_COURSE+" WHERE Code=?";
+		String deletequery="DELETE FROM "+TABLE_NAME+" WHERE Code=?";
 		PreparedStatement preparedstatement=connection.prepareStatement(deletequery);
 		preparedstatement.setString(1, course.getCode());
 		preparedstatement.executeUpdate();
@@ -75,12 +76,22 @@ public class CourseDaoImplementation implements CourseDao{
 	public List<Course> getMajorCourses(String major) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
+		
 	}
 
 	@Override
 	public List<Course> getCourses() throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		String query = "SELECT Name,Code,Credits,Hours,Major,Year FROM " + TABLE_NAME;
+        Statement stmt = connection.createStatement();
+        ResultSet res = stmt.executeQuery(query);
+        List<Course> listCourses = new ArrayList<>();
+        while(res.next())
+        {
+            Course s = new Course(res.getString("Code"), res.getString("Name"),res.getInt("Credits"), res.getInt("Hours"), res.getString("Major"), res.getInt("Year"));
+            listCourses.add(s);
+        }
+        return listCourses;
 	}
 	
 
