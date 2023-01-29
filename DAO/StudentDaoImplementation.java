@@ -176,4 +176,47 @@ public class StudentDaoImplementation implements StudentDao {
         int res = ps.executeUpdate();
         return res;
     }
+
+	@Override
+	public Object[][] getAcceptedStudentsInfo() throws SQLException {
+		String queryCount="SELECT COUNT(*) FROM student LEFT JOIN studentgrades ON studentgrades.Id=student.Id WHERE student.Accepted=1;";
+		PreparedStatement sCount=con.prepareStatement(queryCount);
+		ResultSet resCount=sCount.executeQuery();
+		resCount.next();
+		int countRows=resCount.getInt(1);
+		String query="SELECT "
+				+ " student.Id,"
+				+ " student.Fname,"
+				+ " student.Lname,"
+				+ " course.CourseId,"
+				+ " course.Code,"
+				+ " course.Name"
+				+ " FROM"
+				+ " student "
+				+ "LEFT JOIN studentgrades ON studentgrades.Id = student.Id "
+				+ "LEFT JOIN course ON studentgrades.CourseId = course.CourseId "
+				+ "WHERE "
+				+ "    student.Accepted = ?;";
+		
+		PreparedStatement ps=con.prepareStatement(query);
+		ps.setInt(1, 1);
+		ResultSet res=ps.executeQuery();
+		ResultSetMetaData md=res.getMetaData();
+		int colCount=md.getColumnCount();
+		int rowCount=res.getRow();
+		
+		Object[][] gradesInformation=new Object[countRows][colCount+1];
+		int i=0;
+		while(res.next()) {
+			gradesInformation[i][0]=(Object)res.getInt(1);
+			gradesInformation[i][1]=(Object)res.getString(2);
+			gradesInformation[i][2]=(Object)res.getString(3);
+			gradesInformation[i][3]=(Object)res.getString(4);
+		    gradesInformation[i][4]=(Object)res.getString(5);
+			i++;
+		}
+		
+		return gradesInformation;
+	}
+    
 }

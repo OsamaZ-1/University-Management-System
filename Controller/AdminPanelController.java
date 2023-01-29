@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 
 import Model.Student;
 import View.AdminPanel;
+import View.AdminStudentView;
 import Model.AdminPanelModel;
 
 public class AdminPanelController {
@@ -24,6 +25,19 @@ public class AdminPanelController {
     public AdminPanelController(){
         adminPanelView = new AdminPanel();
         adminPanelModel = new AdminPanelModel();
+        
+        adminPanelView.getStudentButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+            	try {
+					new AdminStudentController();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            }
+            });
+        
         setUnacceptedIntoTable();
         submitChanges();
         refreshActivity();
