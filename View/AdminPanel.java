@@ -229,6 +229,11 @@ public class AdminPanel {
         return this.courseButton;
     }
 
+    public JButton getLogoutButton()
+    {
+        return this.logoutButton;
+    }
+
     public JButton getRefreshButton()
     {
         return this.refreshActivity;

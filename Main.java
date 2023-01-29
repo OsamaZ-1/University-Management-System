@@ -1,5 +1,4 @@
 import java.sql.SQLException;
-
 import Controller.*;
 import View.AdminPanel;
 import View.StudentTranscriptView;

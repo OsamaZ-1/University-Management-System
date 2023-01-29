@@ -6,6 +6,9 @@ import javax.lang.model.util.ElementScanner14;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import com.mysql.cj.protocol.a.authentication.AuthenticationOciClient;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,6 +28,7 @@ public class AdminPanelController {
         submitChanges();
         refreshActivity();
         totalCIS();
+        logout();
     }
 
     public void setUnacceptedIntoTable(){
@@ -85,5 +89,17 @@ public class AdminPanelController {
             adminPanelView.getTotalStudentsLabel().setText("Total students "+total[2]);
         }catch(Exception e){System.out.println(e.getStackTrace());}
         
+    }
+
+    public void logout()
+    {
+        adminPanelView.getLogoutButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                adminPanelView.getAdminPanelFrame().dispose();
+                new LoginController();
+            }
+        });
     }
 }
