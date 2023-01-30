@@ -1,6 +1,7 @@
 package Model;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import DAO.CourseDaoImplementation;
 import DAO.InstructorDaoImplementation;
@@ -11,7 +12,7 @@ public class AdminPanelModel {
     private InstructorDaoImplementation insDao = new InstructorDaoImplementation();
     private CourseDaoImplementation crsDao = new CourseDaoImplementation();
 
-    public Student[] getUnacceptedStudents() throws SQLException{
+    public ArrayList<Student> getUnacceptedStudents() throws SQLException{
         return stdDao.getWaitingAcceptanceStudent();
     }
 

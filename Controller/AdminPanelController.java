@@ -1,26 +1,20 @@
 package Controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import javax.lang.model.util.ElementScanner14;
-import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
-import com.mysql.cj.protocol.a.authentication.AuthenticationOciClient;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Model.Student;
 import View.AdminPanel;
-import View.AdminStudentView;
 import Model.AdminPanelModel;
 
 public class AdminPanelController {
     AdminPanel adminPanelView;
     AdminPanelModel adminPanelModel;
-    Student[] unaccepted;
+    ArrayList<Student> unaccepted;
 
     public AdminPanelController(){
         adminPanelView = new AdminPanel();
@@ -32,7 +26,6 @@ public class AdminPanelController {
             	try {
 					new AdminStudentController();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             }
@@ -66,13 +59,13 @@ public class AdminPanelController {
             @Override
             public void actionPerformed(ActionEvent e){
                 try{
-                    for (int i = 0; i < unaccepted.length; ++i){
+                    for (int i = 0; i < unaccepted.size(); ++i){
                         boolean acc = (boolean) adminPanelView.getActivityTable().getModel().getValueAt(i, 1);
                         boolean unacc = (boolean) adminPanelView.getActivityTable().getModel().getValueAt(i, 2);
                         if ((acc && unacc) || (!acc && !unacc))
                             continue;
                         else if (acc && !unacc)
-                            adminPanelModel.acceptStudent(unaccepted[i].getEmail(), unaccepted[i].getPassword());
+                            adminPanelModel.acceptStudent(unaccepted.get(i).getEmail(), unaccepted.get(i).getPassword());
                         else
                             System.out.println("delete unaccepted student");
                     }

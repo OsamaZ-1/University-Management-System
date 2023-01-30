@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import Model.Student;
@@ -22,7 +23,7 @@ interface StudentDao {
         throws SQLException;
     public String[] getStudent(String email,String password)
         throws SQLException;
-    public Student[] getWaitingAcceptanceStudent()
+    public ArrayList<Student> getWaitingAcceptanceStudent()
         throws SQLException;
     public int acceptStudent(String email, String pass)
         throws SQLException;
