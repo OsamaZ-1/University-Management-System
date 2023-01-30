@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.Student;
+import Model.UniversityMember;
 
 interface StudentDao {
     public int add(Student s)
@@ -23,7 +24,7 @@ interface StudentDao {
         throws SQLException;
     public String[] getStudent(String email,String password)
         throws SQLException;
-    public ArrayList<Student> getWaitingAcceptanceStudent()
+    public ArrayList<UniversityMember> getWaitingAcceptanceStudent()
         throws SQLException;
     public int acceptStudent(String email, String pass)
         throws SQLException;

@@ -12,12 +12,20 @@ public class AdminPanelModel {
     private InstructorDaoImplementation insDao = new InstructorDaoImplementation();
     private CourseDaoImplementation crsDao = new CourseDaoImplementation();
 
-    public ArrayList<Student> getUnacceptedStudents() throws SQLException{
+    public ArrayList<UniversityMember> getUnacceptedStudents() throws SQLException{
         return stdDao.getWaitingAcceptanceStudent();
+    }
+
+    public ArrayList<UniversityMember> getUnacceptedInstructors() throws SQLException{
+        return insDao.getUnacceptedInstructors();
     }
 
     public int acceptStudent(String email, String pass) throws SQLException{
         return stdDao.acceptStudent(email, pass);
+    }
+
+    public int acceptInstructor(String email, String pass) throws SQLException{
+        return insDao.acceptInstructor(email, pass);
     }
 
     public int[] totalCIS() throws SQLException{

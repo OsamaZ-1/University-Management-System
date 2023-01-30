@@ -6,6 +6,7 @@ import java.util.List;
 
 import Database.DatabaseConnection;
 import Model.Student;
+import Model.UniversityMember;
 
 public class StudentDaoImplementation implements StudentDao {
     static Connection con = DatabaseConnection.getConnection();
@@ -141,20 +142,20 @@ public class StudentDaoImplementation implements StudentDao {
 	}
 
     @Override
-    public ArrayList<Student> getWaitingAcceptanceStudent() throws SQLException{
+    public ArrayList<UniversityMember> getWaitingAcceptanceStudent() throws SQLException{
         String query = "SELECT Fname, Lname, Password, Email, Phone FROM student WHERE Accepted = 0";
         PreparedStatement ps = con.prepareStatement(query);
         ResultSet res = ps.executeQuery();
         
         //query again to go back to first row and then define the array
         res = ps.executeQuery();
-        ArrayList<Student> unaccepted = new ArrayList<>();
+        ArrayList<UniversityMember> unaccepted = new ArrayList<>();
         while (res.next()){
             unaccepted.add(new Student(
                 res.getString(1),
                 res.getString(2),
-                res.getString(3),
                 res.getString(4),
+                res.getString(3),
                 Integer.parseInt(res.getString(5))
             ));
         }

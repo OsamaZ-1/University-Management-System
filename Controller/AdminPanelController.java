@@ -8,13 +8,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Model.Student;
+import Model.UniversityMember;
 import View.AdminPanel;
 import Model.AdminPanelModel;
+import Model.Instructor;
 
 public class AdminPanelController {
     AdminPanel adminPanelView;
     AdminPanelModel adminPanelModel;
-    ArrayList<Student> unaccepted;
+    ArrayList<UniversityMember> unaccepted;
     
     public AdminPanelController(){
         adminPanelView = new AdminPanel();
@@ -42,14 +44,22 @@ public class AdminPanelController {
         DefaultTableModel model = adminPanelView.getTableModel();
         try{
             unaccepted = adminPanelModel.getUnacceptedStudents();
-            for (Student st : unaccepted){
+            unaccepted.addAll(adminPanelModel.getUnacceptedInstructors());
+            for (UniversityMember um : unaccepted){
+                String job;
+                if (um instanceof Student){
+                    job = "Student";
+                }else{
+                    job = "Instructor";
+                }
+
                 String activity = ""
-                + "Student: " + st.getFname() + " " + st.getLname() + " -- "
-                + "Email: " + st.getEmail() + " -- "
-                + "Phone: " + st.getPhone() + " -- "
+                + "Name: " + um.getFname() + " " + um.getLname() + " -- "
+                + "Email: " + um.getEmail() + " -- "
+                + "Phone: " + um.getPhone() + " -- "
                 + "Has requested to join the system.";
 
-                model.addRow(new Object[]{activity, false, false});
+                model.addRow(new Object[]{job, activity, false, false});
             }
         }catch(SQLException e1){System.out.println(e1.getStackTrace());}
     }
@@ -60,14 +70,18 @@ public class AdminPanelController {
             public void actionPerformed(ActionEvent e){
                 try{
                     for (int i = 0; i < unaccepted.size(); ++i){
-                        boolean acc = (boolean) adminPanelView.getActivityTable().getModel().getValueAt(i, 1);
-                        boolean unacc = (boolean) adminPanelView.getActivityTable().getModel().getValueAt(i, 2);
+                        boolean acc = (boolean) adminPanelView.getActivityTable().getModel().getValueAt(i, 2);
+                        boolean unacc = (boolean) adminPanelView.getActivityTable().getModel().getValueAt(i, 3);
                         if ((acc && unacc) || (!acc && !unacc))
                             continue;
-                        else if (acc && !unacc)
-                            adminPanelModel.acceptStudent(unaccepted.get(i).getEmail(), unaccepted.get(i).getPassword());
+                        else if (acc && !unacc){
+                            if (unaccepted.get(i) instanceof Student)
+                                adminPanelModel.acceptStudent(unaccepted.get(i).getEmail(), unaccepted.get(i).getPassword());
+                            else
+                                adminPanelModel.acceptInstructor(unaccepted.get(i).getEmail(), unaccepted.get(i).getPassword());
+                        }
                         else
-                            System.out.println("delete unaccepted student");
+                            System.out.println("delete unaccepted member");
                     }
                     refreshActivity();
                 }catch(SQLException e1){System.out.println(e1.getStackTrace());}

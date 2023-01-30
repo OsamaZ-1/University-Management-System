@@ -78,16 +78,17 @@ public class AdminPanel {
             @Override
             //This allows having a checkbox in the 2nd column and string in the 1st
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 1 || columnIndex == 2)
+                if (columnIndex == 3 || columnIndex == 2)
                     return Boolean.class;
                 return String.class;
              }
         };
+        tableModel.addColumn("Type");
         tableModel.addColumn("Activity");
         tableModel.addColumn("Accept");
         tableModel.addColumn("Unaccept");
         table.setModel(tableModel);
-        table.getColumnModel().getColumn(0).setPreferredWidth(900);
+        table.getColumnModel().getColumn(1).setPreferredWidth(900);
         
         //Initializations of containers
         adminPanelFrame = new JFrame();
