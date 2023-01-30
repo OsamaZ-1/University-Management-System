@@ -21,21 +21,11 @@ public class AdminPanelController {
     public AdminPanelController(){
         adminPanelView = new AdminPanel();
         adminPanelModel = new AdminPanelModel();
-        
-        adminPanelView.getStudentButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-            	try {
-					new AdminStudentController();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-            }
-            });
-        
+    
         setUnacceptedIntoTable();
         submitChanges();
         setRefreshButtonAction();
+        studentButtonAction();
         totalCIS();
         logout();
     }
@@ -85,6 +75,19 @@ public class AdminPanelController {
                     }
                     refreshActivity();
                 }catch(SQLException e1){System.out.println(e1.getStackTrace());}
+            }
+        });
+    }
+
+    public void studentButtonAction(){
+        adminPanelView.getStudentButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+            	try {
+					new AdminStudentController();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
             }
         });
     }
