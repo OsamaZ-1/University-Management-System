@@ -15,7 +15,7 @@ public class AdminPanelController {
     AdminPanel adminPanelView;
     AdminPanelModel adminPanelModel;
     ArrayList<Student> unaccepted;
-
+    
     public AdminPanelController(){
         adminPanelView = new AdminPanel();
         adminPanelModel = new AdminPanelModel();
@@ -33,7 +33,7 @@ public class AdminPanelController {
         
         setUnacceptedIntoTable();
         submitChanges();
-        refreshActivity();
+        setRefreshButtonAction();
         totalCIS();
         logout();
     }
@@ -69,20 +69,24 @@ public class AdminPanelController {
                         else
                             System.out.println("delete unaccepted student");
                     }
+                    refreshActivity();
                 }catch(SQLException e1){System.out.println(e1.getStackTrace());}
             }
         });
     }
 
-    public void refreshActivity()
+    public void refreshActivity(){
+        adminPanelView.getTableModel().setRowCount(0);
+        setUnacceptedIntoTable();
+    }
+
+    public void setRefreshButtonAction()
     {
         adminPanelView.getRefreshButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e)
             {   
-                adminPanelView.getTableModel().setRowCount(0);
-                setUnacceptedIntoTable();
-               
+                refreshActivity();
             }
         });
     }
