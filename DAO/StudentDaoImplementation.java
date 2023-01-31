@@ -208,6 +208,7 @@ public class StudentDaoImplementation implements StudentDao {
 			gradesInformation[i][2]=(Object)res.getString(3);
 			gradesInformation[i][3]=(Object)res.getString(4);
 		    gradesInformation[i][4]=(Object)res.getString(5);
+		    gradesInformation[i][5]=(Object)res.getString(6);
 			i++;
 		}
 		

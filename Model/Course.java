@@ -23,7 +23,7 @@ public class Course {
     	return this.credits;
     }
     public int getHours() {
-    	return this.getHours();
+    	return this.hours;
     }
     public String getMajor() {
     	return this.major;

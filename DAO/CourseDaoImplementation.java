@@ -16,7 +16,7 @@ public class CourseDaoImplementation implements CourseDao{
 	public int add(Course course) throws SQLException {
 		// TODO Auto-generated method stub
 		//get max id of course to set the code
-		String queryid="SELECT MAX(Id) FROM "+TABLE_NAME;
+		String queryid="SELECT MAX(CourseId) FROM "+TABLE_NAME;
 		PreparedStatement psid=connection.prepareStatement(queryid);
 		ResultSet resultmaxid=psid.executeQuery();
 		resultmaxid.next();
@@ -33,7 +33,7 @@ public class CourseDaoImplementation implements CourseDao{
          * code=I3032
          * */
         int numcode=course.getYear()*1000+maxid+1;
-        String code=course.getMajor().toString().charAt(0)+Integer.toString(numcode);
+        String code=course.getMajor().toString().substring(0, 1)+""+Integer.toString(numcode);
         preparedstatement.setString(2, code);
         
         preparedstatement.setInt(3, course.getCredits());
@@ -58,11 +58,11 @@ public class CourseDaoImplementation implements CourseDao{
 	}
 
 	@Override
-	public void delete(Course course) throws SQLException {
+	public void delete(String code) throws SQLException {
 		// TODO Auto-generated method stub
 		String deletequery="DELETE FROM "+TABLE_NAME+" WHERE Code=?";
 		PreparedStatement preparedstatement=connection.prepareStatement(deletequery);
-		preparedstatement.setString(1, course.getCode());
+		preparedstatement.setString(1, code);
 		preparedstatement.executeUpdate();
 	}
 
@@ -85,7 +85,7 @@ public class CourseDaoImplementation implements CourseDao{
 		String query = "SELECT Name,Code,Credits,Hours,Major,Year FROM " + TABLE_NAME;
         Statement stmt = connection.createStatement();
         ResultSet res = stmt.executeQuery(query);
-        List<Course> listCourses = new ArrayList<>();
+        List<Course> listCourses = new ArrayList<Course>();
         while(res.next())
         {
             Course s = new Course(res.getString("Code"), res.getString("Name"),res.getInt("Credits"), res.getInt("Hours"), res.getString("Major"), res.getInt("Year"));

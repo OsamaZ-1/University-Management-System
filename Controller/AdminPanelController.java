@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import Model.Student;
 import Model.UniversityMember;
+import View.AdminCourseView;
 import View.AdminPanel;
 import Model.AdminPanelModel;
 import Model.Instructor;
@@ -21,11 +22,12 @@ public class AdminPanelController {
     public AdminPanelController(){
         adminPanelView = new AdminPanel();
         adminPanelModel = new AdminPanelModel();
-    
+        
         setUnacceptedIntoTable();
         submitChanges();
         setRefreshButtonAction();
         studentButtonAction();
+        courseButtonAction();
         totalCIS();
         logout();
     }
@@ -90,6 +92,19 @@ public class AdminPanelController {
 				}
             }
         });
+    }
+    public void courseButtonAction() {
+    	adminPanelView.getCourseButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+            	try {
+					new AdminCourseController();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            }
+            });
     }
 
     public void refreshActivity(){
