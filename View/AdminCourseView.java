@@ -85,7 +85,7 @@ public class AdminCourseView extends JFrame{
     	nameLabelAdd.setFont(font);
         creditsLabelAdd=new JLabel("Credits: ");
         creditsLabelAdd.setFont(font);
-        houresLabelAdd=new JLabel("Houres: ");
+        houresLabelAdd=new JLabel("Hours: ");
         houresLabelAdd.setFont(font);
         majorLabelAdd=new JLabel("Major: ");
         majorLabelAdd.setFont(font);
@@ -117,7 +117,7 @@ public class AdminCourseView extends JFrame{
     	nameLabelEdit.setFont(font);
         creditsLabelEdit=new JLabel("Credits: ");
         creditsLabelEdit.setFont(font);
-        houresLabelEdit=new JLabel("Houres: ");
+        houresLabelEdit=new JLabel("Hours: ");
         houresLabelEdit.setFont(font);
         majorLabelEdit=new JLabel("Major: ");
         majorLabelEdit.setFont(font);
@@ -129,7 +129,7 @@ public class AdminCourseView extends JFrame{
         editLabel.setFont(font);
         
         nameEdit=new JTextField();
-        nameEdit.setColumns(15);
+        nameEdit.setColumns(10);
         nameEdit.setFont(font);
         creditsEdit=new JTextField();
         creditsEdit.setColumns(5);
@@ -138,7 +138,7 @@ public class AdminCourseView extends JFrame{
         houresEdit.setColumns(5);
         houresEdit.setFont(font);
         majorEdit=new JTextField();
-        majorEdit.setColumns(15);
+        majorEdit.setColumns(10);
         majorEdit.setFont(font);
         yearEdit=new JTextField();
         yearEdit.setColumns(5);
@@ -211,35 +211,35 @@ public class AdminCourseView extends JFrame{
         addPanel.add(yearAdd);
         addPanel.add(add);
         
-        springLayout.putConstraint(springLayout.NORTH,nameLabelAdd,0,springLayout.NORTH,addPanel);
-        springLayout.putConstraint(springLayout.NORTH,nameAdd,0,springLayout.NORTH,addPanel);
-        springLayout.putConstraint(springLayout.NORTH,majorLabelAdd,0,springLayout.NORTH,addPanel);
-        springLayout.putConstraint(springLayout.NORTH,majorAdd,0,springLayout.NORTH,addPanel);
+        springLayout.putConstraint(springLayout.NORTH,nameLabelAdd,25,springLayout.NORTH,addPanel);
+        springLayout.putConstraint(springLayout.NORTH,nameAdd,20,springLayout.NORTH,addPanel);
+        springLayout.putConstraint(springLayout.NORTH,majorLabelAdd,25,springLayout.NORTH,addPanel);
+        springLayout.putConstraint(springLayout.NORTH,majorAdd,20,springLayout.NORTH,addPanel);
         
         springLayout.putConstraint(springLayout.WEST,nameLabelAdd,0,springLayout.WEST,addPanel);
-        springLayout.putConstraint(springLayout.WEST,nameAdd,70,springLayout.WEST,nameLabelAdd);
-        springLayout.putConstraint(springLayout.WEST,majorLabelAdd,250,springLayout.WEST,nameAdd);
-        springLayout.putConstraint(springLayout.WEST,majorAdd,70,springLayout.WEST,majorLabelAdd);
+        springLayout.putConstraint(springLayout.WEST,nameAdd,0,springLayout.EAST,nameLabelAdd);
+        springLayout.putConstraint(springLayout.WEST,majorLabelAdd,270,springLayout.WEST,nameAdd);
+        springLayout.putConstraint(springLayout.WEST,majorAdd,0,springLayout.EAST,majorLabelAdd);
         
-        springLayout.putConstraint(springLayout.NORTH,creditsLabelAdd,30,springLayout.NORTH,nameLabelAdd);
+        springLayout.putConstraint(springLayout.NORTH,creditsLabelAdd,40,springLayout.NORTH,nameLabelAdd);
         springLayout.putConstraint(springLayout.WEST,creditsLabelAdd,0,springLayout.WEST,addPanel);
-        springLayout.putConstraint(springLayout.NORTH,creditsAdd,30,springLayout.NORTH,nameLabelAdd);
-        springLayout.putConstraint(springLayout.WEST,creditsAdd,70,springLayout.WEST,creditsLabelAdd);
+        springLayout.putConstraint(springLayout.NORTH,creditsAdd,35,springLayout.NORTH,nameLabelAdd);
+        springLayout.putConstraint(springLayout.WEST,creditsAdd,5,springLayout.EAST,creditsLabelAdd);
         
-        springLayout.putConstraint(springLayout.NORTH,houresLabelAdd,30,springLayout.NORTH,addPanel);
+        springLayout.putConstraint(springLayout.NORTH,houresLabelAdd,40,springLayout.NORTH,nameLabelAdd);
         springLayout.putConstraint(springLayout.WEST,houresLabelAdd,150,springLayout.WEST,creditsAdd);
-        springLayout.putConstraint(springLayout.NORTH,houresAdd,30,springLayout.NORTH,nameLabelAdd);
-        springLayout.putConstraint(springLayout.WEST,houresAdd,70,springLayout.WEST,houresLabelAdd);
+        springLayout.putConstraint(springLayout.NORTH,houresAdd,35,springLayout.NORTH,nameLabelAdd);
+        springLayout.putConstraint(springLayout.WEST,houresAdd,5,springLayout.EAST,houresLabelAdd);
         
-        springLayout.putConstraint(springLayout.NORTH,yearLabelAdd,30,springLayout.NORTH,nameLabelAdd);
+        springLayout.putConstraint(springLayout.NORTH,yearLabelAdd,40,springLayout.NORTH,nameLabelAdd);
         springLayout.putConstraint(springLayout.WEST,yearLabelAdd,150,springLayout.WEST,houresAdd);
-        springLayout.putConstraint(springLayout.NORTH,yearAdd,30,springLayout.NORTH,nameLabelAdd);
-        springLayout.putConstraint(springLayout.WEST,yearAdd,70,springLayout.WEST,yearLabelAdd);
+        springLayout.putConstraint(springLayout.NORTH,yearAdd,35,springLayout.NORTH,nameLabelAdd);
+        springLayout.putConstraint(springLayout.WEST,yearAdd,5,springLayout.EAST,yearLabelAdd);
         
-        springLayout.putConstraint(springLayout.NORTH,add,30,springLayout.NORTH,yearLabelAdd);
-        springLayout.putConstraint(springLayout.WEST,add,250,springLayout.WEST,addPanel);
+        springLayout.putConstraint(springLayout.NORTH,add,50,springLayout.SOUTH,yearLabelAdd);
+        springLayout.putConstraint(springLayout.WEST,add,290,springLayout.WEST,addPanel);
        
-        addPanel.setPreferredSize(new Dimension(100,100));
+        addPanel.setPreferredSize(new Dimension(100,150));
         addPanel.setBackground(new Color(114,128,255));
         
         springLayout2=new SpringLayout();
@@ -262,41 +262,41 @@ public class AdminCourseView extends JFrame{
         springLayout2.putConstraint(springLayout.NORTH,editLabel,0,springLayout.NORTH,editPanel);
         springLayout2.putConstraint(springLayout.WEST,editLabel,0,springLayout.WEST,editPanel);
         
-        springLayout2.putConstraint(springLayout.NORTH,codeLabelEdit,0,springLayout.NORTH,editPanel);
-        springLayout2.putConstraint(springLayout.NORTH,codeEdit,0,springLayout.NORTH,editPanel);
+        springLayout2.putConstraint(springLayout.NORTH,codeLabelEdit,10,springLayout.SOUTH,editLabel);
+        springLayout2.putConstraint(springLayout.NORTH,codeEdit,5,springLayout.SOUTH,editLabel);
         
-        springLayout2.putConstraint(springLayout.NORTH,nameLabelEdit,30,springLayout.NORTH,editLabel);
-        springLayout2.putConstraint(springLayout.NORTH,nameEdit,30,springLayout.NORTH,editLabel);
-        springLayout2.putConstraint(springLayout.NORTH,majorLabelEdit,30,springLayout.NORTH,editLabel);
-        springLayout2.putConstraint(springLayout.NORTH,majorEdit,30,springLayout.NORTH,editLabel);
+        springLayout2.putConstraint(springLayout.NORTH,nameLabelEdit,45,springLayout.SOUTH,editLabel);
+        springLayout2.putConstraint(springLayout.NORTH,nameEdit,40,springLayout.SOUTH,editLabel);
+        springLayout2.putConstraint(springLayout.NORTH,majorLabelEdit,45,springLayout.SOUTH,editLabel);
+        springLayout2.putConstraint(springLayout.NORTH,majorEdit,40,springLayout.SOUTH,editLabel);
         
-        springLayout2.putConstraint(springLayout.WEST,codeLabelEdit,250,springLayout.WEST,editLabel);
-        springLayout2.putConstraint(springLayout.WEST,codeEdit,70,springLayout.WEST,codeLabelEdit);
+        springLayout2.putConstraint(springLayout.WEST,codeLabelEdit,0,springLayout.WEST,editPanel);
+        springLayout2.putConstraint(springLayout.WEST,codeEdit,10,springLayout.EAST,codeLabelEdit);
         
         springLayout2.putConstraint(springLayout.WEST,nameLabelEdit,0,springLayout.WEST,editPanel);
-        springLayout2.putConstraint(springLayout.WEST,nameEdit,70,springLayout.WEST,nameLabelEdit);
+        springLayout2.putConstraint(springLayout.WEST,nameEdit,68,springLayout.WEST,nameLabelEdit);
         springLayout2.putConstraint(springLayout.WEST,majorLabelEdit,250,springLayout.WEST,nameEdit);
         springLayout2.putConstraint(springLayout.WEST,majorEdit,70,springLayout.WEST,majorLabelEdit);
         
-        springLayout2.putConstraint(springLayout.NORTH,creditsLabelEdit,30,springLayout.NORTH,nameLabelEdit);
+        springLayout2.putConstraint(springLayout.NORTH,creditsLabelEdit,35,springLayout.NORTH,nameLabelEdit);
         springLayout2.putConstraint(springLayout.WEST,creditsLabelEdit,0,springLayout.WEST,editPanel);
         springLayout2.putConstraint(springLayout.NORTH,creditsEdit,30,springLayout.NORTH,nameLabelEdit);
-        springLayout2.putConstraint(springLayout.WEST,creditsEdit,70,springLayout.WEST,creditsLabelEdit);
+        springLayout2.putConstraint(springLayout.WEST,creditsEdit,5,springLayout.EAST,creditsLabelEdit);
         
-        springLayout2.putConstraint(springLayout.NORTH,houresLabelEdit,30,springLayout.NORTH,nameLabelEdit);
+        springLayout2.putConstraint(springLayout.NORTH,houresLabelEdit,35,springLayout.NORTH,nameLabelEdit);
         springLayout2.putConstraint(springLayout.WEST,houresLabelEdit,100,springLayout.WEST,creditsEdit);
         springLayout2.putConstraint(springLayout.NORTH,houresEdit,30,springLayout.NORTH,nameLabelEdit);
-        springLayout2.putConstraint(springLayout.WEST,houresEdit,70,springLayout.WEST,houresLabelEdit);
+        springLayout2.putConstraint(springLayout.WEST,houresEdit,5,springLayout.EAST,houresLabelEdit);
         
-        springLayout2.putConstraint(springLayout.NORTH,yearLabelEdit,30,springLayout.NORTH,nameLabelEdit);
+        springLayout2.putConstraint(springLayout.NORTH,yearLabelEdit,35,springLayout.NORTH,nameLabelEdit);
         springLayout2.putConstraint(springLayout.WEST,yearLabelEdit,100,springLayout.WEST,houresEdit);
         springLayout2.putConstraint(springLayout.NORTH,yearEdit,30,springLayout.NORTH,nameLabelEdit);
-        springLayout2.putConstraint(springLayout.WEST,yearEdit,70,springLayout.WEST,yearLabelEdit);
+        springLayout2.putConstraint(springLayout.WEST,yearEdit,5,springLayout.EAST,yearLabelEdit);
         
-        springLayout2.putConstraint(springLayout.NORTH,edit,30,springLayout.NORTH,nameLabelEdit);
-        springLayout2.putConstraint(springLayout.WEST,edit,150,springLayout.WEST,yearEdit);
+        springLayout2.putConstraint(springLayout.NORTH,edit,20,springLayout.SOUTH,yearLabelEdit);
+        springLayout2.putConstraint(springLayout.WEST,edit,290,springLayout.WEST,editPanel);
        
-        editPanel.setPreferredSize(new Dimension(100,100));
+        editPanel.setPreferredSize(new Dimension(100,180));
         editPanel.setBackground(new Color(114,128,255));
         
         deletePanel.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
