@@ -9,7 +9,7 @@ public interface CourseDao {
 	   throws SQLException;
 	public void update(Course course)
 	   throws SQLException;
-	public void delete(Course course)
+	public void delete(String code)
 	   throws SQLException;
 	public Course getCourse(String code)
 	   throws SQLException;

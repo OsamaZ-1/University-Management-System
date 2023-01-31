@@ -11,7 +11,7 @@ import Model.Course;
 public class CourseDaoImplementation implements CourseDao{
 
 	static Connection connection=DatabaseConnection.getConnection();
-	private final String TABLE_NAME="course";
+	private final String TABLE_NAME = "course";
 	@Override
 	public int add(Course course) throws SQLException {
 		// TODO Auto-generated method stub
