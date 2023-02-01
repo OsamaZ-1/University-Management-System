@@ -240,15 +240,6 @@ public class Register{
         return this.userMajorField;
     }
 
-    public void setMajorFieldVisibility(String user)
-    {
-        if(user.equals("Student"))
-            this.userMajorField.setVisible(true);
-        else
-            this.userMajorField.setVisible(false);
-            
-    }
-
     public JButton getRegisterButton()
     {
         return this.registerButton;

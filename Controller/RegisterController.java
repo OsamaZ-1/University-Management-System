@@ -84,7 +84,10 @@ public class RegisterController {
             public void itemStateChanged(ItemEvent e) {
                 // TODO Auto-generated method stub
                 String mode = String.valueOf(registerView.getUserModeField().getSelectedItem());
-                registerView.setMajorFieldVisibility(mode);
+                if(mode.equals("Student"))
+                    registerView.getUserMajorField().setVisible(true);
+                else
+                    registerView.getUserMajorField().setVisible(false);    
             }
         });
     }

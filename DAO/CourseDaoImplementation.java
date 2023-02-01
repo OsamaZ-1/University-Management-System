@@ -13,7 +13,7 @@ public class CourseDaoImplementation implements CourseDao{
 	static Connection connection=DatabaseConnection.getConnection();
 	private final String TABLE_NAME = "course";
 	@Override
-	public int add(Course course) throws SQLException {
+	public boolean add(Course course) throws SQLException {
 		// TODO Auto-generated method stub
 		//get max id of course to set the code
 		String queryid="SELECT MAX(CourseId) FROM "+TABLE_NAME;
@@ -41,29 +41,32 @@ public class CourseDaoImplementation implements CourseDao{
         preparedstatement.setString(5, course.getMajor());
         preparedstatement.setInt(6, course.getYear());
         int n = preparedstatement.executeUpdate();
-        return n;
+        return n>0;
 	}
 
 	@Override
-	public void update(Course course) throws SQLException {
+	public boolean update(Course course) throws SQLException {
 		// TODO Auto-generated method stub
-		String updatequery="UPDATE "+TABLE_NAME+" SET Name=?, Credits=?, Hours=?, Major=? WHERE Code=?";
+		String updatequery="UPDATE "+TABLE_NAME+" SET Name=?,Credits=?,Hours=?,Major=?,Year=? WHERE Code=?";
 		PreparedStatement preparedstatement=connection.prepareStatement(updatequery);
-		preparedstatement.setString(5, course.getCode());
+		
 		preparedstatement.setString(1, course.getName());
 		preparedstatement.setInt(2, course.getCredits());
 		preparedstatement.setInt(3, course.getHours());
 		preparedstatement.setString(4, course.getMajor());
-		preparedstatement.executeUpdate();
+		preparedstatement.setInt(5, course.getYear());
+		preparedstatement.setString(6, course.getCode());
+		return preparedstatement.executeUpdate()>0;
 	}
 
 	@Override
-	public void delete(String code) throws SQLException {
+	public boolean delete(String code) throws SQLException {
 		// TODO Auto-generated method stub
 		String deletequery="DELETE FROM "+TABLE_NAME+" WHERE Code=?";
 		PreparedStatement preparedstatement=connection.prepareStatement(deletequery);
 		preparedstatement.setString(1, code);
-		preparedstatement.executeUpdate();
+		
+		return preparedstatement.executeUpdate()>0;
 	}
 
 	@Override

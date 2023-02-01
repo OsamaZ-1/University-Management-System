@@ -1,144 +1,286 @@
 package View;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-public class AdminStudentView extends JFrame {
+import java.util.concurrent.Flow;
 
-	private JLabel title;
-    private JLabel studentIdLabel;
-    private JLabel courseIdLabel;
+import javax.swing.*;
+import javax.swing.plaf.BorderUIResource;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AttributeSet.FontAttribute;
+
+public class AdminStudentView extends JFrame{
     
-    private JTextField studentId;
-    private JTextField courseId;
+    //Panels
+    private JPanel head;
+    private JPanel center;
+    private JPanel footEdit;
+    private JPanel footManage;
+    private JPanel footCombo;
+    private JFrame studentFrame;
+
+    //Buttons
+    private JButton editButton;
+    private JButton manageButton;
+
+    //Fields
+    private JComboBox editManage;
+    private JTextField fnameField;
+    private JTextField lnameField;
+    private JTextField majorField;
+    private JTextField emailField;
+    private JTextField passwordField;
+    private JTextField studentIdField1;
+    private JTextField studentIdField2;
+    private JTextField phoneField;
+
+    //Labels
+    private JLabel fnameLabel;
+    private JLabel lnameLabel;
+    private JLabel majorLabel;
+    private JLabel emailLabel;
+    private JLabel passwordLabel;
+    private JLabel studentIdLabel1;
+    private JLabel studentIdLabel2;
+    private JLabel phoneLabel;
     
-    private JButton add;
-    private JButton delete;
-   
+
+    //Table
     private JTable studentTable;
     private JScrollPane scrollPane;
     private Object[] tableColumns;
-    private DefaultTableModel tableModelInfo;
-    
-    private JPanel mainPanel;
-    private JPanel tablePanel;
-    private JPanel studentIdPanel;
-    private JPanel courseIdPanel;
-    private JPanel buttonsPanel;
-    private JPanel southPanel;
-    private JPanel nourthPanel;
-    
+    private DefaultTableModel tableModel;
+
+    //Layout
+    private SpringLayout springLayout;
     private Font font,fontTable;
-    public AdminStudentView() {
-    	title=new JLabel("Student Manage");
-    	studentIdLabel=new JLabel("Student ID:");
-    	courseIdLabel=new JLabel("Course ID:");
-    	studentId=new JTextField();
-    	courseId=new JTextField();
-    	add=new JButton("ADD");
-    	delete=new JButton("DELETE");
-    	
-    	font=new Font ("AvantGarde", Font.BOLD, 18);
-    	fontTable=new Font("AvantGarde", Font.BOLD, 15);
-    	
-    	title.setFont(new Font("AvantGarde", Font.BOLD, 25));
-    	studentIdLabel.setForeground(new Color(200,10,10));
-    	studentIdLabel.setFont(font);
-    	courseIdLabel.setForeground(new Color(200,10,10));
-    	courseIdLabel.setFont(font);
-    	
-    	studentId.setFont(font);
-    	studentId.setColumns(5);
-    	courseId.setFont(font);
-    	courseId.setColumns(5);
-    	
-    	add.setBackground(Color.yellow);
-    	delete.setBackground(Color.red);
-    	
-    	tableColumns = new Object[]{"StudID","First Name","Last Name","CrseId","CrseCode","CrseName"};
+
+    public AdminStudentView(){
+        editButton = new JButton("Edit");
+        manageButton = new JButton("Manage");
+        editManage = new JComboBox<String>(new String[]{"Edit","Manage"});
+        fnameField = new JTextField(10);
+        lnameField = new JTextField(10);
+        majorField = new JTextField(10);
+        emailField = new JTextField(15);
+        phoneField = new JTextField(10);
+        studentIdField1 = new JTextField(5);
+        studentIdField2 = new JTextField(5);
+        passwordField = new JTextField(10);
+        fnameLabel = new JLabel("First Name:");
+        lnameLabel = new JLabel("Last Name:");
+        majorLabel = new JLabel("Major:");
+        emailLabel = new JLabel("Email:");
+        passwordLabel = new JLabel("Password:");
+        phoneLabel = new JLabel("Phone:");
+        studentIdLabel1 = new JLabel("Student Id:");
+        studentIdLabel2 = new JLabel("Student Id:");
+        tableColumns = new Object[]{"ID","First Name","Last Name","Major","Email","Password","Phone"};
     	studentTable=new JTable();
-    
-    	studentTable.setFont(fontTable);
+        scrollPane = new JScrollPane(studentTable);
+        tableModel = new DefaultTableModel();
+        head = new JPanel();
+        center = new JPanel();
+        footCombo = new JPanel();
+        footEdit = new JPanel();
+        footManage = new JPanel();
+        studentFrame = new JFrame();
+        springLayout = new SpringLayout();
+        font = new Font("Arial", Font.BOLD, 17);
+        fontTable = new Font("Arial", Font.BOLD, 15);
+
+        studentIdField1.setEditable(false);
+        studentIdField2.setEditable(false);
+
+        editManage.setFont(font);
+        fnameField.setFont(font);
+        lnameField.setFont(font);
+        majorField.setFont(font);
+        emailField.setFont(font);
+        passwordField.setFont(font);
+        phoneField.setFont(font);
+        studentIdField1.setFont(font);
+        studentIdField2.setFont(font);
+        fnameLabel.setFont(font);
+        lnameLabel.setFont(font);
+        majorLabel.setFont(font);
+        emailLabel.setFont(font);
+        passwordLabel.setFont(font);
+        phoneLabel.setFont(font);
+        studentIdLabel1.setFont(font);
+        studentIdLabel2.setFont(font);
+        editButton.setFont(font);
+        editButton.setPreferredSize(new Dimension(90,40));
+        studentTable.setFont(font);
     	studentTable.getTableHeader().setFont(font);
     	studentTable.getTableHeader().setForeground(Color.BLUE);
-    	scrollPane = new JScrollPane(studentTable);
-    	
-        tableModelInfo = new DefaultTableModel();
-        tableModelInfo.setColumnIdentifiers(tableColumns);
-        studentTable.setModel(tableModelInfo);
+
+        tableModel.setColumnIdentifiers(tableColumns);
+        studentTable.setModel(tableModel);
+        studentTable.setFont(fontTable);
+
+        studentFrame.setLayout(new BorderLayout());
+        head.setLayout(new BorderLayout());
+        center.setLayout(new FlowLayout(FlowLayout.CENTER));
+        center.setPreferredSize(new Dimension(800,200));
+        footCombo.setLayout(new BorderLayout());
+        footCombo.setPreferredSize(new Dimension(800,200));
+        footEdit.setLayout(springLayout);
+        footEdit.setPreferredSize(new Dimension(800,200));
+        footManage.setLayout(new FlowLayout(FlowLayout.CENTER));
+        footManage.setPreferredSize(new Dimension(800,200));
+        footManage.setVisible(false);
         
-        mainPanel=new JPanel();
-        tablePanel=new JPanel();
-        studentIdPanel=new JPanel();
-        courseIdPanel=new JPanel();
-        buttonsPanel=new JPanel();;
-        southPanel=new JPanel();
-        nourthPanel=new JPanel();
+        center.setBackground(new Color(114,128,255));
+        footCombo.setBackground(new Color(114,128,255));
+        footEdit.setBackground(new Color(114,128,255));
+        footManage.setBackground(new Color(114,128,255));
+
+        springLayout.putConstraint(SpringLayout.NORTH,studentIdLabel1,10,SpringLayout.NORTH,footEdit);
+        springLayout.putConstraint(SpringLayout.NORTH,studentIdField1,5,SpringLayout.NORTH,footEdit);
+        springLayout.putConstraint(SpringLayout.NORTH,fnameLabel,25,SpringLayout.SOUTH,studentIdLabel1);
+        springLayout.putConstraint(SpringLayout.NORTH,lnameLabel,25,SpringLayout.SOUTH,studentIdLabel1);
+        springLayout.putConstraint(SpringLayout.NORTH,majorLabel,25,SpringLayout.SOUTH,studentIdLabel1);
+        springLayout.putConstraint(SpringLayout.NORTH,fnameField,20,SpringLayout.SOUTH,studentIdLabel1);
+        springLayout.putConstraint(SpringLayout.NORTH,lnameField,20,SpringLayout.SOUTH,studentIdLabel1);
+        springLayout.putConstraint(SpringLayout.NORTH,majorField,20,SpringLayout.SOUTH,studentIdLabel1);
+        springLayout.putConstraint(SpringLayout.NORTH,emailLabel,30,SpringLayout.SOUTH,fnameLabel);
+        springLayout.putConstraint(SpringLayout.NORTH,emailField,20,SpringLayout.SOUTH,fnameField);
+        springLayout.putConstraint(SpringLayout.NORTH,passwordLabel,30,SpringLayout.SOUTH,lnameLabel);
+        springLayout.putConstraint(SpringLayout.NORTH,passwordField,20,SpringLayout.SOUTH,lnameField);
+        springLayout.putConstraint(SpringLayout.NORTH,phoneLabel,30,SpringLayout.SOUTH,majorLabel);
+        springLayout.putConstraint(SpringLayout.NORTH,phoneField,20,SpringLayout.SOUTH,majorField);
+        springLayout.putConstraint(SpringLayout.NORTH,editButton,20,SpringLayout.SOUTH,passwordField);
+
+        springLayout.putConstraint(SpringLayout.WEST,studentIdLabel1,10,SpringLayout.WEST,footEdit);
+        springLayout.putConstraint(SpringLayout.WEST,fnameLabel,10,SpringLayout.WEST,footEdit);
+        springLayout.putConstraint(SpringLayout.WEST,emailLabel,10,SpringLayout.WEST,footEdit);
+        springLayout.putConstraint(SpringLayout.WEST,editButton,350,SpringLayout.WEST,footEdit);
+
+        springLayout.putConstraint(SpringLayout.WEST,studentIdField1,5,SpringLayout.EAST,studentIdLabel1);
+        springLayout.putConstraint(SpringLayout.WEST,fnameField,5,SpringLayout.EAST,fnameLabel);
+        springLayout.putConstraint(SpringLayout.WEST,lnameField,5,SpringLayout.EAST,lnameLabel);
+        springLayout.putConstraint(SpringLayout.WEST,majorField,5,SpringLayout.EAST,majorLabel);
+        springLayout.putConstraint(SpringLayout.WEST,emailField,5,SpringLayout.EAST,emailLabel);
+        springLayout.putConstraint(SpringLayout.WEST,passwordField,5,SpringLayout.EAST,passwordLabel);
+        springLayout.putConstraint(SpringLayout.WEST,phoneField,5,SpringLayout.EAST,phoneLabel);
+
+        springLayout.putConstraint(SpringLayout.WEST,lnameLabel,20,SpringLayout.EAST,fnameField);
+        springLayout.putConstraint(SpringLayout.WEST,majorLabel,20,SpringLayout.EAST,lnameField);
+        springLayout.putConstraint(SpringLayout.WEST,passwordLabel,20,SpringLayout.EAST,emailField);
+        springLayout.putConstraint(SpringLayout.WEST,phoneLabel,20,SpringLayout.EAST,passwordField);
+
+        head.add(scrollPane,BorderLayout.CENTER);
+        center.add(editManage);
+        footEdit.add(studentIdLabel1);
+        footEdit.add(studentIdField1);
+        footEdit.add(fnameLabel);
+        footEdit.add(fnameField);
+        footEdit.add(lnameLabel);
+        footEdit.add(lnameField);
+        footEdit.add(majorLabel);
+        footEdit.add(majorField);
+        footEdit.add(emailLabel);
+        footEdit.add(emailField);
+        footEdit.add(passwordLabel);
+        footEdit.add(passwordField);
+        footEdit.add(phoneLabel);
+        footEdit.add(phoneField);
+        footEdit.add(editButton);
+        footManage.add(studentIdLabel2);
+        footManage.add(studentIdField2);
+        footManage.add(manageButton);
+        footCombo.add(footManage, BorderLayout.CENTER);
+        footCombo.add(footEdit, BorderLayout.NORTH);
         
-        tablePanel.setLayout(new BorderLayout());
-        tablePanel.add(scrollPane,BorderLayout.CENTER);
-        tablePanel.setBackground(new Color(114,128,255));
-        
-        studentIdPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        studentIdPanel.add(studentIdLabel);
-        studentIdPanel.add(studentId);
-        studentIdPanel.setBackground(new Color(114,128,255));
-        
-        courseIdPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        courseIdPanel.add(courseIdLabel);
-        courseIdPanel.add(courseId);
-        courseIdPanel.setBackground(new Color(114,128,255));
-        
-        buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        buttonsPanel.add(add);
-        buttonsPanel.add(delete);
-        buttonsPanel.setBackground(new Color(114,128,255));
-        
-        nourthPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        nourthPanel.add(title);
-        nourthPanel.setBackground(new Color(114,128,255));
-        
-        southPanel.setLayout(new GridLayout(3,1));
-        southPanel.add(studentIdPanel);
-        southPanel.add(courseIdPanel);
-        southPanel.add(buttonsPanel);
-        southPanel.setBackground(new Color(114,128,255));
-        
-        mainPanel.setLayout(new BorderLayout(1,1));
-        mainPanel.add(nourthPanel,BorderLayout.NORTH);
-        mainPanel.add(tablePanel,BorderLayout.CENTER);
-        mainPanel.add(southPanel,BorderLayout.SOUTH);
-        mainPanel.setBackground(new Color(114,128,255));
-        
-        add(mainPanel);
-        setBackground(new Color(114,128,255));
-        setTitle("Student Manage");
-		setSize(600, 550);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setVisible(true);
-		setLocationRelativeTo(null);
+        studentFrame.getContentPane().setBackground(new Color(114,128,255));
+        studentFrame.add(head,BorderLayout.NORTH);
+        studentFrame.add(center,BorderLayout.CENTER);
+        studentFrame.add(footCombo,BorderLayout.SOUTH);
+
+        studentFrame.setTitle("Student Management");
+        studentFrame.setSize(800,700);
+        studentFrame.setLocationRelativeTo(null);
+        studentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        studentFrame.setVisible(true);
     }
-   
-    public JTextField getStudentIdText() {
-    	return this.studentId;
+
+    public JButton getEditButton()
+    {
+        return this.editButton;
     }
-    public JTextField getCourseIdText() {
-    	return this.courseId;
+
+    public JButton getManageButton()
+    {
+        return this.manageButton;
     }
-    public JTable getStudentTable() {
-    	return this.studentTable;
+
+    public JTextField getStudentFname()
+    {
+        return this.fnameField;
     }
-    public DefaultTableModel getTableModel() {
-    	return this.tableModelInfo;
+
+    public JTextField getStudentLname()
+    {
+        return this.lnameField;
     }
-    public JButton getAddButton() {
-    	return this.add;
+
+    public JTextField getStudentMajor()
+    {
+        return this.majorField;
     }
-    public JButton getDeleteButton() {
-    	return this.delete;
+
+    public JTextField getStudentEmail()
+    {
+        return this.emailField;
+    }
+
+    public JTextField getStudentPassword()
+    {
+        return this.passwordField;
+    }
+
+    public JTextField getStudentPhone()
+    {
+        return this.phoneField;
+    }
+
+    public JTextField getStudentId1()
+    {
+        return this.studentIdField1;
+    }
+
+    public JTextField getStudentId2()
+    {
+        return this.studentIdField2;
+    }
+
+    public JComboBox getEditManageComboBox()
+    {
+        return this.editManage;
+    }
+
+    public JTable getStudentTable()
+    {
+        return this.studentTable;
+    }
+
+    public DefaultTableModel getTableModel()
+    {
+        return this.tableModel;
+    }
+
+    public JFrame getStudentFrame()
+    {
+        return this.studentFrame;
+    }
+
+    public JPanel getFootManagePanel()
+    {
+        return this.footManage;
+    }
+
+    public JPanel getFootEditPanel()
+    {
+        return this.footEdit;
     }
 }

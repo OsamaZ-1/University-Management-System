@@ -62,7 +62,7 @@ public class AdminCourseView extends JFrame{
     private JPanel titlePanel;
     private JPanel mainPanel;
     
-    private Font font,fontTable;
+    private Font font,fontTable,buttonFont;
     private CardLayout cardLayout;
     private SpringLayout springLayout,springLayout2;
     
@@ -71,15 +71,16 @@ public class AdminCourseView extends JFrame{
     private final String EDIT_PANEL_CODE="3";
     
     public AdminCourseView() {
-    	title=new JLabel("Course Manage");
-    	add=new JButton("ADD");
-    	delete=new JButton("DELETE");
-    	edit=new JButton("EDIT");
+    	title=new JLabel("Course Management");
+    	add=new JButton("Add");
+    	delete=new JButton("Delete");
+    	edit=new JButton("Edit");
     	
-    	font=new Font ("AvantGarde", Font.BOLD, 18);
-    	fontTable=new Font("AvantGarde", Font.BOLD, 15);
-    	
-    	title.setFont(new Font("AvantGarde", Font.BOLD, 25));
+    	font=new Font ("Arial", Font.BOLD, 17);
+    	fontTable=new Font("Arial", Font.BOLD, 15);
+    	buttonFont = new Font("Arial",Font.BOLD,17);
+
+    	title.setFont(new Font("Arial", Font.BOLD, 25));
     	
     	nameLabelAdd=new JLabel("Name: ");
     	nameLabelAdd.setFont(font);
@@ -151,14 +152,17 @@ public class AdminCourseView extends JFrame{
         actionFields=new JComboBox<String>(new String[]{"Add","Edit","Delete"});
         actionFields.setFont(font);
         
-    	add.setFont(new Font ("AvantGarde", Font.BOLD, 20));
-    	edit.setFont(new Font ("AvantGarde", Font.BOLD, 20));
-    	delete.setFont(new Font ("AvantGarde", Font.BOLD, 20));
+    	add.setFont(buttonFont);
+        add.setPreferredSize(new Dimension(90,40));
+    	edit.setFont(buttonFont);
+        edit.setPreferredSize(new Dimension(90,40));
+    	delete.setFont(buttonFont);
+        delete.setPreferredSize(new Dimension(90,40));
     	add.setBackground(Color.yellow);
     	edit.setBackground(Color.green);
     	delete.setBackground(Color.red);
     	
-    	tableColumns = new Object[]{"CrseName","CrseCode","CrseCredits","CrseHours","CrseMajor","CrseYear"};
+    	tableColumns = new Object[]{"CourseName","CourseCode","CourseCredits","CourseHours","CourseMajor","CourseYear"};
     	courseTable=new JTable();
     
     	courseTable.setFont(fontTable);
@@ -237,7 +241,7 @@ public class AdminCourseView extends JFrame{
         springLayout.putConstraint(springLayout.WEST,yearAdd,5,springLayout.EAST,yearLabelAdd);
         
         springLayout.putConstraint(springLayout.NORTH,add,50,springLayout.SOUTH,yearLabelAdd);
-        springLayout.putConstraint(springLayout.WEST,add,290,springLayout.WEST,addPanel);
+        springLayout.putConstraint(springLayout.WEST,add,310,springLayout.WEST,addPanel);
        
         addPanel.setPreferredSize(new Dimension(100,150));
         addPanel.setBackground(new Color(114,128,255));
@@ -294,7 +298,7 @@ public class AdminCourseView extends JFrame{
         springLayout2.putConstraint(springLayout.WEST,yearEdit,5,springLayout.EAST,yearLabelEdit);
         
         springLayout2.putConstraint(springLayout.NORTH,edit,20,springLayout.SOUTH,yearLabelEdit);
-        springLayout2.putConstraint(springLayout.WEST,edit,290,springLayout.WEST,editPanel);
+        springLayout2.putConstraint(springLayout.WEST,edit,310,springLayout.WEST,editPanel);
        
         editPanel.setPreferredSize(new Dimension(100,180));
         editPanel.setBackground(new Color(114,128,255));
@@ -324,8 +328,8 @@ public class AdminCourseView extends JFrame{
         
         add(mainPanel);
         setBackground(new Color(114,128,255));
-        setTitle("Course Manage");
-		setSize(680, 550);
+        setTitle("Course Management");
+		setSize(720, 550);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 		setLocationRelativeTo(null);

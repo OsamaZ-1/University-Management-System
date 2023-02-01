@@ -11,13 +11,13 @@ public class AdminCourseModel {
 	public List<Course> getAllCourses() throws SQLException {
 		return crseDao.getCourses();
 	}
-	public void editCourse(Course course) throws SQLException {
-		 crseDao.update(course);
+	public boolean editCourse(Course course) throws SQLException {
+		 return crseDao.update(course);
 	}
-	public void deleteCourse(String code) throws SQLException {
-		crseDao.delete(code);
+	public boolean deleteCourse(String code) throws SQLException {
+		return crseDao.delete(code);
 	}
-	public int addCourse(Course course) throws SQLException {
+	public boolean addCourse(Course course) throws SQLException {
 		return crseDao.add(course);
 	}
 }
