@@ -143,7 +143,7 @@ public class InstructorDaoImplementation implements InstructorDao{
     @Override
     public boolean addInstructorToCourse(String instID, String courseId) throws SQLException
     {
-        String query = "INSERT INTO " + TABLE_INST_TEACH + " (Id, CourseId) VALUES(?,?)";
+        String query = "INSERT INTO " + TABLE_INST_TEACH + " (InstID, CourseId) VALUES(?,?)";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1,Integer.parseInt(instID));
         ps.setInt(2,Integer.parseInt(courseId));
@@ -154,7 +154,7 @@ public class InstructorDaoImplementation implements InstructorDao{
     @Override 
     public boolean deleteInstructorFromCourse(String instID, String courseId) throws SQLException
     {
-        String query = "DELETE FROM " + TABLE_INST_TEACH + " WHERE Id = ? AND CourseId = ?";
+        String query = "DELETE FROM " + TABLE_INST_TEACH + " WHERE InstID = ? AND CourseId = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1,Integer.parseInt(instID));
         ps.setInt(2,Integer.parseInt(courseId));
