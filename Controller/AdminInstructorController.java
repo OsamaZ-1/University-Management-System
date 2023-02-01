@@ -221,7 +221,7 @@ public class AdminInstructorController {
 							JOptionPane.showMessageDialog(null,"Successfully Deleted");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Error deleting student from course");
+							JOptionPane.showMessageDialog(null, "Error deleting Instructor from course");
 
 					}catch(SQLException ex){ex.printStackTrace();}
 				}
