@@ -141,7 +141,7 @@ public class AdminInstructorController {
 					}catch(SQLException ex){ex.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "choose an Instreuctor and fill in all information!");
+					JOptionPane.showMessageDialog(null, "choose an Instructor and fill in all information!");
 			}
 		});
 	}
@@ -193,7 +193,7 @@ public class AdminInstructorController {
 							JOptionPane.showMessageDialog(null,"Successfully added");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Error adding student to course");
+							JOptionPane.showMessageDialog(null, "Error adding Instructor to course");
 
 					}catch(SQLException ex){ex.printStackTrace();}
 				}
