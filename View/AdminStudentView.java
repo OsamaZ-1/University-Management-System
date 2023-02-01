@@ -106,6 +106,10 @@ public class AdminStudentView extends JFrame{
         studentIdLabel2.setFont(font);
         editButton.setFont(font);
         editButton.setPreferredSize(new Dimension(90,40));
+        editButton.setBackground(Color.green);
+        manageButton.setFont(font);
+        manageButton.setPreferredSize(new Dimension(100,40));
+        manageButton.setBackground(Color.cyan);
         studentTable.setFont(font);
     	studentTable.getTableHeader().setFont(font);
     	studentTable.getTableHeader().setForeground(Color.BLUE);
