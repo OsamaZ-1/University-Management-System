@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jan 31, 2023 at 12:26 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Host: 127.0.0.1
+-- Generation Time: Feb 01, 2023 at 07:48 PM
+-- Server version: 5.7.17
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `CMS`
+-- Database: `cms`
 --
 
 -- --------------------------------------------------------
@@ -35,7 +36,7 @@ CREATE TABLE `course` (
   `Hours` int(10) NOT NULL,
   `Major` varchar(50) NOT NULL,
   `Year` int(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `course`
@@ -63,15 +64,35 @@ CREATE TABLE `instructors` (
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Phone` int(10) NOT NULL,
-  `Accepted` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `Accepted` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `instructors`
 --
 
 INSERT INTO `instructors` (`Id`, `Fname`, `Lname`, `Password`, `Email`, `Phone`, `Accepted`) VALUES
-(1, 'Mohammad', 'Dandash', 'hhhhhh', 'moe@dandash.com', 81721345, 0);
+(1, 'Mohammad', 'Dandash', 'php123', 'moe@dandash.com', 81721345, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `instructorteaches`
+--
+
+CREATE TABLE `instructorteaches` (
+  `InstID` int(11) NOT NULL,
+  `CourseID` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `instructorteaches`
+--
+
+INSERT INTO `instructorteaches` (`InstID`, `CourseID`) VALUES
+(1, 1),
+(1, 2),
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -87,8 +108,8 @@ CREATE TABLE `student` (
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Phone` int(10) NOT NULL,
-  `Accepted` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Accepted` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `student`
@@ -110,7 +131,7 @@ CREATE TABLE `studentgrades` (
   `Id` int(100) NOT NULL,
   `CourseId` int(100) NOT NULL,
   `Grade` decimal(65,0) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `studentgrades`
@@ -163,19 +184,16 @@ ALTER TABLE `studentgrades`
 --
 ALTER TABLE `course`
   MODIFY `CourseId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `instructors`
 --
 ALTER TABLE `instructors`
   MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
   MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- Constraints for dumped tables
 --

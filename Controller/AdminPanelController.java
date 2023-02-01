@@ -27,6 +27,7 @@ public class AdminPanelController {
         submitChanges();
         setRefreshButtonAction();
         studentButtonAction();
+        instructorButtonAction();
         courseButtonAction();
         totalCIS();
         logout();
@@ -93,6 +94,21 @@ public class AdminPanelController {
             }
         });
     }
+
+    public void instructorButtonAction(){
+        adminPanelView.getProfessorButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new AdminInstructorController();
+                // try{
+                    
+                // }catch(SQLException e1){
+                //     e1.printStackTrace();
+                // }
+            }
+        });
+    }
+
     public void courseButtonAction() {
     	adminPanelView.getCourseButton().addActionListener(new ActionListener(){
             @Override
@@ -100,7 +116,6 @@ public class AdminPanelController {
             	try {
 					new AdminCourseController();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             }

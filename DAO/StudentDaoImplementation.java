@@ -11,7 +11,6 @@ import Model.UniversityMember;
 public class StudentDaoImplementation implements StudentDao {
     static Connection con = DatabaseConnection.getConnection();
     private final String TABLE_NAME = "student";
-    private final String TABLE_COURSE_NAME="course";
     private final String TABLE_STUDENT_COURSE = "studentgrades";
     @Override
     public int add(Student s) throws SQLException {

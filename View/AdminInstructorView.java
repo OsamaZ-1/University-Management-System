@@ -4,15 +4,13 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class AdminStudentView extends JFrame{
-    
-    //Panels
+public class AdminInstructorView {
     private JPanel head;
     private JPanel center;
     private JPanel footEdit;
     private JPanel footManage;
     private JPanel footCombo;
-    private JFrame studentFrame;
+    private JFrame instFrame;
 
     //Buttons
     private JButton editButton;
@@ -22,26 +20,24 @@ public class AdminStudentView extends JFrame{
     private JComboBox editManage;
     private JTextField fnameField;
     private JTextField lnameField;
-    private JTextField majorField;
     private JTextField emailField;
     private JTextField passwordField;
-    private JTextField studentIdField1;
-    private JTextField studentIdField2;
+    private JTextField instIdField1;
+    private JTextField instIdField2;
     private JTextField phoneField;
 
     //Labels
     private JLabel fnameLabel;
     private JLabel lnameLabel;
-    private JLabel majorLabel;
     private JLabel emailLabel;
     private JLabel passwordLabel;
-    private JLabel studentIdLabel1;
-    private JLabel studentIdLabel2;
+    private JLabel instIdLabel1;
+    private JLabel instIdLabel2;
     private JLabel phoneLabel;
     
 
     //Table
-    private JTable studentTable;
+    private JTable instTable;
     private JScrollPane scrollPane;
     private Object[] tableColumns;
     private DefaultTableModel tableModel;
@@ -50,71 +46,67 @@ public class AdminStudentView extends JFrame{
     private SpringLayout springLayout;
     private Font font,fontTable;
 
-    public AdminStudentView(){
+    public AdminInstructorView(){
         editButton = new JButton("Edit");
         manageButton = new JButton("Manage");
         editManage = new JComboBox<String>(new String[]{"Edit","Manage"});
         fnameField = new JTextField(10);
         lnameField = new JTextField(10);
-        majorField = new JTextField(10);
         emailField = new JTextField(15);
         phoneField = new JTextField(10);
-        studentIdField1 = new JTextField(5);
-        studentIdField2 = new JTextField(5);
+        instIdField1 = new JTextField(5);
+        instIdField2 = new JTextField(5);
         passwordField = new JTextField(10);
         fnameLabel = new JLabel("First Name:");
         lnameLabel = new JLabel("Last Name:");
-        majorLabel = new JLabel("Major:");
         emailLabel = new JLabel("Email:");
         passwordLabel = new JLabel("Password:");
         phoneLabel = new JLabel("Phone:");
-        studentIdLabel1 = new JLabel("Student Id:");
-        studentIdLabel2 = new JLabel("Student Id:");
-        tableColumns = new Object[]{"ID","First Name","Last Name","Major","Email","Password","Phone"};
-    	studentTable=new JTable();
-        scrollPane = new JScrollPane(studentTable);
+        instIdLabel1 = new JLabel("inst Id:");
+        instIdLabel2 = new JLabel("inst Id:");
+        tableColumns = new Object[]{"ID","First Name","Last Name","Email","Password","Phone"};
+    	instTable=new JTable();
+        scrollPane = new JScrollPane(instTable);
         tableModel = new DefaultTableModel();
         head = new JPanel();
         center = new JPanel();
         footCombo = new JPanel();
         footEdit = new JPanel();
         footManage = new JPanel();
-        studentFrame = new JFrame();
+        instFrame = new JFrame();
         springLayout = new SpringLayout();
         font = new Font("Arial", Font.BOLD, 17);
         fontTable = new Font("Arial", Font.BOLD, 15);
 
-        studentIdField1.setEditable(false);
-        studentIdField2.setEditable(false);
+        instIdField1.setEditable(false);
+        instIdField2.setEditable(false);
 
         editManage.setFont(font);
         fnameField.setFont(font);
         lnameField.setFont(font);
-        majorField.setFont(font);
         emailField.setFont(font);
         passwordField.setFont(font);
         phoneField.setFont(font);
-        studentIdField1.setFont(font);
-        studentIdField2.setFont(font);
+        instIdField1.setFont(font);
+        instIdField2.setFont(font);
         fnameLabel.setFont(font);
         lnameLabel.setFont(font);
-        majorLabel.setFont(font);
         emailLabel.setFont(font);
         passwordLabel.setFont(font);
         phoneLabel.setFont(font);
-        studentIdLabel1.setFont(font);
-        studentIdLabel2.setFont(font);
+        instIdLabel1.setFont(font);
+        instIdLabel2.setFont(font);
         editButton.setFont(font);
         editButton.setPreferredSize(new Dimension(90,40));
-        studentTable.setFont(font);
-    	studentTable.getTableHeader().setFont(font);
-    	studentTable.getTableHeader().setForeground(Color.BLUE);
+        instTable.setFont(font);
+    	instTable.getTableHeader().setFont(font);
+    	instTable.getTableHeader().setForeground(Color.BLUE);
 
         tableModel.setColumnIdentifiers(tableColumns);
-        studentTable.setModel(tableModel);
-        studentTable.setFont(fontTable);
+        instTable.setModel(tableModel);
+        instTable.setFont(fontTable);
 
-        studentFrame.setLayout(new BorderLayout());
+        instFrame.setLayout(new BorderLayout());
         head.setLayout(new BorderLayout());
         center.setLayout(new FlowLayout(FlowLayout.CENTER));
         center.setPreferredSize(new Dimension(800,200));
@@ -131,50 +123,42 @@ public class AdminStudentView extends JFrame{
         footEdit.setBackground(new Color(114,128,255));
         footManage.setBackground(new Color(114,128,255));
 
-        springLayout.putConstraint(SpringLayout.NORTH,studentIdLabel1,10,SpringLayout.NORTH,footEdit);
-        springLayout.putConstraint(SpringLayout.NORTH,studentIdField1,5,SpringLayout.NORTH,footEdit);
-        springLayout.putConstraint(SpringLayout.NORTH,fnameLabel,25,SpringLayout.SOUTH,studentIdLabel1);
-        springLayout.putConstraint(SpringLayout.NORTH,lnameLabel,25,SpringLayout.SOUTH,studentIdLabel1);
-        springLayout.putConstraint(SpringLayout.NORTH,majorLabel,25,SpringLayout.SOUTH,studentIdLabel1);
-        springLayout.putConstraint(SpringLayout.NORTH,fnameField,20,SpringLayout.SOUTH,studentIdLabel1);
-        springLayout.putConstraint(SpringLayout.NORTH,lnameField,20,SpringLayout.SOUTH,studentIdLabel1);
-        springLayout.putConstraint(SpringLayout.NORTH,majorField,20,SpringLayout.SOUTH,studentIdLabel1);
+        springLayout.putConstraint(SpringLayout.NORTH,instIdLabel1,10,SpringLayout.NORTH,footEdit);
+        springLayout.putConstraint(SpringLayout.NORTH,instIdField1,5,SpringLayout.NORTH,footEdit);
+        springLayout.putConstraint(SpringLayout.NORTH,fnameLabel,25,SpringLayout.SOUTH,instIdLabel1);
+        springLayout.putConstraint(SpringLayout.NORTH,lnameLabel,25,SpringLayout.SOUTH,instIdLabel1);
+        springLayout.putConstraint(SpringLayout.NORTH,fnameField,20,SpringLayout.SOUTH,instIdLabel1);
+        springLayout.putConstraint(SpringLayout.NORTH,lnameField,20,SpringLayout.SOUTH,instIdLabel1);
         springLayout.putConstraint(SpringLayout.NORTH,emailLabel,30,SpringLayout.SOUTH,fnameLabel);
         springLayout.putConstraint(SpringLayout.NORTH,emailField,20,SpringLayout.SOUTH,fnameField);
         springLayout.putConstraint(SpringLayout.NORTH,passwordLabel,30,SpringLayout.SOUTH,lnameLabel);
         springLayout.putConstraint(SpringLayout.NORTH,passwordField,20,SpringLayout.SOUTH,lnameField);
-        springLayout.putConstraint(SpringLayout.NORTH,phoneLabel,30,SpringLayout.SOUTH,majorLabel);
-        springLayout.putConstraint(SpringLayout.NORTH,phoneField,20,SpringLayout.SOUTH,majorField);
         springLayout.putConstraint(SpringLayout.NORTH,editButton,20,SpringLayout.SOUTH,passwordField);
 
-        springLayout.putConstraint(SpringLayout.WEST,studentIdLabel1,10,SpringLayout.WEST,footEdit);
+        springLayout.putConstraint(SpringLayout.WEST,instIdLabel1,10,SpringLayout.WEST,footEdit);
         springLayout.putConstraint(SpringLayout.WEST,fnameLabel,10,SpringLayout.WEST,footEdit);
         springLayout.putConstraint(SpringLayout.WEST,emailLabel,10,SpringLayout.WEST,footEdit);
         springLayout.putConstraint(SpringLayout.WEST,editButton,350,SpringLayout.WEST,footEdit);
 
-        springLayout.putConstraint(SpringLayout.WEST,studentIdField1,5,SpringLayout.EAST,studentIdLabel1);
+        springLayout.putConstraint(SpringLayout.WEST,instIdField1,5,SpringLayout.EAST,instIdLabel1);
         springLayout.putConstraint(SpringLayout.WEST,fnameField,5,SpringLayout.EAST,fnameLabel);
         springLayout.putConstraint(SpringLayout.WEST,lnameField,5,SpringLayout.EAST,lnameLabel);
-        springLayout.putConstraint(SpringLayout.WEST,majorField,5,SpringLayout.EAST,majorLabel);
         springLayout.putConstraint(SpringLayout.WEST,emailField,5,SpringLayout.EAST,emailLabel);
         springLayout.putConstraint(SpringLayout.WEST,passwordField,5,SpringLayout.EAST,passwordLabel);
         springLayout.putConstraint(SpringLayout.WEST,phoneField,5,SpringLayout.EAST,phoneLabel);
 
         springLayout.putConstraint(SpringLayout.WEST,lnameLabel,20,SpringLayout.EAST,fnameField);
-        springLayout.putConstraint(SpringLayout.WEST,majorLabel,20,SpringLayout.EAST,lnameField);
         springLayout.putConstraint(SpringLayout.WEST,passwordLabel,20,SpringLayout.EAST,emailField);
         springLayout.putConstraint(SpringLayout.WEST,phoneLabel,20,SpringLayout.EAST,passwordField);
 
         head.add(scrollPane,BorderLayout.CENTER);
         center.add(editManage);
-        footEdit.add(studentIdLabel1);
-        footEdit.add(studentIdField1);
+        footEdit.add(instIdLabel1);
+        footEdit.add(instIdField1);
         footEdit.add(fnameLabel);
         footEdit.add(fnameField);
         footEdit.add(lnameLabel);
         footEdit.add(lnameField);
-        footEdit.add(majorLabel);
-        footEdit.add(majorField);
         footEdit.add(emailLabel);
         footEdit.add(emailField);
         footEdit.add(passwordLabel);
@@ -182,22 +166,22 @@ public class AdminStudentView extends JFrame{
         footEdit.add(phoneLabel);
         footEdit.add(phoneField);
         footEdit.add(editButton);
-        footManage.add(studentIdLabel2);
-        footManage.add(studentIdField2);
+        footManage.add(instIdLabel2);
+        footManage.add(instIdField2);
         footManage.add(manageButton);
         footCombo.add(footManage, BorderLayout.CENTER);
         footCombo.add(footEdit, BorderLayout.NORTH);
         
-        studentFrame.getContentPane().setBackground(new Color(114,128,255));
-        studentFrame.add(head,BorderLayout.NORTH);
-        studentFrame.add(center,BorderLayout.CENTER);
-        studentFrame.add(footCombo,BorderLayout.SOUTH);
+        instFrame.getContentPane().setBackground(new Color(114,128,255));
+        instFrame.add(head,BorderLayout.NORTH);
+        instFrame.add(center,BorderLayout.CENTER);
+        instFrame.add(footCombo,BorderLayout.SOUTH);
 
-        studentFrame.setTitle("Student Management");
-        studentFrame.setSize(800,700);
-        studentFrame.setLocationRelativeTo(null);
-        studentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        studentFrame.setVisible(true);
+        instFrame.setTitle("inst Management");
+        instFrame.setSize(800,700);
+        instFrame.setLocationRelativeTo(null);
+        instFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        instFrame.setVisible(true);
     }
 
     public JButton getEditButton()
@@ -210,44 +194,39 @@ public class AdminStudentView extends JFrame{
         return this.manageButton;
     }
 
-    public JTextField getStudentFname()
+    public JTextField getInstFname()
     {
         return this.fnameField;
     }
 
-    public JTextField getStudentLname()
+    public JTextField getInstLname()
     {
         return this.lnameField;
     }
 
-    public JTextField getStudentMajor()
-    {
-        return this.majorField;
-    }
-
-    public JTextField getStudentEmail()
+    public JTextField getInstEmail()
     {
         return this.emailField;
     }
 
-    public JTextField getStudentPassword()
+    public JTextField getInstPassword()
     {
         return this.passwordField;
     }
 
-    public JTextField getStudentPhone()
+    public JTextField getInstPhone()
     {
         return this.phoneField;
     }
 
-    public JTextField getStudentId1()
+    public JTextField getInstId1()
     {
-        return this.studentIdField1;
+        return this.instIdField1;
     }
 
-    public JTextField getStudentId2()
+    public JTextField getInstId2()
     {
-        return this.studentIdField2;
+        return this.instIdField2;
     }
 
     public JComboBox getEditManageComboBox()
@@ -255,9 +234,9 @@ public class AdminStudentView extends JFrame{
         return this.editManage;
     }
 
-    public JTable getStudentTable()
+    public JTable getInstTable()
     {
-        return this.studentTable;
+        return this.instTable;
     }
 
     public DefaultTableModel getTableModel()
@@ -265,9 +244,9 @@ public class AdminStudentView extends JFrame{
         return this.tableModel;
     }
 
-    public JFrame getStudentFrame()
+    public JFrame getInstFrame()
     {
-        return this.studentFrame;
+        return this.instFrame;
     }
 
     public JPanel getFootManagePanel()

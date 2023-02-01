@@ -12,6 +12,7 @@ import Model.UniversityMember;
 public class InstructorDaoImplementation implements InstructorDao{
     static Connection con = DatabaseConnection.getConnection();
     private final String TABLE_NAME = "instructors";
+    private final String TABLE_INST_TEACH = "instructorteaches";
     @Override
     public int add(Instructor s) throws SQLException {
         String query
@@ -99,8 +100,110 @@ public class InstructorDaoImplementation implements InstructorDao{
     }
 
     @Override
-    public void update(Instructor s) throws SQLException {
-        
+    public Object[][] getInstructorsWithId() throws SQLException{
+        String query = "SELECT Id,Fname,Lname,Email,Password,Phone FROM "+TABLE_NAME+" WHERE Accepted = 1";
+        String countRows = "SELECT COUNT(*) FROM "+TABLE_NAME+" WHERE Accepted = 1";
+
+        Statement stmt = con.createStatement();
+        ResultSet res = stmt.executeQuery(countRows);
+        res.next();
+        int numRows = res.getInt(1);
+
+        res = stmt.executeQuery(query);
+        int i=0;
+        Object[][] acceptedInstructors = new Object[numRows][6];
+
+        while(res.next())
+        {
+            acceptedInstructors[i][0] = (Object)res.getInt("Id");
+            acceptedInstructors[i][1] = (Object)res.getString("Fname");
+            acceptedInstructors[i][2] = (Object)res.getString("Lname");
+            acceptedInstructors[i][3] = (Object)res.getString("Email");
+            acceptedInstructors[i][4] = (Object)res.getString("Password");
+            acceptedInstructors[i][5] = (Object)res.getInt("Phone");
+            i++;
+        }
+        return acceptedInstructors;
     }
+
+    @Override
+    public boolean updateInstructor(String[] instInfo) throws SQLException {
+        String query = "UPDATE "+TABLE_NAME+" SET Fname=?,Lname=?,Email=?,Password=?,Phone=? WHERE Id=?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1,instInfo[1]);
+        ps.setString(2,instInfo[2]);
+        ps.setString(3,instInfo[3]);
+        ps.setString(4,instInfo[4]);
+        ps.setInt(5,Integer.parseInt(instInfo[5]));
+        ps.setInt(6,Integer.parseInt(instInfo[0]));
+
+        return ps.executeUpdate()>0;
+    }
+
+    @Override
+    public boolean addInstructorToCourse(String instID, String courseId) throws SQLException
+    {
+        String query = "INSERT INTO " + TABLE_INST_TEACH + " (Id, CourseId) VALUES(?,?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1,Integer.parseInt(instID));
+        ps.setInt(2,Integer.parseInt(courseId));
+
+        return ps.executeUpdate()>0;
+    }
+
+    @Override 
+    public boolean deleteInstructorFromCourse(String instID, String courseId) throws SQLException
+    {
+        String query = "DELETE FROM " + TABLE_INST_TEACH + " WHERE Id = ? AND CourseId = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1,Integer.parseInt(instID));
+        ps.setInt(2,Integer.parseInt(courseId));
+
+        return ps.executeUpdate()>0;
+    }
+
+    @Override
+	public Object[][] getAcceptedInstructorsInfo(String id) throws SQLException {
+		String queryCount="SELECT COUNT(*) FROM instructors LEFT JOIN instructorteaches ON instructorteaches.InstID=instructors.Id AND instructors.Id = ? WHERE instructors.Accepted=1;";
+		PreparedStatement sCount=con.prepareStatement(queryCount);
+        sCount.setInt(1,Integer.parseInt(id));
+		ResultSet resCount=sCount.executeQuery();
+		resCount.next();
+		int countRows=resCount.getInt(1);
+		String query="SELECT "
+				+ " instructors.Id,"
+				+ " instructors.Fname,"
+				+ " instructors.Lname,"
+				+ " course.CourseId,"
+				+ " course.Code,"
+				+ " course.Name"
+				+ " FROM"
+				+ " instructors "
+				+ "LEFT JOIN instructorteaches ON instructorteaches.InstID = instructors.Id "
+				+ "LEFT JOIN course ON instructorteaches.CourseID = course.CourseId "
+				+ "WHERE "
+				+ "    instructors.Accepted = ? AND instructors.Id = ?;";
+		
+		PreparedStatement ps=con.prepareStatement(query);
+		ps.setInt(1, 1);
+        ps.setInt(2, Integer.parseInt(id));
+		ResultSet res=ps.executeQuery();
+		ResultSetMetaData md=res.getMetaData();
+		int colCount=md.getColumnCount();
+		
+		Object[][] teachInformation=new Object[countRows][colCount+1];
+		int i=0;
+		while(res.next()) {
+			teachInformation[i][0]=(Object)res.getInt(1);
+			teachInformation[i][1]=(Object)res.getString(2);
+			teachInformation[i][2]=(Object)res.getString(3);
+			teachInformation[i][3]=(Object)res.getString(4);
+		    teachInformation[i][4]=(Object)res.getString(5);
+		    teachInformation[i][5]=(Object)res.getString(6);
+			i++;
+		}
+		
+		return teachInformation;
+	}
     
 }
