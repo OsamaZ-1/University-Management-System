@@ -9,6 +9,8 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import Model.AdminCourseModel;
 import Model.Course;
 import View.AdminCourseView;
@@ -49,33 +51,47 @@ public class AdminCourseController {
             public void actionPerformed(ActionEvent e){
             	String code="default";
     			String name=adminCourseView.getNameAddField().getText().toString();
-    			int credits=Integer.parseInt(adminCourseView.getCreditsAddField().getText());
-    			int houres=Integer.parseInt(adminCourseView.getHouresAddField().getText());
+    			String credits=adminCourseView.getCreditsAddField().getText().toString();
+    			String hours=adminCourseView.getHouresAddField().getText().toString();
     			String major=adminCourseView.getMajorAddField().getText().toString();
-    			int year=Integer.parseInt(adminCourseView.getYearAddField().getText().toString());
-    			Course course=new Course(code,name,credits,houres,major,year);
-    			try {
-					adminCourseModel.addCourse(course);
-					fillTable();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-            }
-            });
+    			String year=adminCourseView.getYearAddField().getText().toString();
+    			
+    			if(!name.equals("") && !credits.equals("") && !hours.equals("") && !major.equals("") && !year.equals(""))
+				{	Course course=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(hours),major,Integer.parseInt(year));
+					try {
+
+						if(adminCourseModel.addCourse(course))
+						{
+							fillTable();
+					 		JOptionPane.showMessageDialog(null, "Successfully added course");
+						}
+						else
+							JOptionPane.showMessageDialog(null, "Error adding course");
+					} catch (SQLException e1) {e1.printStackTrace();}
+            	}
+				else
+					JOptionPane.showMessageDialog(null, "Fill all information");
+            }});
     }
     public void deleteButtonAction() {
     	adminCourseView.getDeleteButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
             	String code=adminCourseView.getCodeDeleteField().getText().toString();
-            	try {
-					adminCourseModel.deleteCourse(code);
-					fillTable();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				if(!code.equals(""))
+            	{	
+					try {
+						if(adminCourseModel.deleteCourse(code))
+						{
+						 fillTable();
+						 JOptionPane.showMessageDialog(null, "Successfully deleted course");
+						}
+						else
+							JOptionPane.showMessageDialog(null,"Error deleting course");
+					} catch (SQLException e1) {e1.printStackTrace();}
 				}
+				else
+					JOptionPane.showMessageDialog(null, "Enter course code");
             }
             });
     }
@@ -85,18 +101,25 @@ public class AdminCourseController {
             public void actionPerformed(ActionEvent e){
             	String code=adminCourseView.getCodeEditField().getText().toString();
     			String name=adminCourseView.getNameEditField().getText().toString();
-    			int credits=Integer.parseInt(adminCourseView.getCreditsEditField().getText());
-    			int houres=Integer.parseInt(adminCourseView.getHouresEditField().getText());
+    			String credits=adminCourseView.getCreditsEditField().getText().toString();
+    			String hours=adminCourseView.getHouresEditField().getText().toString();
     			String major=adminCourseView.getMajorEditField().getText().toString();
-    			int year=Integer.parseInt(adminCourseView.getYearEditField().getText().toString());
-    			Course course=new Course(code,name,credits,houres,major,year);
-    			try {
-					adminCourseModel.editCourse(course);
-					fillTable();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+    			String year=adminCourseView.getYearEditField().getText().toString().toString();
+    			
+				if(!code.equals("") && !name.equals("") && !major.equals("") && !credits.equals("") && !hours.equals("") && !major.equals("") && !year.equals("") )
+    			{	Course course=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(hours),major,Integer.parseInt(year));
+					try {
+						if(adminCourseModel.editCourse(course))
+						{	
+							fillTable();
+							JOptionPane.showMessageDialog(null, "Updated sucessfully");
+						}
+						else
+							JOptionPane.showMessageDialog(null, "Error editing info");	
+					} catch (SQLException e1) {e1.printStackTrace();}
 				}
+				else
+					JOptionPane.showMessageDialog(null, "Fill all inforamtion");
             }
             });
     }

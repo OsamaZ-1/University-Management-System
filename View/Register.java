@@ -23,6 +23,7 @@ public class Register{
     private JTextField emailField;
     private JTextField phoneNumberField;
     private JComboBox userModeField;
+    private JComboBox userMajorField;
 
     //Labels for Icons
     private JLabel mainIcon;
@@ -67,6 +68,8 @@ public class Register{
         emailField = new JTextField(15);
         phoneNumberField = new JTextField(15);
         userModeField = new JComboBox<String>(new String[]{"Select User Mode","Student","Instructor"});
+        userMajorField = new JComboBox<String>(new String[]{"Select Major","Computer Science","Math","Physics","Biology","Chemistry"});
+        userMajorField.setVisible(false);
         mainIcon = new JLabel(logo);
         emailIcon = new JLabel(mailLogo);
         passwordIcon = new JLabel(keyLogo);
@@ -100,6 +103,7 @@ public class Register{
         emailField.setFont(new Font("Arial",Font.PLAIN,17));
         phoneNumberField.setFont(new Font("Arial",Font.PLAIN,17));
         userModeField.setFont(new Font("Arial",Font.PLAIN,17));
+        userMajorField.setFont(new Font("Arial",Font.PLAIN,17));
 
         head.setLayout(new BoxLayout(head,BoxLayout.Y_AXIS));
         head.setPreferredSize(new Dimension(400,150));
@@ -122,6 +126,7 @@ public class Register{
         springLayout.putConstraint(SpringLayout.WEST, emailField, 30, SpringLayout.EAST, emailIcon);
         springLayout.putConstraint(SpringLayout.WEST, phoneNumberField, 30, SpringLayout.EAST, phoneIcon);
         springLayout.putConstraint(SpringLayout.WEST, userModeField, 30, SpringLayout.EAST, userModeIcon);
+        springLayout.putConstraint(SpringLayout.WEST, userMajorField, 115, SpringLayout.WEST, registerFrame);
 
         springLayout.putConstraint(SpringLayout.NORTH, firstNameField, 35, SpringLayout.NORTH, registerFrame);
         springLayout.putConstraint(SpringLayout.NORTH, lastNameField, 40, SpringLayout.SOUTH, firstNameField);
@@ -129,6 +134,7 @@ public class Register{
         springLayout.putConstraint(SpringLayout.NORTH, emailField, 43, SpringLayout.SOUTH, passwordField);
         springLayout.putConstraint(SpringLayout.NORTH, phoneNumberField, 43, SpringLayout.SOUTH, emailField);
         springLayout.putConstraint(SpringLayout.NORTH, userModeField, 43, SpringLayout.SOUTH, phoneNumberField);
+        springLayout.putConstraint(SpringLayout.NORTH, userMajorField, 43, SpringLayout.SOUTH, userModeField);
         springLayout.putConstraint(SpringLayout.NORTH, userIcon1, 34, SpringLayout.NORTH, registerFrame);
         springLayout.putConstraint(SpringLayout.NORTH, userIcon2, 38, SpringLayout.SOUTH, userIcon1);
         springLayout.putConstraint(SpringLayout.NORTH, passwordIcon, 43, SpringLayout.SOUTH, userIcon2);
@@ -172,6 +178,7 @@ public class Register{
         center.add(emailField);
         center.add(phoneNumberField);
         center.add(userModeField);
+        center.add(userMajorField);
         center.add(fnameLabel);
         center.add(lnameLabel);
         center.add(passwordLabel);
@@ -191,7 +198,7 @@ public class Register{
         registerFrame.add(foot, BorderLayout.SOUTH);
 
         registerFrame.setTitle("SignUp Page");
-        registerFrame.setSize(470,700);
+        registerFrame.setSize(490,780);
         registerFrame.setLocationRelativeTo(null);
         registerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         registerFrame.setVisible(true);
@@ -226,6 +233,11 @@ public class Register{
     public JComboBox getUserModeField()
     {
         return this.userModeField;
+    }
+
+    public JComboBox getUserMajorField()
+    {
+        return this.userMajorField;
     }
 
     public JButton getRegisterButton()

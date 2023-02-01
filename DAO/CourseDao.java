@@ -5,11 +5,11 @@ import java.util.List;
 import Model.Course;
 public interface CourseDao {
 
-	public int add(Course course)
+	public boolean add(Course course)
 	   throws SQLException;
-	public void update(Course course)
+	public boolean update(Course course)
 	   throws SQLException;
-	public void delete(String course)
+	public boolean delete(String code)
 	   throws SQLException;
 	public Course getCourse(String code)
 	   throws SQLException;

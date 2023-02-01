@@ -12,16 +12,18 @@ public class StudentDaoImplementation implements StudentDao {
     static Connection con = DatabaseConnection.getConnection();
     private final String TABLE_NAME = "student";
     private final String TABLE_COURSE_NAME="course";
+    private final String TABLE_STUDENT_COURSE = "studentgrades";
     @Override
     public int add(Student s) throws SQLException {
         String query
-        = "INSERT INTO "+TABLE_NAME+"(Fname,Lname,Password,Email,Phone) VALUES (?, ?, ?, ?, ?)";
+        = "INSERT INTO "+TABLE_NAME+"(Fname,Lname,Major,Password,Email,Phone) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, s.getFname());
         ps.setString(2, s.getLname());
-        ps.setString(3, s.getPassword());
-        ps.setString(4, s.getEmail());
-        ps.setInt(5, s.getPhone());
+        ps.setString(3, s.getMajor());
+        ps.setString(4, s.getPassword());
+        ps.setString(5, s.getEmail());
+        ps.setInt(6, s.getPhone());
         int n = ps.executeUpdate();
         return n;
     }
@@ -63,13 +65,13 @@ public class StudentDaoImplementation implements StudentDao {
 
     @Override
     public List<Student> getStudents() throws SQLException {
-        String query = "SELECT Fname,Lname,Password,Email,Phone,Accepted FROM " + TABLE_NAME+" WHERE Accepted = 1";
+        String query = "SELECT Fname,Lname,Major,Password,Email,Phone FROM " + TABLE_NAME+" WHERE Accepted = 1";
         Statement stmt = con.createStatement();
         ResultSet res = stmt.executeQuery(query);
         List<Student> listStudents = new ArrayList<>();
         while(res.next())
         {
-            Student s = new Student(res.getString("Fname"), res.getString("Lname"), res.getString("Email"), res.getString("Password"), res.getInt("Phone"));
+            Student s = new Student(res.getString("Fname"), res.getString("Lname"), res.getString("Major"),res.getString("Email"), res.getString("Password"), res.getInt("Phone"));
             listStudents.add(s);
         }
         return listStudents;
@@ -125,25 +127,26 @@ public class StudentDaoImplementation implements StudentDao {
 	@Override
 	public String[] getStudent(String email,String password) throws SQLException {
 		
-		String query = "SELECT Id,Fname,Lname,Email,Phone FROM student WHERE Email=? AND Password=?";
+		String query = "SELECT Id,Fname,Lname,Major,Email,Phone FROM student WHERE Email=? AND Password=?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1,email);
         ps.setString(2, password);
         ResultSet res = ps.executeQuery();
-        String[] information=new String[5];
+        String[] information=new String[6];
         while(res.next()) {
             information[0]=Integer.toString(res.getInt(1));
             information[1]=(String)res.getString(2);
             information[2]=(String)res.getString(3);
-            information[3]=(String)res.getString(4);
-            information[4]=Integer.toString(res.getInt(5));
+            information[2]=(String)res.getString(4);
+            information[3]=(String)res.getString(5);
+            information[4]=Integer.toString(res.getInt(6));
         }
        return information;
 	}
 
     @Override
     public ArrayList<UniversityMember> getWaitingAcceptanceStudent() throws SQLException{
-        String query = "SELECT Fname, Lname, Password, Email, Phone FROM student WHERE Accepted = 0";
+        String query = "SELECT Fname, Lname, Major, Password, Email, Phone FROM student WHERE Accepted = 0";
         PreparedStatement ps = con.prepareStatement(query);
         ResultSet res = ps.executeQuery();
         
@@ -154,9 +157,10 @@ public class StudentDaoImplementation implements StudentDao {
             unaccepted.add(new Student(
                 res.getString(1),
                 res.getString(2),
-                res.getString(4),
                 res.getString(3),
-                Integer.parseInt(res.getString(5))
+                res.getString(5),
+                res.getString(4),
+                Integer.parseInt(res.getString(6))
             ));
         }
         return unaccepted;
@@ -169,13 +173,15 @@ public class StudentDaoImplementation implements StudentDao {
         ps.setString(1, email);
         ps.setString(2, pass);
         int res = ps.executeUpdate();
+        System.out.println(res);
         return res;
     }
 
 	@Override
-	public Object[][] getAcceptedStudentsInfo() throws SQLException {
-		String queryCount="SELECT COUNT(*) FROM student LEFT JOIN studentgrades ON studentgrades.Id=student.Id WHERE student.Accepted=1;";
+	public Object[][] getAcceptedStudentsInfo(String id) throws SQLException {
+		String queryCount="SELECT COUNT(*) FROM student LEFT JOIN studentgrades ON studentgrades.Id=student.Id AND student.Id = ? WHERE student.Accepted=1;";
 		PreparedStatement sCount=con.prepareStatement(queryCount);
+        sCount.setInt(1,Integer.parseInt(id));
 		ResultSet resCount=sCount.executeQuery();
 		resCount.next();
 		int countRows=resCount.getInt(1);
@@ -183,6 +189,7 @@ public class StudentDaoImplementation implements StudentDao {
 				+ " student.Id,"
 				+ " student.Fname,"
 				+ " student.Lname,"
+                + " student.Major,"
 				+ " course.CourseId,"
 				+ " course.Code,"
 				+ " course.Name"
@@ -191,10 +198,11 @@ public class StudentDaoImplementation implements StudentDao {
 				+ "LEFT JOIN studentgrades ON studentgrades.Id = student.Id "
 				+ "LEFT JOIN course ON studentgrades.CourseId = course.CourseId "
 				+ "WHERE "
-				+ "    student.Accepted = ?;";
+				+ "    student.Accepted = ? AND student.Id = ?;";
 		
 		PreparedStatement ps=con.prepareStatement(query);
 		ps.setInt(1, 1);
+        ps.setInt(2, Integer.parseInt(id));
 		ResultSet res=ps.executeQuery();
 		ResultSetMetaData md=res.getMetaData();
 		int colCount=md.getColumnCount();
@@ -206,13 +214,80 @@ public class StudentDaoImplementation implements StudentDao {
 			gradesInformation[i][0]=(Object)res.getInt(1);
 			gradesInformation[i][1]=(Object)res.getString(2);
 			gradesInformation[i][2]=(Object)res.getString(3);
-			gradesInformation[i][3]=(Object)res.getString(4);
-		    gradesInformation[i][4]=(Object)res.getString(5);
-		    gradesInformation[i][5]=(Object)res.getString(6);
+            gradesInformation[i][2]=(Object)res.getString(4);
+			gradesInformation[i][3]=(Object)res.getString(5);
+		    gradesInformation[i][4]=(Object)res.getString(6);
+		    gradesInformation[i][5]=(Object)res.getString(7);
 			i++;
 		}
 		
 		return gradesInformation;
 	}
+
+    @Override
+    public Object[][] getStudentsWithId() throws SQLException{
+        String query = "SELECT Id,Fname,Lname,Major,Email,Password,Phone FROM "+TABLE_NAME+" WHERE Accepted = 1";
+        String countRows = "SELECT COUNT(*) FROM "+TABLE_NAME+" WHERE Accepted = 1";
+
+        Statement stmt = con.createStatement();
+        ResultSet res = stmt.executeQuery(countRows);
+        res.next();
+        int numRows = res.getInt(1);
+
+        res = stmt.executeQuery(query);
+        int i=0;
+        Object[][] acceptedStudents = new Object[numRows][7];
+
+        while(res.next())
+        {
+            acceptedStudents[i][0] = (Object)res.getInt("Id");
+            acceptedStudents[i][1] = (Object)res.getString("Fname");
+            acceptedStudents[i][2] = (Object)res.getString("Lname");
+            acceptedStudents[i][3] = (Object)res.getString("Major");
+            acceptedStudents[i][4] = (Object)res.getString("Email");
+            acceptedStudents[i][5] = (Object)res.getString("Password");
+            acceptedStudents[i][6] = (Object)res.getInt("Phone");
+            i++;
+        }
+        return acceptedStudents;
+    }
+
+    @Override
+    public boolean updateStudent(String[] studentInfo) throws SQLException
+    {
+        String query = "UPDATE "+TABLE_NAME+" SET Fname=?,Lname=?,Major=?,Email=?,Password=?,Phone=? WHERE Id=?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1,studentInfo[1]);
+        ps.setString(2,studentInfo[2]);
+        ps.setString(3,studentInfo[3]);
+        ps.setString(4,studentInfo[4]);
+        ps.setString(5,studentInfo[5]);
+        ps.setInt(6,Integer.parseInt(studentInfo[6]));
+        ps.setInt(7,Integer.parseInt(studentInfo[0]));
+
+        return ps.executeUpdate()>0;
+    }
+
+    @Override
+    public boolean addStudentToCourse(String studentId, String courseId) throws SQLException
+    {
+        String query = "INSERT INTO "+TABLE_STUDENT_COURSE+" (Id, CourseId) VALUES(?,?)";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1,Integer.parseInt(studentId));
+        ps.setInt(2,Integer.parseInt(courseId));
+
+        return ps.executeUpdate()>0;
+    }
+
+    @Override 
+    public boolean deleteStudentFromCourse(String studentId, String courseId) throws SQLException
+    {
+        String query = "DELETE FROM "+TABLE_STUDENT_COURSE+" WHERE Id = ? AND CourseId = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1,Integer.parseInt(studentId));
+        ps.setInt(2,Integer.parseInt(courseId));
+
+        return ps.executeUpdate()>0;
+    }
     
 }

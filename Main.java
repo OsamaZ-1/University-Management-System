@@ -1,8 +1,6 @@
 import java.sql.SQLException;
 import Controller.*;
-import View.AdminPanel;
-import View.AdminStudentView;
-import View.StudentTranscriptView;
+import View.*;
 
 public class Main {
 
@@ -13,6 +11,8 @@ public class Main {
     	//new StudentTranscriptView();
     	//new LoginController();
     	//new AdminStudentView();
+        //new AdminStudentView();
+        
     }
 
 }

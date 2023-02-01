@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 02, 2023 at 12:52 AM
--- Server version: 5.7.17
--- PHP Version: 5.6.30
+-- Host: localhost
+-- Generation Time: Jan 31, 2023 at 12:26 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `cms`
+-- Database: `CMS`
 --
 
 -- --------------------------------------------------------
@@ -36,7 +35,7 @@ CREATE TABLE `course` (
   `Hours` int(10) NOT NULL,
   `Major` varchar(50) NOT NULL,
   `Year` int(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `course`
@@ -64,8 +63,8 @@ CREATE TABLE `instructors` (
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Phone` int(10) NOT NULL,
-  `Accepted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `Accepted` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `instructors`
@@ -84,21 +83,22 @@ CREATE TABLE `student` (
   `Id` int(100) NOT NULL,
   `Fname` varchar(100) NOT NULL,
   `Lname` varchar(100) NOT NULL,
+  `Major` varchar(100) NOT NULL,
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Phone` int(10) NOT NULL,
-  `Accepted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `Accepted` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`Id`, `Fname`, `Lname`, `Password`, `Email`, `Phone`, `Accepted`) VALUES
-(1, 'ahmad', 'majed', '12345', 'ahmad@gmail.com', 81370594, 1),
-(2, 'Hadi', 'Kattan', '123', 'hadi@gmail.com', 76488386, 1),
-(4, 'Osama', 'Zammar', '321', 'oz@hotmail.com', 71999000, 0),
-(5, 'mohammad', 'Abo alfoul', '9876', 'moh@gmail.com', 81370598, 1);
+INSERT INTO `student` (`Id`, `Fname`, `Lname`, `Major`, `Password`, `Email`, `Phone`, `Accepted`) VALUES
+(1, 'ahmad', 'majed', 'Math', '12345', 'ahmad@gmail.com', 81370594, 1),
+(2, 'Hadi', 'Kattan', 'Computer Science', '123', 'hadi@gmail.com', 76488386, 1),
+(4, 'Osama', 'Zammar', 'Computer Science', '321', 'oz@hotmail.com', 71999000, 1),
+(5, 'mohammad', 'Abo alfoul', 'Computer Science', '9876', 'moh@gmail.com', 81370598, 1);
 
 -- --------------------------------------------------------
 
@@ -110,7 +110,7 @@ CREATE TABLE `studentgrades` (
   `Id` int(100) NOT NULL,
   `CourseId` int(100) NOT NULL,
   `Grade` decimal(65,0) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `studentgrades`
@@ -163,16 +163,19 @@ ALTER TABLE `studentgrades`
 --
 ALTER TABLE `course`
   MODIFY `CourseId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `instructors`
 --
 ALTER TABLE `instructors`
   MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
   MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- Constraints for dumped tables
 --
