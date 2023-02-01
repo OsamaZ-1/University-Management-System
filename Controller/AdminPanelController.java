@@ -100,11 +100,6 @@ public class AdminPanelController {
             @Override
             public void actionPerformed(ActionEvent e){
                 new AdminInstructorController();
-                // try{
-                    
-                // }catch(SQLException e1){
-                //     e1.printStackTrace();
-                // }
             }
         });
     }
