@@ -27,8 +27,8 @@ public class StrudentTranscriptController {
     	
     	view.getIdLabel().setText(studentInfo[0]);
     	view.getNameLabel().setText(studentInfo[1]+" "+studentInfo[2]);
-    	view.getEmailLabel().setText(studentInfo[3]);
-    	view.getPhoneLabel().setText(studentInfo[4]);
+    	view.getEmailLabel().setText(studentInfo[4]);
+    	view.getPhoneLabel().setText(studentInfo[5]);
     	
     	for(int i=0;i<grades.length;i++)
     	  view.getTableModel().addRow(grades[i]);

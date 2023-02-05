@@ -136,9 +136,9 @@ public class StudentDaoImplementation implements StudentDao {
             information[0]=Integer.toString(res.getInt(1));
             information[1]=(String)res.getString(2);
             information[2]=(String)res.getString(3);
-            information[2]=(String)res.getString(4);
-            information[3]=(String)res.getString(5);
-            information[4]=Integer.toString(res.getInt(6));
+            information[3]=(String)res.getString(4);
+            information[4]=(String)res.getString(5);
+            information[5]=Integer.toString(res.getInt(6));
         }
        return information;
 	}
