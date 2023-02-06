@@ -108,7 +108,7 @@ public class StudentDaoImplementation implements StudentDao {
 			gradesInformation[i][2]=(Object)res.getString(3);
 			gradesInformation[i][3]=(Object)res.getInt(4);
 			double grade=res.getDouble(5);
-			if(grade==0) {
+			if(grade==-1) {
 				gradesInformation[i][4]=(Object)"grade not in Acc. history";
 				gradesInformation[i][5]=(Object)"grade not in Acc. history";
 			}
@@ -274,10 +274,11 @@ public class StudentDaoImplementation implements StudentDao {
     @Override
     public boolean addStudentToCourse(String studentId, String courseId) throws SQLException
     {
-        String query = "INSERT INTO "+TABLE_STUDENT_COURSE+" (Id, CourseId) VALUES(?,?)";
+        String query = "INSERT INTO "+TABLE_STUDENT_COURSE+" (Id, CourseId,Grade) VALUES(?,?,?)";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1,Integer.parseInt(studentId));
         ps.setInt(2,Integer.parseInt(courseId));
+        ps.setDouble(3,Double.parseDouble("-1"));
 
         return ps.executeUpdate()>0;
     }

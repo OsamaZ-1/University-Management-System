@@ -269,7 +269,13 @@ public class InstructorDaoImplementation implements InstructorDao{
             enrolledStudents[i][0] = (Object)res.getInt("Id");
             enrolledStudents[i][1] = (Object)res.getString("Fname");
             enrolledStudents[i][2] = (Object)res.getString("Lname");
-            enrolledStudents[i][3] = (Object)res.getFloat("Grade");
+            float grade=res.getFloat("Grade");
+            if(grade==-1) {
+            	enrolledStudents[i][3] = (Object) "";
+            }
+            else {
+            enrolledStudents[i][3] = (Object) grade;
+            }
             i++;
         }
 
