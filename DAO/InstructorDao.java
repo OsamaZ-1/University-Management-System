@@ -2,6 +2,7 @@ package DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import Model.Instructor;
 import Model.UniversityMember;
@@ -30,5 +31,13 @@ interface InstructorDao {
     public boolean deleteInstructorFromCourse(String studentId, String courseId)
         throws SQLException;
     public Object[][] getAcceptedInstructorsInfo(String id) 
+        throws SQLException;
+    public List<String> getInstructorCourses(String instEmail, String instPass)
+        throws SQLException;
+    public HashMap<String,String> getInstructorInfo(String instEmai, String intPass)
+        throws SQLException;
+    public Object[][] getEnrolledStudents(String courseCode) 
+        throws SQLException;
+    public boolean updateStudentGrade(String studentId, String courseCode, String grade)
         throws SQLException;
 }

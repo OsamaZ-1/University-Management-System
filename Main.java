@@ -5,7 +5,7 @@ import View.*;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-    	new InstructorPanelView();
+    	new InstructorController("moe@dandash.com","php123");
         //new AdminPanelController();
         //new RegisterController();
         //new StudentTranscriptView();

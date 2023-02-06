@@ -3,7 +3,10 @@ package DAO;
 import java.sql.Connection;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import com.mysql.cj.protocol.Resultset;
 
 import Database.DatabaseConnection;
 import Model.Instructor;
@@ -11,12 +14,16 @@ import Model.UniversityMember;
 
 public class InstructorDaoImplementation implements InstructorDao{
     static Connection con = DatabaseConnection.getConnection();
-    private final String TABLE_NAME = "instructors";
+    private final String TABLE_INSTRUCTORS = "instructors";
     private final String TABLE_INST_TEACH = "instructorteaches";
+    private final String TABLE_COURSE = "course";
+    private final String TABLE_STUDENT_GRADES = "studentgrades";
+    private final String TABLE_STUDENT = "student";
+    
     @Override
     public int add(Instructor s) throws SQLException {
         String query
-        = "INSERT INTO "+TABLE_NAME+"(Fname,Lname,Password,Email,Phone) VALUES (?, ?, ?, ?, ?)";
+        = "INSERT INTO "+TABLE_INSTRUCTORS+"(Fname,Lname,Password,Email,Phone) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, s.getFname());
         ps.setString(2, s.getLname());
@@ -34,7 +41,7 @@ public class InstructorDaoImplementation implements InstructorDao{
 
     @Override
     public int uniqueInstructorExists(String email, String pass) throws SQLException {
-        String query = "SELECT Id, Accepted FROM " + TABLE_NAME + " WHERE Password = ? AND Email = ?";
+        String query = "SELECT Id, Accepted FROM " + TABLE_INSTRUCTORS + " WHERE Password = ? AND Email = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, pass);
         ps.setString(2, email);
@@ -51,7 +58,7 @@ public class InstructorDaoImplementation implements InstructorDao{
 
     @Override
     public int instructorEmailExist(String email) throws SQLException{
-        String query = "SELECT Id FROM " + TABLE_NAME + " WHERE Email = ?";
+        String query = "SELECT Id FROM " + TABLE_INSTRUCTORS + " WHERE Email = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, email);
         ResultSet res = ps.executeQuery();
@@ -64,7 +71,7 @@ public class InstructorDaoImplementation implements InstructorDao{
 
     @Override
     public List<Instructor> getInstructors() throws SQLException {
-        String query = "SELECT Fname,Lname,Password,Email,Phone,Accepted FROM " + TABLE_NAME + " WHERE Accepted = 1";
+        String query = "SELECT Fname,Lname,Password,Email,Phone,Accepted FROM " + TABLE_INSTRUCTORS + " WHERE Accepted = 1";
         Statement stmt = con.createStatement();
         ResultSet res = stmt.executeQuery(query);
         List<Instructor> listInstructors = new ArrayList<>();
@@ -78,7 +85,7 @@ public class InstructorDaoImplementation implements InstructorDao{
     }
 
     public ArrayList<UniversityMember> getUnacceptedInstructors() throws SQLException{
-        String query = "SELECT Fname,Lname,Password,Email,Phone,Accepted FROM " + TABLE_NAME + " WHERE Accepted = 0";
+        String query = "SELECT Fname,Lname,Password,Email,Phone,Accepted FROM " + TABLE_INSTRUCTORS + " WHERE Accepted = 0";
         Statement stmt = con.createStatement();
         ResultSet res = stmt.executeQuery(query);
         ArrayList<UniversityMember> listInstructors = new ArrayList<>();
@@ -91,7 +98,7 @@ public class InstructorDaoImplementation implements InstructorDao{
     }
 
     public int acceptInstructor(String email, String pass) throws SQLException{
-        String query = "UPDATE " + TABLE_NAME + " SET Accepted = 1 WHERE Email = ? AND Password = ?";
+        String query = "UPDATE " + TABLE_INSTRUCTORS + " SET Accepted = 1 WHERE Email = ? AND Password = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, email);
         ps.setString(2, pass);
@@ -101,8 +108,8 @@ public class InstructorDaoImplementation implements InstructorDao{
 
     @Override
     public Object[][] getInstructorsWithId() throws SQLException{
-        String query = "SELECT Id,Fname,Lname,Email,Password,Phone FROM "+TABLE_NAME+" WHERE Accepted = 1";
-        String countRows = "SELECT COUNT(*) FROM "+TABLE_NAME+" WHERE Accepted = 1";
+        String query = "SELECT Id,Fname,Lname,Email,Password,Phone FROM "+TABLE_INSTRUCTORS+" WHERE Accepted = 1";
+        String countRows = "SELECT COUNT(*) FROM "+TABLE_INSTRUCTORS+" WHERE Accepted = 1";
 
         Statement stmt = con.createStatement();
         ResultSet res = stmt.executeQuery(countRows);
@@ -128,7 +135,7 @@ public class InstructorDaoImplementation implements InstructorDao{
 
     @Override
     public boolean updateInstructor(String[] instInfo) throws SQLException {
-        String query = "UPDATE "+TABLE_NAME+" SET Fname=?,Lname=?,Email=?,Password=?,Phone=? WHERE Id=?";
+        String query = "UPDATE "+TABLE_INSTRUCTORS+" SET Fname=?,Lname=?,Email=?,Password=?,Phone=? WHERE Id=?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1,instInfo[1]);
         ps.setString(2,instInfo[2]);
@@ -205,5 +212,89 @@ public class InstructorDaoImplementation implements InstructorDao{
 		
 		return teachInformation;
 	}
+
+    public List<String> getInstructorCourses(String instEmail, String instPass) throws SQLException
+    {
+        String query = "SELECT course.Code FROM "+TABLE_COURSE+","+TABLE_INSTRUCTORS+","+TABLE_INST_TEACH+" WHERE "+
+                        "instructors.id = instructorteaches.InstID "+
+                        "AND instructorteaches.CourseID = course.CourseId "+
+                        "AND instructors.Email = ? "+
+                        "AND instructors.Password = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1,instEmail);
+        ps.setString(2,instPass);
+        ResultSet res = ps.executeQuery();
+        List<String> courses = new ArrayList<>();
+
+        while(res.next())
+            courses.add(res.getString("Code"));
+
+        return courses;
+    }
+
+    public HashMap<String,String> getInstructorInfo(String instEmail, String instPass) throws SQLException
+    {
+        String query = "SELECT Id,Fname,Lname FROM "+TABLE_INSTRUCTORS+" WHERE Email=? AND Password = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1,instEmail);
+        ps.setString(2,instPass);
+        ResultSet res = ps.executeQuery();
+        HashMap<String,String> instructorInfo = new HashMap<>();
+        res.next();
+        instructorInfo.put("fullName", res.getString("Fname")+" "+res.getString("Lname"));
+        instructorInfo.put("ID",res.getInt("Id")+"");
+
+        return instructorInfo;
+    }
+
+    public Object[][] getEnrolledStudents(String courseCode) throws SQLException
+    {
+        String queryCount = "SELECT COUNT(*) FROM "+TABLE_COURSE+","+TABLE_STUDENT_GRADES+" WHERE course.CourseId = studentgrades.CourseId AND course.Code = ?";
+        PreparedStatement ps = con.prepareStatement(queryCount);
+        ps.setString(1,courseCode);
+        ResultSet res = ps.executeQuery();
+        res.next();
+        int rowsCount = res.getInt(1);
+        Object[][] enrolledStudents = new Object [rowsCount][4];
+
+        String query = "SELECT student.Id,student.Fname,student.Lname,studentgrades.Grade FROM "+
+                       TABLE_STUDENT+","+TABLE_COURSE+","+TABLE_STUDENT_GRADES+
+                       " WHERE course.CourseId = studentgrades.CourseId "+
+                       "AND studentgrades.Id = student.Id "+
+                       "AND course.Code = ?";
+        ps = con.prepareStatement(query);
+        ps.setString(1,courseCode);
+        res = ps.executeQuery();
+        int i = 0;
+        while(res.next())
+        {
+            enrolledStudents[i][0] = (Object)res.getInt("Id");
+            enrolledStudents[i][1] = (Object)res.getString("Fname");
+            enrolledStudents[i][2] = (Object)res.getString("Lname");
+            enrolledStudents[i][3] = (Object)res.getFloat("Grade");
+            i++;
+        }
+
+        return enrolledStudents;
+
+    }
+
+    public boolean updateStudentGrade(String studentId, String courseCode, String grade) throws SQLException
+    {
+        String query = "SELECT CourseId FROM "+TABLE_COURSE+" WHERE Code = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1,courseCode);
+        ResultSet res = ps.executeQuery();
+        res.next();
+        int courseId = res.getInt("CourseId");
+
+        String update = "UPDATE "+TABLE_STUDENT_GRADES+" SET Grade = ? WHERE Id = ? AND CourseId = ?";
+        ps = con.prepareStatement(update);
+        ps.setFloat(1, Float.valueOf(grade));
+        ps.setInt(2, Integer.valueOf(studentId));
+        ps.setInt(3, courseId);
+
+        return ps.executeUpdate()>0;
+    }
     
 }

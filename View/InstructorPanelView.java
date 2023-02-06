@@ -1,9 +1,10 @@
 package View;
 import javax.swing.*;
+import javax.swing.plaf.synth.SynthScrollBarUI;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
-public class InstructorPanelView extends JFrame{
+public class InstructorPanelView{
 
 	private JLabel header;
 	private JLabel idLabel;
@@ -11,8 +12,6 @@ public class InstructorPanelView extends JFrame{
 	private JLabel studentIdLabel;
 	private JLabel courseCodeLabel;
 	private JLabel studentGradeLabel;
-	private JLabel id;
-	private JLabel name;
 	private JComboBox instrutorCourses;
 	
 	//Table
@@ -24,9 +23,10 @@ public class InstructorPanelView extends JFrame{
     private JTextField studentId;
     private JTextField courseCode;
     private JTextField studentGrade;
-    private JButton add;
-    private JButton logout;
+    private JButton addButton;
+    private JButton logoutButton;
     
+    private JFrame instructorFrame;
     private JPanel mainPanel;
     private JPanel northPanel;
     private JPanel centerPanel;
@@ -44,27 +44,24 @@ public class InstructorPanelView extends JFrame{
     private JPanel addButtonPanel;
     
     private Font font,fontTable;
+
     public InstructorPanelView() {
-    	
+    	instructorFrame = new JFrame();
     	font = new Font("Arial", Font.BOLD, 17);
         fontTable = new Font("Arial", Font.BOLD, 15);
     	header=new JLabel("Courses Grade Management");
     	header.setFont(new Font("Arial", Font.BOLD, 25));
     	idLabel=new JLabel("ID:");
     	idLabel.setFont(font);
-    	nameLabel=new JLabel("DR.");
+    	nameLabel=new JLabel("Full Name:");
     	nameLabel.setFont(font);
-    	name=new JLabel("");
-    	name.setFont(font);
-    	id=new JLabel("");
-    	id.setFont(font);
     	studentIdLabel=new JLabel("Student ID:");
     	studentIdLabel.setFont(font);
     	courseCodeLabel=new JLabel("Course Code:");
     	courseCodeLabel.setFont(font);
     	studentGradeLabel=new JLabel("Grade:");
     	studentGradeLabel.setFont(font);
-    	
+
     	instrutorCourses= new JComboBox<String>(new String[]{"Courses"});
     	instrutorCourses.setPreferredSize(new Dimension(150,40));
     	instrutorCourses.setFont(font);
@@ -93,11 +90,11 @@ public class InstructorPanelView extends JFrame{
         studentGrade.setColumns(5);
         studentGrade.setFont(font);
         
-        add=new JButton("Add");
-        add.setFont(font);
-        add.setBackground(Color.yellow);
-        logout=new JButton("Logout");
-        logout.setFont(font);
+        addButton=new JButton("Add");
+        addButton.setFont(font);
+        addButton.setBackground(Color.yellow);
+        logoutButton=new JButton("Logout");
+        logoutButton.setFont(font);
         
         headPanel=new JPanel();
         headPanel.setBackground(new Color(114,128,255));
@@ -134,15 +131,14 @@ public class InstructorPanelView extends JFrame{
         headPanel.add(header);
         
         instructorNamePanel.setLayout(new FlowLayout(FlowLayout.LEFT,1,3));
+        //instructorNamePanel.add(nameLabel);
         instructorNamePanel.add(nameLabel);
-        instructorNamePanel.add(name);
         
         instructorIdPanel.setLayout(new FlowLayout(FlowLayout.CENTER,1,3));
+        //instructorIdPanel.add(idLabel);
         instructorIdPanel.add(idLabel);
-        instructorIdPanel.add(id);
         
         instructorLogoutPanel.setLayout(new FlowLayout(FlowLayout.RIGHT,1,3));
-        instructorLogoutPanel.add(logout);
         
         instructorInfoPanel.setLayout(new GridLayout(1,3));
         instructorInfoPanel.add(instructorNamePanel);
@@ -175,8 +171,13 @@ public class InstructorPanelView extends JFrame{
         studentGradePanel.add(studentGradeLabel);
         studentGradePanel.add(studentGrade);
         
-        addButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER,1,3));
-        addButtonPanel.add(add);
+        
+        
+        addButtonPanel.setLayout(new BoxLayout(addButtonPanel,BoxLayout.Y_AXIS));
+        addButtonPanel.add(addButton);
+        addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        addButtonPanel.add(logoutButton);
+        logoutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         southPanel.setLayout(new GridLayout(4,1,1,1));
         southPanel.add(courseCodePanel);
@@ -189,20 +190,28 @@ public class InstructorPanelView extends JFrame{
         mainPanel.add(centerPanel,BorderLayout.CENTER);
         mainPanel.add(southPanel,BorderLayout.SOUTH);
         
-        add(mainPanel);
-    	setBackground(new Color(114,128,255));
-        setTitle("Instructor Panel");
-		setSize(900, 700);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-		setVisible(true);
+        instructorFrame.add(mainPanel);
+    	instructorFrame.setBackground(new Color(114,128,255));
+        instructorFrame.setTitle("Instructor Panel");
+		instructorFrame.setSize(900, 700);
+		instructorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		instructorFrame.setLocationRelativeTo(null);
+		instructorFrame.setVisible(true);
     }
+    
+    public JFrame getInstructorFrame()
+    {
+        return this.instructorFrame;
+    }
+
     public JLabel getInstructorNameLabel() {
-    	return this.name;
+    	return this.nameLabel;
     }
+
     public JLabel getInstructorIdLabel() {
-    	return this.id;
+    	return this.idLabel;
     }
+
     public JTable getStudentsCourseGradesTable()
     {
         return this.studentsCourseGradesTable;
@@ -212,19 +221,30 @@ public class InstructorPanelView extends JFrame{
     {
         return this.tableModel;
     }
+
     public JTextField getStudentIdField() {
     	return this.studentId;
     }
+
     public JTextField getCourseCodeField() {
     	return this.courseCode;
     }
+
     public JTextField getStudentGradeField() {
     	return this.studentGrade;
     }
+
     public JButton getLogoutButton() {
-    	return this.logout;
+    	return this.logoutButton;
     }
+
     public JButton getAddButton() {
-    	return this.add;
+    	return this.addButton;
     }
+
+    public JComboBox getCoursesList()
+    {
+        return this.instrutorCourses;
+    }
+
 }

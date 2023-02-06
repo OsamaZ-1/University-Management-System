@@ -48,6 +48,7 @@ public class LoginController {
                     }
                     else if (res == 2){
                         System.out.println("Instructor Login Succeeded");
+                        new InstructorController(email,pass);
                     }
                     else if (res == -2){
                         //user mode not selected
