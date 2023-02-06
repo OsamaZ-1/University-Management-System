@@ -27,32 +27,33 @@ public class LoginController {
                 int userMode = loginView.getUserModeField().getSelectedIndex();
 
                 try{
-                    int res = -2;
-                    if (userMode == 2)
-                        res = loginModel.loginMember(email, pass,"Student");
-                    else if (userMode == 3)
-                        res = loginModel.loginMember(email, pass,"Instructor");
+                    int res = loginModel.loginMember(email, pass, userMode);
 
                     if (res == -1){
-                        loginView.displayErrorMessage(); //Wrong Credentials
+                        loginView.displayErrorMessage("Wrong Credentials!!!"); //Wrong Credentials
                     }
                     else if (res == 0){
-                        //student was not accepted yet
-                        System.out.println("Wait until acceptance");
+                        //member was not accepted yet
+                        loginView.displayErrorMessage("You have not been accepted yet.");
                     }
                     else if (res == 1){
-                        //successfull login
-                        System.out.println("Student Login Succeeded");
+                        //successfull student login
                         loginView.getLoginFrame().dispose();
                         new StrudentTranscriptController(email,pass);
                     }
                     else if (res == 2){
-                        System.out.println("Instructor Login Succeeded");
+                        //successfull instructor login
+                        loginView.getLoginFrame().dispose();
                         new InstructorController(email,pass);
+                    }
+                    else if (res == 3){
+                        //successfull admin login
+                        loginView.getLoginFrame().dispose();
+                        new AdminPanelController();
                     }
                     else if (res == -2){
                         //user mode not selected
-                        System.out.println("You must select the User Mode.");
+                        loginView.displayErrorMessage("You must select the User Mode.");
                     }
                 }catch(SQLException e1) {e1.printStackTrace();}
             }

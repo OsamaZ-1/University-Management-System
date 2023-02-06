@@ -19,7 +19,7 @@ public class AdminStudentView extends JFrame{
     private JButton manageButton;
 
     //Fields
-    private JComboBox editManage;
+    private JComboBox<String> editManage;
     private JTextField fnameField;
     private JTextField lnameField;
     private JTextField majorField;
@@ -254,7 +254,7 @@ public class AdminStudentView extends JFrame{
         return this.studentIdField2;
     }
 
-    public JComboBox getEditManageComboBox()
+    public JComboBox<String> getEditManageComboBox()
     {
         return this.editManage;
     }

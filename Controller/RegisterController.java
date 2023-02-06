@@ -6,8 +6,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
 import Model.Instructor;
 import Model.RegisterModel;
 import Model.Student;
@@ -53,7 +51,7 @@ public class RegisterController {
                 }
                 else if(registerView.getUserModeField().getSelectedIndex()==2){
                     // register instructor
-                    UniversityMember uniMember = new Instructor(Fname, Lname, password, email, phone);
+                    UniversityMember uniMember = new Instructor(Fname, Lname, email, password, phone);
                     try {
                         if(registerModel.registerMember(uniMember,"Instructor")==0)
                             registerView.displayErrorMessage();
@@ -82,7 +80,6 @@ public class RegisterController {
         registerView.getUserModeField().addItemListener(new ItemListener(){
             @Override
             public void itemStateChanged(ItemEvent e) {
-                // TODO Auto-generated method stub
                 String mode = String.valueOf(registerView.getUserModeField().getSelectedItem());
                 if(mode.equals("Student"))
                     registerView.getUserMajorField().setVisible(true);

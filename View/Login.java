@@ -1,10 +1,6 @@
 package View;
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.FlowView;
 import java.awt.*;
-import java.net.PasswordAuthentication;
 
 public class Login{
     //Icons
@@ -16,7 +12,7 @@ public class Login{
     //Input Fields
     private JTextField emailField;
     private JPasswordField passwordField;
-    private JComboBox userModeField;
+    private JComboBox<String> userModeField;
 
     //Labels for Icons
     private JLabel mainIcon;
@@ -144,7 +140,7 @@ public class Login{
         
     }
 
-  public JComboBox getUserModeField()
+  public JComboBox<String> getUserModeField()
   {
     return this.userModeField;
   }
@@ -174,8 +170,8 @@ public class Login{
     return this.loginFrame;
   }
 
-  public void displayErrorMessage()
+  public void displayErrorMessage(String msg)
   {
-    JOptionPane.showMessageDialog(loginFrame, "Wrong Credentials!!!");
+    JOptionPane.showMessageDialog(loginFrame, msg);
   }
 }

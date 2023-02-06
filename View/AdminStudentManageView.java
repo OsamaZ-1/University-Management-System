@@ -2,11 +2,8 @@ package View;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 public class AdminStudentManageView extends JFrame {
 
 	private JLabel title;

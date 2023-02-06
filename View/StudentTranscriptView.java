@@ -4,7 +4,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import java.awt.*;
-import java.util.*;
 
 public class StudentTranscriptView extends JFrame{
 
@@ -31,7 +30,6 @@ public class StudentTranscriptView extends JFrame{
     private JScrollPane scrollPane;
     private Object[] tableColumns;
     private DefaultTableModel tableModelInfo;
-    private Object[][] s;
     
     //panels
     private JPanel studentInfoPanel;

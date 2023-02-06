@@ -6,16 +6,12 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.IllegalFormatFlagsException;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.swing.event.InternalFrameListener;
 
-import Model.Instructor;
 import Model.InstructorCourseModel;
 import View.InstructorPanelView;
 import View.Login;
@@ -53,7 +49,7 @@ public class InstructorController {
     {   
             List<String> courses = instructorModel.getInstructorCourses(instEmail, instPass);
            // instructorView.getCoursesList().addItem((Object)"")
-            courses.forEach(code -> instructorView.getCoursesList().addItem((Object)code));
+            courses.forEach(code -> instructorView.getCoursesList().addItem(code));
 
     }
 

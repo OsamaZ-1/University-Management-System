@@ -17,7 +17,7 @@ public class AdminInstructorView {
     private JButton manageButton;
 
     //Fields
-    private JComboBox editManage;
+    private JComboBox<String> editManage;
     private JTextField fnameField;
     private JTextField lnameField;
     private JTextField emailField;
@@ -233,7 +233,7 @@ public class AdminInstructorView {
         return this.instIdField2;
     }
 
-    public JComboBox getEditManageComboBox()
+    public JComboBox<String> getEditManageComboBox()
     {
         return this.editManage;
     }

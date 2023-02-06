@@ -45,7 +45,6 @@ public class AdminPanel {
     //JTable
     private JTable table;
     private JScrollPane scrollPane;
-    private String[] tableColumns;
     private DefaultTableModel tableModel;
 
     public AdminPanel()

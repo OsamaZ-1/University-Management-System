@@ -1,12 +1,8 @@
 package View;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.FlowView;
 import java.awt.*;
-import java.net.PasswordAuthentication;
+
 public class Register{
     //Icons
     private ImageIcon logo;
@@ -22,8 +18,8 @@ public class Register{
     private JPasswordField passwordField;
     private JTextField emailField;
     private JTextField phoneNumberField;
-    private JComboBox userModeField;
-    private JComboBox userMajorField;
+    private JComboBox<String> userModeField;
+    private JComboBox<String> userMajorField;
 
     //Labels for Icons
     private JLabel mainIcon;
@@ -230,12 +226,12 @@ public class Register{
         return this.phoneNumberField;
     }
 
-    public JComboBox getUserModeField()
+    public JComboBox<String> getUserModeField()
     {
         return this.userModeField;
     }
 
-    public JComboBox getUserMajorField()
+    public JComboBox<String> getUserMajorField()
     {
         return this.userMajorField;
     }

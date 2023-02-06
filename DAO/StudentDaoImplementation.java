@@ -99,7 +99,6 @@ public class StudentDaoImplementation implements StudentDao {
 		ResultSet res=ps.executeQuery();
 		ResultSetMetaData md=res.getMetaData();
 		int colCount=md.getColumnCount();
-		int rowCount=res.getRow();
 		
 		Object[][] gradesInformation=new Object[countRows][colCount+1];
 		int i=0;
@@ -205,7 +204,6 @@ public class StudentDaoImplementation implements StudentDao {
 		ResultSet res=ps.executeQuery();
 		ResultSetMetaData md=res.getMetaData();
 		int colCount=md.getColumnCount();
-		int rowCount=res.getRow();
 		
 		Object[][] gradesInformation=new Object[countRows][colCount+1];
 		int i=0;

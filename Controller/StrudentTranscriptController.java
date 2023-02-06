@@ -1,13 +1,6 @@
 package Controller;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-
-import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
 
 import Model.StudentTranscriptModel;
 import View.StudentTranscriptView;

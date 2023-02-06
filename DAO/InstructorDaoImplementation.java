@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.mysql.cj.protocol.Resultset;
-
 import Database.DatabaseConnection;
 import Model.Instructor;
 import Model.UniversityMember;

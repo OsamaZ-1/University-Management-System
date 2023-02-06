@@ -1,6 +1,5 @@
 package View;
 import javax.swing.*;
-import javax.swing.plaf.synth.SynthScrollBarUI;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
@@ -12,7 +11,7 @@ public class InstructorPanelView{
 	private JLabel studentIdLabel;
 	private JLabel courseCodeLabel;
 	private JLabel studentGradeLabel;
-	private JComboBox instrutorCourses;
+	private JComboBox<String> instrutorCourses;
 	
 	//Table
     private JTable studentsCourseGradesTable;
@@ -242,7 +241,7 @@ public class InstructorPanelView{
     	return this.addButton;
     }
 
-    public JComboBox getCoursesList()
+    public JComboBox<String> getCoursesList()
     {
         return this.instrutorCourses;
     }

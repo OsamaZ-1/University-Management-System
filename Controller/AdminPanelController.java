@@ -9,10 +9,8 @@ import java.awt.event.ActionListener;
 
 import Model.Student;
 import Model.UniversityMember;
-import View.AdminCourseView;
 import View.AdminPanel;
 import Model.AdminPanelModel;
-import Model.Instructor;
 
 public class AdminPanelController {
     AdminPanel adminPanelView;
