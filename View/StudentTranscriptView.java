@@ -186,12 +186,12 @@ public class StudentTranscriptView extends JFrame{
         gpaP2.add(totalCreditsLabel);
         gpaP2.add(totalCredits);
         gpaP2.add(logout);
-        springLayout.putConstraint(springLayout.NORTH,totalCreditsLabel,1,springLayout.NORTH,gpaP2);
-        springLayout.putConstraint(springLayout.NORTH,totalCredits,1,springLayout.NORTH,gpaP2);
-        springLayout.putConstraint(springLayout.WEST,totalCredits,125,springLayout.WEST,totalCreditsLabel);
+        springLayout.putConstraint(SpringLayout.NORTH,totalCreditsLabel,1,SpringLayout.NORTH,gpaP2);
+        springLayout.putConstraint(SpringLayout.NORTH,totalCredits,1,SpringLayout.NORTH,gpaP2);
+        springLayout.putConstraint(SpringLayout.WEST,totalCredits,125,SpringLayout.WEST,totalCreditsLabel);
         
-        springLayout.putConstraint(springLayout.NORTH,logout,30,springLayout.NORTH,totalCreditsLabel);
-        springLayout.putConstraint(springLayout.WEST,logout,70,springLayout.WEST,totalCreditsLabel);
+        springLayout.putConstraint(SpringLayout.NORTH,logout,30,SpringLayout.NORTH,totalCreditsLabel);
+        springLayout.putConstraint(SpringLayout.WEST,logout,70,SpringLayout.WEST,totalCreditsLabel);
         
         gpaP3.setLayout(new FlowLayout(FlowLayout.RIGHT,1,1));
         gpaP3.add(gpaLabel);
