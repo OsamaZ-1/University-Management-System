@@ -27,7 +27,12 @@ public class StudentTranscriptModel {
 		grades=new double[info.length];
 		for(int i=0;i<info.length;i++) {
 			totalCredits[i]=Integer.parseInt(String.valueOf(info[i][3]));
+			if(info[i][4]!="grade not in Acc. history") {
 			grades[i]=Double.parseDouble(String.valueOf(info[i][4]));
+			}
+			else {
+				grades[i]=0;
+			}
 			if(grades[i]>=50)
 				earnedCredits[i]=true;
 			else
