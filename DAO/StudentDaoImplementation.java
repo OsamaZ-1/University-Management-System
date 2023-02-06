@@ -109,6 +109,11 @@ public class StudentDaoImplementation implements StudentDao {
 			gradesInformation[i][2]=(Object)res.getString(3);
 			gradesInformation[i][3]=(Object)res.getInt(4);
 			double grade=res.getDouble(5);
+			if(grade==0) {
+				gradesInformation[i][4]=(Object)"grade not in Acc. history";
+				gradesInformation[i][5]=(Object)"grade not in Acc. history";
+			}
+			else {
 			gradesInformation[i][4]=(Object)grade;
 			if(grade>=50) {
 				gradesInformation[i][5]=(Object)"Passed";
@@ -116,6 +121,7 @@ public class StudentDaoImplementation implements StudentDao {
 			else
 			{
 				gradesInformation[i][5]=(Object)"Failed";
+			}
 			}
 			i++;
 		}

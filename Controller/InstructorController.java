@@ -43,7 +43,7 @@ public class InstructorController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 instructorView.getInstructorFrame().dispose();
-                new Login();   
+                new LoginController();   
             }
             
         });

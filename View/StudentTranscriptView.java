@@ -8,6 +8,8 @@ import java.util.*;
 
 public class StudentTranscriptView extends JFrame{
 
+	//Frame
+	//private JFrame 
 	//labels for information
 	private JLabel nameLabel;
 	private JLabel idLabel;
@@ -33,6 +35,8 @@ public class StudentTranscriptView extends JFrame{
     private DefaultTableModel tableModelInfo;
     private Object[][] s;
     
+    private JButton logout;
+    
     //panels
     private JPanel studentInfoPanel;
     private JPanel infoP1;
@@ -47,6 +51,7 @@ public class StudentTranscriptView extends JFrame{
     private JPanel mainPanel;
     
     private BorderLayout borderLayout;
+    private SpringLayout springLayout;
     private Font font,fontTable;
     public StudentTranscriptView() {
     	
@@ -98,6 +103,9 @@ public class StudentTranscriptView extends JFrame{
     			else if(value.equals("Failed")) {
     				comp.setForeground(Color.red);
     			}
+    			else if(value.equals("grade not in Acc. history")) {
+    				comp.setForeground(Color.black);
+    			}
     			else {
     				comp.setForeground(Color.blue);
     			}
@@ -113,6 +121,9 @@ public class StudentTranscriptView extends JFrame{
         tableModelInfo = new DefaultTableModel();
         tableModelInfo.setColumnIdentifiers(tableColumns);
         transcriptTable.setModel(tableModelInfo);
+        
+        logout=new JButton("Logout");
+        logout.setFont(font);
         
         studentInfoPanel=new JPanel();
         infoP1=new JPanel();
@@ -172,9 +183,17 @@ public class StudentTranscriptView extends JFrame{
         gpaP1.add(earnedCreditsLabel);
         gpaP1.add(earnedCredits);
         
-        gpaP2.setLayout(new FlowLayout(FlowLayout.LEFT,1,1));
+        springLayout=new SpringLayout();
+        gpaP2.setLayout(springLayout);
         gpaP2.add(totalCreditsLabel);
         gpaP2.add(totalCredits);
+        gpaP2.add(logout);
+        springLayout.putConstraint(springLayout.NORTH,totalCreditsLabel,1,springLayout.NORTH,gpaP2);
+        springLayout.putConstraint(springLayout.NORTH,totalCredits,1,springLayout.NORTH,gpaP2);
+        springLayout.putConstraint(springLayout.WEST,totalCredits,125,springLayout.WEST,totalCreditsLabel);
+        
+        springLayout.putConstraint(springLayout.NORTH,logout,30,springLayout.NORTH,totalCreditsLabel);
+        springLayout.putConstraint(springLayout.WEST,logout,70,springLayout.WEST,totalCreditsLabel);
         
         gpaP3.setLayout(new FlowLayout(FlowLayout.RIGHT,1,1));
         gpaP3.add(gpaLabel);
@@ -195,7 +214,7 @@ public class StudentTranscriptView extends JFrame{
         mainPanel.add(studentGpaPanel,BorderLayout.SOUTH);
         add(mainPanel);
         setTitle("Student Transcript");
-		setSize(800, 800);
+		setSize(900, 800);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		setLocationRelativeTo(null);
@@ -227,6 +246,9 @@ public class StudentTranscriptView extends JFrame{
     }
     public DefaultTableModel getTableModel() {
     	return this.tableModelInfo;
+    }
+    public JButton getLogoutButton() {
+    	return this.logout;
     }
     
 }
