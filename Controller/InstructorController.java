@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 
 import Model.InstructorCourseModel;
 import View.InstructorPanelView;
-import View.Login;
 
 public class InstructorController {
     InstructorCourseModel instructorModel;
