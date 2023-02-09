@@ -47,6 +47,11 @@ public class AdminPanel {
     private JScrollPane scrollPane;
     private DefaultTableModel tableModel;
 
+    //Font and Color
+    private Font font;
+    private Color lightBlue;
+    private Color darkBlue;
+
     public AdminPanel()
     {   
         //Initialization of components
@@ -54,6 +59,9 @@ public class AdminPanel {
         studentLogo = new ImageIcon("./Images/student.png");
         professorLogo = new ImageIcon("./Images/professor.png");
         coursesLogo = new ImageIcon("./Images/courses.png");
+        font = new Font("Arial",Font.BOLD,17);
+        lightBlue = new Color(83,131,255);
+        darkBlue = new Color(131, 165, 252);
         mainIcon = new JLabel(logo);
         studentIcon = new JLabel(studentLogo);
         professorIcon = new JLabel(professorLogo);
@@ -115,16 +123,16 @@ public class AdminPanel {
         centerRightPanel.setPreferredSize(new Dimension(150,650));
 
         ///Fonts
-        dashboardLabel.setFont(new Font("Arial",Font.BOLD,17));
-        nbStudents.setFont(new Font("Arial",Font.BOLD,17));
-        nbProfessors.setFont(new Font("Arial",Font.BOLD,17));
-        nbCourses.setFont(new Font("Arial",Font.BOLD,17));
+        dashboardLabel.setFont(font);
+        nbStudents.setFont(font);
+        nbProfessors.setFont(font);
+        nbCourses.setFont(font);
         activityLabel.setFont(new Font("Arial",Font.BOLD,18));
         
         //Backgrounds
-        leftNavbar.setBackground(new Color(83,131,255));
-        topPanel.setBackground(Color.GREEN);
-        centerRightPanel.setBackground(Color.YELLOW);
+        leftNavbar.setBackground(lightBlue);
+        topPanel.setBackground(darkBlue);
+        centerRightPanel.setBackground(lightBlue);
 
         //Layouts
         springLayout = new SpringLayout();
