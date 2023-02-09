@@ -50,15 +50,25 @@ public class StudentDaoImplementation implements StudentDao {
     }
 
     @Override
-    public int studentEmailExist(String email) throws SQLException{
+    public int studentEmailPhoneExist(String email, int phone) throws SQLException{
         String query = "SELECT Id FROM " + TABLE_NAME + " WHERE Email = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, email);
         ResultSet res = ps.executeQuery();
+        int count = 0;
         
         if(res.next())
-            return 1; //student with same email already exist
-        return 0; //student with provided email doesn't exist    
+            count++; //student with same email already exist
+
+        query = "SELECT Id FROM " + TABLE_NAME + " WHERE Phone = ?";
+        ps = con.prepareStatement(query);
+        ps.setInt(1, phone);
+        res = ps.executeQuery();
+
+        if(res.next())
+            count++; //student with same phone number already exist
+
+        return count; //student with provided email and password doesn't exist    
     }
     
 

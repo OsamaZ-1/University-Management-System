@@ -36,13 +36,18 @@ public class Login{
     private JPanel foot;
     private SpringLayout springLayout;
 
+    //Font and color
+    private Font font;
+    private Color color;
     public Login()
     {   
         //Initializations
-        logo = new ImageIcon("Images/main_Icon.png");
-        userLogo = new ImageIcon("Images/person.png");
-        mailLogo = new ImageIcon("Images/mail.png");
-        keyLogo = new ImageIcon("Images/key.png");
+        logo = new ImageIcon("./Images/main_Icon.png");
+        userLogo = new ImageIcon("./Images/person.png");
+        mailLogo = new ImageIcon("./Images/mail.png");
+        keyLogo = new ImageIcon("./Images/key.png");
+        font = new Font("Arial",Font.PLAIN,17);
+        color = new Color(83,131,255);
         emailField = new JTextField(15);
         passwordField = new JPasswordField(15);
         userModeField = new JComboBox<String>(new String[]{"Select User Mode","Admin","Student","Instructor"});
@@ -63,21 +68,21 @@ public class Login{
 
         //Layouts and Designs
         loginFrame.setLayout(new BorderLayout());
-        loginFrame.getContentPane().setBackground(new Color(114,128,255));
+        loginFrame.getContentPane().setBackground(color);
         registerButton.setBackground(Color.GREEN);
         loginButton.setBackground(Color.red);
         welcomeLabel.setFont(new Font("Arial",Font.BOLD,18));
-        emailField.setFont(new Font("Arial",Font.PLAIN,17));
-        passwordField.setFont(new Font("Arial",Font.PLAIN,17));
-        userModeField.setFont(new Font("Arial",Font.PLAIN,17));
+        emailField.setFont(font);
+        passwordField.setFont(font);
+        userModeField.setFont(font);
         
         head.setLayout(new BoxLayout(head,BoxLayout.Y_AXIS));
         head.setPreferredSize(new Dimension(400,150));
-        head.setBackground(new Color(114,128,255));
+        head.setBackground(color);
 
         springLayout = new SpringLayout();
         center.setPreferredSize(new Dimension(400,250));
-        center.setBackground(new Color(114,128,255));
+        center.setBackground(color);
         center.setLayout(springLayout);
         springLayout.putConstraint(SpringLayout.WEST, userIcon, 80, SpringLayout.WEST, loginFrame);
         springLayout.putConstraint(SpringLayout.WEST, emailIcon, 80, SpringLayout.WEST, loginFrame);
@@ -101,7 +106,7 @@ public class Login{
 
         foot.setLayout(new BoxLayout(foot, BoxLayout.X_AXIS));
         foot.setPreferredSize(new Dimension(400,70));
-        foot.setBackground(new Color(114,128,255));
+        foot.setBackground(color);
 
         welcomeLabel.setAlignmentX(Box.CENTER_ALIGNMENT);
         mainIcon.setAlignmentX(Box.CENTER_ALIGNMENT);
@@ -170,7 +175,7 @@ public class Login{
     return this.loginFrame;
   }
 
-  public void displayErrorMessage(String msg)
+  public void displayMessage(String msg)
   {
     JOptionPane.showMessageDialog(loginFrame, msg);
   }

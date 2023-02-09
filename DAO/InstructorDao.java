@@ -14,7 +14,7 @@ interface InstructorDao {
         throws SQLException;
     public int uniqueInstructorExists(String email, String pass)
         throws SQLException;
-    public int instructorEmailExist(String email)
+    public int instructorEmailPhoneExist(String email, int phone)
         throws SQLException;
     public List<Instructor> getInstructors()
         throws SQLException;

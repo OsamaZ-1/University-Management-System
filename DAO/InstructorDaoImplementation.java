@@ -55,15 +55,25 @@ public class InstructorDaoImplementation implements InstructorDao{
     }
 
     @Override
-    public int instructorEmailExist(String email) throws SQLException{
+    public int instructorEmailPhoneExist(String email, int phone) throws SQLException{
         String query = "SELECT Id FROM " + TABLE_INSTRUCTORS + " WHERE Email = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, email);
         ResultSet res = ps.executeQuery();
-        
+        int count = 0;
+
         if(res.next())
-            return 1; //instructor with same email already exist
-        return 0; //instructor with provided email doesn't exist    
+            count++; //instructor with same email already exist
+        
+        query = "SELECT Id FROM " + TABLE_INSTRUCTORS + " WHERE Phone = ?";
+        ps = con.prepareStatement(query);
+        ps.setInt(1,phone);
+        res = ps.executeQuery();
+
+        if(res.next())
+            count++; //instructor with same phone number already exist
+
+        return count; //instructor with provided email and password doesn't exist   
     }
     
 

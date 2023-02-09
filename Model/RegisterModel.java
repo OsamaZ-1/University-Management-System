@@ -11,14 +11,14 @@ public class RegisterModel {
     public int registerMember(UniversityMember uniMember, String userMode) throws SQLException {
         if(userMode.equals("Student")){
             Student s = (Student)uniMember;
-        if(stdDao.studentEmailExist(s.getEmail()) == 1) //Student email already exists "student has account"
+        if(stdDao.studentEmailPhoneExist(s.getEmail(),s.getPhone())>0) //Student email or phone number already exists "student has account"
             return 0;
         return stdDao.add(s);
     }
         // at this point, the user is an instructor
 
         Instructor instructor = (Instructor)uniMember;
-        if(instDao.instructorEmailExist(instructor.getEmail()) == 1) //Instructor email already exists "Instructor has account"
+        if(instDao.instructorEmailPhoneExist(instructor.getEmail(),instructor.getPhone())>0) //Instructor email or phone number already exists "Instructor has account"
             return 0;
         return instDao.add(instructor);
     }
