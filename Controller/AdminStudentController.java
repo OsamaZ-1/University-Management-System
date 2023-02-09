@@ -7,11 +7,13 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
 
 import Model.AdminStudentModel;
+import Model.Course;
 import View.AdminStudentManageView;
 import View.AdminStudentView;
 
@@ -25,7 +27,7 @@ public class AdminStudentController {
 		adminStudentManageView= new AdminStudentManageView();
 		adminStudentView = new AdminStudentView();
 		adminStudentModel=new AdminStudentModel();
-		adminStudentManageView.setVisible(false);
+		adminStudentManageView.getMainFrame().setVisible(false);
 		fillFirstTable();
 		editManageListener();
 		studentTableListener();
@@ -92,7 +94,7 @@ public class AdminStudentController {
         			adminStudentView.getStudentId1().setText(id);
     				adminStudentView.getStudentFname().setText(fname);
     				adminStudentView.getStudentLname().setText(lname);
-    				adminStudentView.getStudentMajor().setText(major);
+    				adminStudentView.getStudentMajor().setSelectedItem((Object)major);
     				adminStudentView.getStudentEmail().setText(email);
     				adminStudentView.getStudentPassword().setText(password);
 					adminStudentView.getStudentPhone().setText(phone);
@@ -142,12 +144,12 @@ public class AdminStudentController {
 				String id = (String)adminStudentView.getStudentId1().getText().toString();
 				String fname = (String)adminStudentView.getStudentFname().getText().toString();
 				String lname = (String)adminStudentView.getStudentLname().getText().toString();
-				String major = (String)adminStudentView.getStudentMajor().getText().toString();
+				String major = (String)adminStudentView.getStudentMajor().getSelectedItem().toString();
 				String email = (String)adminStudentView.getStudentEmail().getText().toString();
 				String password = (String)adminStudentView.getStudentPassword().getText().toString();
 				String phone = (String)adminStudentView.getStudentPhone().getText().toString();
 
-				if(!id.equals("") && !fname.equals("") && !lname.equals("") && !major.equals("") && !email.equals("") && !password.equals("") && !phone.equals(""))
+				if(!id.equals("") && !fname.equals("") && !lname.equals("") && !major.equals("Select Major") && !email.equals("") && !password.equals("") && !phone.equals(""))
 				{
 					String[] studentInfo = new String[]{id,fname,lname,major,email,password,phone};
 					try{
@@ -177,8 +179,9 @@ public class AdminStudentController {
 				// TODO Auto-generated method stub
 				String id = adminStudentView.getStudentId2().getText().toString();
 				if(!id.equals(""))
-				{
-					adminStudentManageView.setVisible(true);
+				{	
+					fillCoursesList();
+					adminStudentManageView.getMainFrame().setVisible(true);
 					adminStudentManageView.setStudentId(id);
 					try{
 						fillSecondTable(adminStudentView.getStudentId2().getText().toString());
@@ -198,12 +201,11 @@ public class AdminStudentController {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String studentId = adminStudentManageView.getStudentIdField().getText().toString();
-				String courseId = adminStudentManageView.getCourseIdField().getText().toString();
-
-				if(!courseId.equals("")) //studentId can't be null it comes filled from previous step
+				String courseCode = adminStudentManageView.getCoursesList().getSelectedItem().toString();
+				if(!courseCode.equals("")) //studentId can't be null it comes filled from previous step
 				{
 					try{
-						if(adminStudentModel.addStudentToCourse(studentId,courseId))
+						if(adminStudentModel.addStudentToCourse(studentId,courseCode))
 						{	
 							fillSecondTable(studentId);
 							JOptionPane.showMessageDialog(null,"Successfully added");
@@ -228,11 +230,11 @@ public class AdminStudentController {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String studentId = adminStudentManageView.getStudentIdField().getText().toString();
-				String courseId = adminStudentManageView.getCourseIdField().getText().toString();
-				if(!courseId.equals("")) //studentId can't be null it comes filled from previous step
+				String courseCode = adminStudentManageView.getCoursesList().getSelectedItem().toString();
+				if(!courseCode.equals("")) //studentId can't be null it comes filled from previous step
 				{
 					try{
-						if(adminStudentModel.deleteStudentFromCourse(studentId,courseId))
+						if(adminStudentModel.deleteStudentFromCourse(studentId,courseCode))
 						{	
 							fillSecondTable(studentId);
 							JOptionPane.showMessageDialog(null,"Successfully Deleted");
@@ -247,5 +249,19 @@ public class AdminStudentController {
 			}
 
 		});
+	}
+
+	public void fillCoursesList()
+	{	
+		List<Course> courses = null;
+
+		try{
+			courses = adminStudentModel.getCoursesList();
+		}catch(SQLException e){e.printStackTrace();}
+
+		if(courses!=null)
+		{
+			courses.forEach(course -> adminStudentManageView.getCoursesList().addItem(course.getCode()));
+		}
 	}
 }

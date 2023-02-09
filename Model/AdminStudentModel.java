@@ -1,13 +1,16 @@
 package Model;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import DAO.CourseDaoImplementation;
 import DAO.StudentDaoImplementation;
 
 public class AdminStudentModel {
 
 	private StudentDaoImplementation stdDao = new StudentDaoImplementation();
-	
+	private CourseDaoImplementation coursesDao = new CourseDaoImplementation();
+
 	public Object[][] getAcceptedStudentsInfo(String id) throws SQLException {
 		return stdDao.getAcceptedStudentsInfo(id);
 	}
@@ -21,17 +24,20 @@ public class AdminStudentModel {
 		return stdDao.updateStudent(studentinfo);
 	}
 
-	public boolean addStudentToCourse(String studentId, String courseId) throws SQLException
+	public boolean addStudentToCourse(String studentId, String courseCode) throws SQLException
 	{
-		return stdDao.addStudentToCourse(studentId, courseId);
+		return stdDao.addStudentToCourse(studentId, courseCode);
 	}
 
-	public boolean deleteStudentFromCourse(String studentId, String courseId) throws SQLException
+	public boolean deleteStudentFromCourse(String studentId, String courseCode) throws SQLException
 	{
-		return stdDao.deleteStudentFromCourse(studentId, courseId);
+		return stdDao.deleteStudentFromCourse(studentId, courseCode);
 	}
 
-
+	public List<Course> getCoursesList() throws SQLException
+	{
+		return coursesDao.getCourses();
+	}
 
 	
 }

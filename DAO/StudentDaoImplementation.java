@@ -12,6 +12,7 @@ public class StudentDaoImplementation implements StudentDao {
     static Connection con = DatabaseConnection.getConnection();
     private final String TABLE_NAME = "student";
     private final String TABLE_STUDENT_COURSE = "studentgrades";
+    private final String TABLE_COURSE = "course";
     @Override
     public int add(Student s) throws SQLException {
         String query
@@ -203,7 +204,6 @@ public class StudentDaoImplementation implements StudentDao {
 				+ " student.Id,"
 				+ " student.Fname,"
 				+ " student.Lname,"
-                + " student.Major,"
 				+ " course.CourseId,"
 				+ " course.Code,"
 				+ " course.Name"
@@ -221,16 +221,15 @@ public class StudentDaoImplementation implements StudentDao {
 		ResultSetMetaData md=res.getMetaData();
 		int colCount=md.getColumnCount();
 		
-		Object[][] gradesInformation=new Object[countRows][colCount+1];
+		Object[][] gradesInformation=new Object[countRows][6];
 		int i=0;
 		while(res.next()) {
 			gradesInformation[i][0]=(Object)res.getInt(1);
 			gradesInformation[i][1]=(Object)res.getString(2);
 			gradesInformation[i][2]=(Object)res.getString(3);
-            gradesInformation[i][2]=(Object)res.getString(4);
-			gradesInformation[i][3]=(Object)res.getString(5);
-		    gradesInformation[i][4]=(Object)res.getString(6);
-		    gradesInformation[i][5]=(Object)res.getString(7);
+            gradesInformation[i][3]=(Object)res.getString(4);
+			gradesInformation[i][4]=(Object)res.getString(5);
+		    gradesInformation[i][5]=(Object)res.getString(6);
 			i++;
 		}
 		
@@ -282,26 +281,49 @@ public class StudentDaoImplementation implements StudentDao {
     }
 
     @Override
-    public boolean addStudentToCourse(String studentId, String courseId) throws SQLException
-    {
+    public boolean addStudentToCourse(String studentId, String courseCode) throws SQLException
+    {   
+        int courseId = 0;
+        try{
+            courseId = getCourseId(courseCode);
+        }catch(SQLException e){e.printStackTrace();}
+
         String query = "INSERT INTO "+TABLE_STUDENT_COURSE+" (Id, CourseId,Grade) VALUES(?,?,?)";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1,Integer.parseInt(studentId));
-        ps.setInt(2,Integer.parseInt(courseId));
+        ps.setInt(2,courseId);
         ps.setDouble(3,Double.parseDouble("-1"));
 
         return ps.executeUpdate()>0;
     }
 
     @Override 
-    public boolean deleteStudentFromCourse(String studentId, String courseId) throws SQLException
-    {
+    public boolean deleteStudentFromCourse(String studentId, String courseCode) throws SQLException
+    {   
+        int courseId = 0;
+        try{
+            courseId = getCourseId(courseCode);
+        }catch(SQLException e){e.printStackTrace();}
         String query = "DELETE FROM "+TABLE_STUDENT_COURSE+" WHERE Id = ? AND CourseId = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1,Integer.parseInt(studentId));
-        ps.setInt(2,Integer.parseInt(courseId));
+        ps.setInt(2,courseId);
 
         return ps.executeUpdate()>0;
+    }
+
+    public int getCourseId(String courseCode) throws SQLException
+    {
+        String query = "SELECT CourseId FROM " + TABLE_COURSE + " WHERE Code = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1,courseCode);
+        ResultSet res = ps.executeQuery();
+        int courseId = 0;
+        while(res.next())
+            courseId = res.getInt("CourseId");
+
+        return courseId;
+        
     }
     
 }

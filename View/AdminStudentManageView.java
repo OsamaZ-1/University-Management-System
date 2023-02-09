@@ -4,24 +4,28 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class AdminStudentManageView extends JFrame {
-
+public class AdminStudentManageView{
+    //Labels
 	private JLabel title;
     private JLabel studentIdLabel;
     private JLabel courseIdLabel;
     
+    //Fields
     private JTextField studentId;
-    private JTextField courseId;
+    private JComboBox<String> coursesList;
     
+    //Buttons
     private JButton add;
     private JButton delete;
-   
+    
+    //JTable
     private JTable studentTable;
     private JScrollPane scrollPane;
     private Object[] tableColumns;
     private DefaultTableModel tableModelInfo;
     
-    private JPanel mainPanel;
+    //Panles
+    private JFrame mainPanel;
     private JPanel tablePanel;
     private JPanel studentIdPanel;
     private JPanel courseIdPanel;
@@ -29,16 +33,20 @@ public class AdminStudentManageView extends JFrame {
     private JPanel southPanel;
     private JPanel nourthPanel;
     
+    //Fonts and Color
     private Font font,fontTable;
+    private Color color;
+
     public AdminStudentManageView() {
-    	title=new JLabel("Student Manage");
+    	title=new JLabel("Student Management");
     	studentIdLabel=new JLabel("Student ID:");
-    	courseIdLabel=new JLabel("Course ID:");
+    	courseIdLabel=new JLabel("Course Code:");
     	studentId=new JTextField();
         studentId.setEditable(false);
-    	courseId=new JTextField();
+        coursesList = new JComboBox<>();
     	add=new JButton("ADD");
     	delete=new JButton("DELETE");
+        color = new Color(83,131,255);
     	
     	font=new Font ("Arial", Font.BOLD, 17);
     	fontTable=new Font("Arial", Font.BOLD, 15);
@@ -49,8 +57,7 @@ public class AdminStudentManageView extends JFrame {
     	
     	studentId.setFont(font);
     	studentId.setColumns(5);
-    	courseId.setFont(font);
-    	courseId.setColumns(5);
+        coursesList.setFont(font);
     	
     	add.setBackground(Color.yellow);
     	delete.setBackground(Color.red);
@@ -67,7 +74,7 @@ public class AdminStudentManageView extends JFrame {
         tableModelInfo.setColumnIdentifiers(tableColumns);
         studentTable.setModel(tableModelInfo);
         
-        mainPanel=new JPanel();
+        mainPanel=new JFrame();
         tablePanel=new JPanel();
         studentIdPanel=new JPanel();
         courseIdPanel=new JPanel();
@@ -77,65 +84,76 @@ public class AdminStudentManageView extends JFrame {
         
         tablePanel.setLayout(new BorderLayout());
         tablePanel.add(scrollPane,BorderLayout.CENTER);
-        tablePanel.setBackground(new Color(114,128,255));
+        tablePanel.setBackground(color);
         
         studentIdPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         studentIdPanel.add(studentIdLabel);
         studentIdPanel.add(studentId);
-        studentIdPanel.setBackground(new Color(114,128,255));
+        studentIdPanel.setBackground(color);
         
         courseIdPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         courseIdPanel.add(courseIdLabel);
-        courseIdPanel.add(courseId);
-        courseIdPanel.setBackground(new Color(114,128,255));
+        courseIdPanel.add(coursesList);
+        courseIdPanel.setBackground(color);
         
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         buttonsPanel.add(add);
         buttonsPanel.add(delete);
-        buttonsPanel.setBackground(new Color(114,128,255));
+        buttonsPanel.setBackground(color);
         
         nourthPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         nourthPanel.add(title);
-        nourthPanel.setBackground(new Color(114,128,255));
+        nourthPanel.setBackground(color);
         
         southPanel.setLayout(new GridLayout(3,1));
         southPanel.add(studentIdPanel);
         southPanel.add(courseIdPanel);
         southPanel.add(buttonsPanel);
-        southPanel.setBackground(new Color(114,128,255));
+        southPanel.setBackground(color);
         
         mainPanel.setLayout(new BorderLayout(1,1));
         mainPanel.add(nourthPanel,BorderLayout.NORTH);
         mainPanel.add(tablePanel,BorderLayout.CENTER);
         mainPanel.add(southPanel,BorderLayout.SOUTH);
-        mainPanel.setBackground(new Color(114,128,255));
+        mainPanel.setBackground(color);
         
-        add(mainPanel);
-        setBackground(new Color(114,128,255));
-        setTitle("Student Manage");
-		setSize(850, 550);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
+        
+        mainPanel.setTitle("Student Management");
+		mainPanel.setSize(850, 550);
+		mainPanel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		mainPanel.setLocationRelativeTo(null);
     }
-   
+    
+    public JFrame getMainFrame()
+    {
+        return mainPanel;
+    }
+
     public JTextField getStudentIdField() {
     	return this.studentId;
     }
-    public JTextField getCourseIdField() {
-    	return this.courseId;
+    
+    public JComboBox<String> getCoursesList()
+    {
+        return this.coursesList;
     }
+
     public JTable getStudentTable() {
     	return this.studentTable;
     }
+
     public DefaultTableModel getTableModel() {
     	return this.tableModelInfo;
     }
+
     public JButton getAddButton() {
     	return this.add;
     }
+
     public JButton getDeleteButton() {
     	return this.delete;
     }
+    
     public void setStudentId(String id)
     {
         this.studentId.setText(id);

@@ -49,8 +49,8 @@ public class AdminPanel {
 
     //Font and Color
     private Font font;
+    private Color blue;
     private Color lightBlue;
-    private Color darkBlue;
 
     public AdminPanel()
     {   
@@ -60,8 +60,8 @@ public class AdminPanel {
         professorLogo = new ImageIcon("./Images/professor.png");
         coursesLogo = new ImageIcon("./Images/courses.png");
         font = new Font("Arial",Font.BOLD,17);
-        lightBlue = new Color(83,131,255);
-        darkBlue = new Color(131, 165, 252);
+        blue = new Color(83,131,255);
+        lightBlue = new Color(131, 165, 252);
         mainIcon = new JLabel(logo);
         studentIcon = new JLabel(studentLogo);
         professorIcon = new JLabel(professorLogo);
@@ -130,9 +130,9 @@ public class AdminPanel {
         activityLabel.setFont(new Font("Arial",Font.BOLD,18));
         
         //Backgrounds
-        leftNavbar.setBackground(lightBlue);
-        topPanel.setBackground(darkBlue);
-        centerRightPanel.setBackground(lightBlue);
+        leftNavbar.setBackground(blue);
+        topPanel.setBackground(lightBlue);
+        centerRightPanel.setBackground(blue);
 
         //Layouts
         springLayout = new SpringLayout();
