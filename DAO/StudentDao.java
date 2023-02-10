@@ -28,6 +28,8 @@ interface StudentDao {
         throws SQLException;
     public int acceptStudent(String email, String pass)
         throws SQLException;
+    public int unacceptStudent(String email, String pass)
+        throws SQLException;
     public Object[][] getAcceptedStudentsInfo(String id)
         throws SQLException;
     public Object[][] getStudentsWithId() 

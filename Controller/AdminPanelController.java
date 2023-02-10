@@ -71,8 +71,13 @@ public class AdminPanelController {
                             else
                                 adminPanelModel.acceptInstructor(unaccepted.get(i).getEmail(), unaccepted.get(i).getPassword());
                         }
-                        else
-                            System.out.println("delete unaccepted member");
+                        else{
+                            if (unaccepted.get(i) instanceof Student)
+                                adminPanelModel.unacceptStudent(unaccepted.get(i).getEmail(), unaccepted.get(i).getPassword());
+                            else
+                            adminPanelModel.unacceptInstructor(unaccepted.get(i).getEmail(), unaccepted.get(i).getPassword());
+                        }
+                            
                     }
                     refreshActivity();
                 }catch(SQLException e1){System.out.println(e1.getStackTrace());}

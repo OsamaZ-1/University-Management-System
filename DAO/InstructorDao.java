@@ -22,6 +22,8 @@ interface InstructorDao {
         throws SQLException;
     public int acceptInstructor(String email, String pass)
         throws SQLException;
+    public int unacceptInstructor(String email, String pass)
+        throws SQLException;
     public Object[][] getInstructorsWithId()
         throws SQLException;
     public boolean updateInstructor(String[] s)

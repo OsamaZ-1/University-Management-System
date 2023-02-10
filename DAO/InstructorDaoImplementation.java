@@ -105,8 +105,19 @@ public class InstructorDaoImplementation implements InstructorDao{
         return listInstructors;
     }
 
+    @Override
     public int acceptInstructor(String email, String pass) throws SQLException{
         String query = "UPDATE " + TABLE_INSTRUCTORS + " SET Accepted = 1 WHERE Email = ? AND Password = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, email);
+        ps.setString(2, pass);
+        int res = ps.executeUpdate();
+        return res;
+    }
+
+    @Override
+    public int unacceptInstructor(String email, String pass) throws SQLException{
+        String query = "DELETE FROM " + TABLE_INSTRUCTORS + " WHERE Email = ? AND Password = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, email);
         ps.setString(2, pass);

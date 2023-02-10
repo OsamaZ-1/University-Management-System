@@ -24,8 +24,16 @@ public class AdminPanelModel {
         return stdDao.acceptStudent(email, pass);
     }
 
+    public int unacceptStudent(String email, String pass) throws SQLException{
+        return stdDao.unacceptStudent(email, pass);
+    }
+
     public int acceptInstructor(String email, String pass) throws SQLException{
         return insDao.acceptInstructor(email, pass);
+    }
+
+    public int unacceptInstructor(String email, String pass) throws SQLException{
+        return insDao.unacceptInstructor(email, pass);
     }
 
     public int[] totalCIS() throws SQLException{

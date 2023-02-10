@@ -192,6 +192,17 @@ public class StudentDaoImplementation implements StudentDao {
         return res;
     }
 
+    @Override
+    public int unacceptStudent(String email, String pass) throws SQLException{
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE Email = ? AND Password = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, email);
+        ps.setString(2, pass);
+        int res = ps.executeUpdate();
+        System.out.println(res);
+        return res;
+    }
+
 	@Override
 	public Object[][] getAcceptedStudentsInfo(String id) throws SQLException {
 		String queryCount="SELECT COUNT(*) FROM student LEFT JOIN studentgrades ON studentgrades.Id=student.Id AND student.Id = ? WHERE student.Accepted=1;";
