@@ -74,19 +74,14 @@ public class CourseDaoImplementation implements CourseDao{
 		return null;
 	}
 
-	@Override
-	public List<Course> getMajorCourses(String major) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-		
-	}
+	
 
 	@Override
 	public List<Course> getCourses() throws SQLException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub/
 		String query = "SELECT Name,Code,Credits,Hours,Major,Year FROM " + TABLE_NAME;
-        Statement stmt = connection.createStatement();
-        ResultSet res = stmt.executeQuery(query);
+        PreparedStatement ps = connection.prepareStatement(query);
+        ResultSet res = ps.executeQuery();
         List<Course> listCourses = new ArrayList<Course>();
         while(res.next())
         {
@@ -94,6 +89,23 @@ public class CourseDaoImplementation implements CourseDao{
             listCourses.add(s);
         }
         return listCourses;
+	}
+
+	@Override
+	public List<Course> getMajorCourses(String major) throws SQLException
+	{
+		String query = "SELECT Name,Code,Credits,Hours,Major,Year FROM " + TABLE_NAME + " WHERE Major = ?";
+		PreparedStatement ps = connection.prepareStatement(query);
+		ps.setString(1,major);
+        ResultSet res = ps.executeQuery();
+        List<Course> listCourses = new ArrayList<Course>();
+		while(res.next())
+        {
+            Course s = new Course(res.getString("Code"), res.getString("Name"),res.getInt("Credits"), res.getInt("Hours"), res.getString("Major"), res.getInt("Year"));
+            listCourses.add(s);
+        }
+
+		return listCourses;
 	}
 	
 

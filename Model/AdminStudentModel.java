@@ -34,9 +34,9 @@ public class AdminStudentModel {
 		return stdDao.deleteStudentFromCourse(studentId, courseCode);
 	}
 
-	public List<Course> getCoursesList() throws SQLException
+	public List<Course> getCoursesList(String major) throws SQLException
 	{
-		return coursesDao.getCourses();
+		return coursesDao.getMajorCourses(major);
 	}
 
 	

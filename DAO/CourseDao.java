@@ -13,8 +13,8 @@ public interface CourseDao {
 	   throws SQLException;
 	public Course getCourse(String code)
 	   throws SQLException;
-	public List<Course> getMajorCourses(String major)
-	   throws SQLException;
 	public List<Course> getCourses()
 	   throws SQLException;
+	public List<Course> getMajorCourses(String major)
+		throws SQLException;
 }

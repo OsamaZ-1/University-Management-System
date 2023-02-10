@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 10, 2023 at 03:45 PM
+-- Generation Time: Feb 10, 2023 at 06:12 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -71,7 +71,9 @@ INSERT INTO `course` (`CourseId`, `Name`, `Code`, `Credits`, `Hours`, `Major`, `
 (4, 'web1', 'I2004', 4, 40, 'Informatics', 2),
 (5, 'java oop', 'I2005', 5, 50, 'Informatics', 2),
 (6, 'web2', 'I3006', 4, 40, 'Informatics', 3),
-(7, 'Graphical user interphase', 'I3007', 3, 30, 'Informatics', 3);
+(7, 'Graphical user interphase', 'I3007', 3, 30, 'Informatics', 3),
+(11, 'Algebra', 'M2011', 4, 35, 'Math', 2),
+(10, 'Analysis', 'M2008', 3, 30, 'Math', 2);
 
 -- --------------------------------------------------------
 
@@ -141,11 +143,11 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`Id`, `Fname`, `Lname`, `Major`, `Password`, `Email`, `Phone`, `Accepted`) VALUES
-(1, 'ahmad', 'majed', 'Math', '12345', 'ahmad@gmail.com', 81370594, 1),
-(2, 'Hadi', 'Kattan', 'Computer Science', '123', 'hadi@gmail.com', 76488386, 1),
-(4, 'Osama', 'Zammar', 'Computer Science', '321', 'oz@hotmail.com', 71999000, 1),
-(5, 'mohammad', 'Abo alfoul', 'Computer Science', '9876', 'moh@gmail.com', 81370598, 1),
-(9, 'Obaida', 'Ammar', 'Computer Science', 'ObAm123', 'ammarobaida@gmail.com', 3030303, 1),
+(1, 'ahmad', 'majed', 'Math', '123456', 'ahmad@gmail.com', 81370594, 1),
+(2, 'Hadi', 'Kattan', 'Informatics', '123', 'hadi@gmail.com', 76488386, 1),
+(4, 'Osama', 'Zammar', 'Informatics', '321', 'oz@hotmail.com', 71999000, 1),
+(5, 'mohammad', 'Abo alfoul', 'Informatics', '9876', 'moh@gmail.com', 81370598, 1),
+(9, 'Obaida', 'Ammar', 'Informatics', 'ObAm123', 'ammarobaida@gmail.com', 3030303, 1),
 (11, 'Mostafa', 'Kamal', 'Biology', 'kamal12', 'mostK@hotmail.com', 70970790, 0);
 
 -- --------------------------------------------------------
@@ -165,19 +167,15 @@ CREATE TABLE `studentgrades` (
 --
 
 INSERT INTO `studentgrades` (`Id`, `CourseId`, `Grade`) VALUES
-(1, 1, '85.00'),
-(1, 2, '80.00'),
-(1, 3, '50.00'),
-(1, 4, '50.00'),
-(1, 5, '25.00'),
 (2, 1, '91.00'),
 (5, 1, '91.00'),
-(4, 1, '91.00'),
-(1, 6, '-1.00'),
+(4, 1, '92.00'),
 (9, 2, '89.50'),
 (9, 3, '95.00'),
 (9, 4, '87.70'),
-(9, 6, '95.20');
+(9, 6, '95.20'),
+(1, 10, '80.00'),
+(1, 11, '86.00');
 
 --
 -- Indexes for dumped tables
@@ -229,7 +227,7 @@ ALTER TABLE `Admin`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `CourseId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `CourseId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `instructors`
@@ -241,7 +239,7 @@ ALTER TABLE `instructors`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables

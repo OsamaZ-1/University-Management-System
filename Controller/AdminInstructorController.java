@@ -133,16 +133,27 @@ public class AdminInstructorController {
 				String password = (String)instView.getInstPassword().getText().toString();
 				String phone = (String)instView.getInstPhone().getText().toString();
 
-				if(!id.equals("") && !fname.equals("") && !lname.equals("") && !email.equals("") && !password.equals("") && !phone.equals("")){
-					String[] InstInfo = new String[]{id,fname,lname,email,password,phone};
+				if(!id.equals("") && !fname.equals("") && !lname.equals("") && !email.equals("") && !password.equals("") && !phone.equals(""))
+				{	
+					
 					try{
-						if(instModel.updateInstructor(InstInfo)){	
-							placeInfoInTable();
-							JOptionPane.showMessageDialog(null,"Updated successfully");
-						}
-						else
-							JOptionPane.showMessageDialog(null, "Error editing info");			
-					}catch(SQLException ex){ex.printStackTrace();}
+							int phoneCasted = Integer.parseInt(phone);
+							String[] InstInfo = new String[]{id,fname,lname,email,password,phone};
+							try{
+								if(instModel.updateInstructor(InstInfo))	
+								{	placeInfoInTable();
+									JOptionPane.showMessageDialog(null,"Updated successfully");
+								}
+								else
+									JOptionPane.showMessageDialog(null, "Error editing info");			
+							}catch(SQLException ex){ex.printStackTrace();}
+
+						}catch(NumberFormatException ex)
+						{	
+							ex.printStackTrace();
+							JOptionPane.showMessageDialog(null, "Phone consist of numbers only");
+						}	
+					
 				}
 				else
 					JOptionPane.showMessageDialog(null, "choose an Instructor and fill in all information!");
@@ -239,7 +250,7 @@ public class AdminInstructorController {
 	public void fillCoursesList()
 		{	
 			List<Course> courses = null;
-
+			instManageView.getCoursesList().removeAllItems();
 			try{
 				courses = instModel.getCoursesList();
 			}catch(SQLException e){e.printStackTrace();}

@@ -23,6 +23,7 @@ public class AdminStudentController {
 	private AdminStudentView adminStudentView;
 	private AdminStudentModel adminStudentModel;
 	private Object[][] tableInfo;
+	private String studentMajor;
 	public AdminStudentController() throws SQLException {
 		adminStudentManageView= new AdminStudentManageView();
 		adminStudentView = new AdminStudentView();
@@ -87,7 +88,7 @@ public class AdminStudentController {
         			String id=(String)adminStudentView.getStudentTable().getValueAt(selectedRow,0).toString();
         			String fname=(String)adminStudentView.getStudentTable().getValueAt(selectedRow,1).toString();
         			String lname=(String)adminStudentView.getStudentTable().getValueAt(selectedRow,2).toString();
-        			String major=(String)adminStudentView.getStudentTable().getValueAt(selectedRow,3).toString();
+        		    String major=(String)adminStudentView.getStudentTable().getValueAt(selectedRow,3).toString();
         			String email=(String)adminStudentView.getStudentTable().getValueAt(selectedRow,4).toString();
         			String password=(String)adminStudentView.getStudentTable().getValueAt(selectedRow,5).toString();
 					String phone=(String)adminStudentView.getStudentTable().getValueAt(selectedRow,6).toString();
@@ -103,6 +104,7 @@ public class AdminStudentController {
 				{
 					int selectedRow=adminStudentView.getStudentTable().getSelectedRow();	
 					String id=(String)adminStudentView.getStudentTable().getValueAt(selectedRow,0).toString();
+				    studentMajor=(String)adminStudentView.getStudentTable().getValueAt(selectedRow,3).toString();
 					adminStudentView.getStudentId2().setText(id);
 				}
 				
@@ -180,7 +182,7 @@ public class AdminStudentController {
 				String id = adminStudentView.getStudentId2().getText().toString();
 				if(!id.equals(""))
 				{	
-					fillCoursesList();
+					fillCoursesList(studentMajor);
 					adminStudentManageView.getMainFrame().setVisible(true);
 					adminStudentManageView.setStudentId(id);
 					try{
@@ -251,12 +253,12 @@ public class AdminStudentController {
 		});
 	}
 
-	public void fillCoursesList()
+	public void fillCoursesList(String major)
 	{	
 		List<Course> courses = null;
-
+		adminStudentManageView.getCoursesList().removeAllItems();
 		try{
-			courses = adminStudentModel.getCoursesList();
+			courses = adminStudentModel.getCoursesList(major);
 		}catch(SQLException e){e.printStackTrace();}
 
 		if(courses!=null)

@@ -249,4 +249,9 @@ public class InstructorPanelView{
         return this.instrutorCourses;
     }
 
+    public void displayMessage(String message)
+    {
+        JOptionPane.showMessageDialog(null, message);
+    }
+
 }
