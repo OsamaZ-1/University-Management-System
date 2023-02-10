@@ -5,24 +5,29 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 
-public class AdminInstManageView extends JFrame {
+public class AdminInstManageView{
 
+    //Labels
 	private JLabel title;
     private JLabel instIdLabel;
-    private JLabel courseIdLabel;
+    private JLabel courseCodeLabel;
     
+    //Fields
     private JTextField instId;
-    private JTextField courseId;
+    private JComboBox<String> courseCode;
     
+    //Buttons
     private JButton add;
     private JButton delete;
    
+    //Table
     private JTable instTable;
     private JScrollPane scrollPane;
     private Object[] tableColumns;
     private DefaultTableModel tableModelInfo;
     
-    private JPanel mainPanel;
+    //Panels
+    private JFrame mainPanel;
     private JPanel tablePanel;
     private JPanel instIdPanel;
     private JPanel courseIdPanel;
@@ -30,28 +35,31 @@ public class AdminInstManageView extends JFrame {
     private JPanel southPanel;
     private JPanel nourthPanel;
     
+    //Fonts and Color
     private Font font,fontTable;
+    private Color color;
+
     public AdminInstManageView() {
-    	title=new JLabel("Instructor Manage");
-    	instIdLabel=new JLabel("Instrucot ID:");
-    	courseIdLabel=new JLabel("Course ID:");
+    	title=new JLabel("Instructor Course Management");
+    	instIdLabel=new JLabel("Instructor ID:");
+    	courseCodeLabel=new JLabel("Course Code:");
     	instId=new JTextField();
         instId.setEditable(false);
-    	courseId=new JTextField();
+    	courseCode=new JComboBox<>();
     	add=new JButton("ADD");
     	delete=new JButton("DELETE");
     	
     	font=new Font ("Arial", Font.BOLD, 17);
     	fontTable=new Font("Arial", Font.BOLD, 15);
+        color = new Color(83,131,255);
     	
     	title.setFont(new Font("Arial", Font.BOLD, 25));
     	instIdLabel.setFont(font);
-    	courseIdLabel.setFont(font);
+    	courseCodeLabel.setFont(font);
     	
     	instId.setFont(font);
     	instId.setColumns(5);
-    	courseId.setFont(font);
-    	courseId.setColumns(5);
+    	courseCode.setFont(font);
     	
     	add.setBackground(Color.yellow);
     	delete.setBackground(Color.red);
@@ -68,7 +76,7 @@ public class AdminInstManageView extends JFrame {
         tableModelInfo.setColumnIdentifiers(tableColumns);
         instTable.setModel(tableModelInfo);
         
-        mainPanel=new JPanel();
+        mainPanel=new JFrame();
         tablePanel=new JPanel();
         instIdPanel=new JPanel();
         courseIdPanel=new JPanel();
@@ -78,52 +86,55 @@ public class AdminInstManageView extends JFrame {
         
         tablePanel.setLayout(new BorderLayout());
         tablePanel.add(scrollPane,BorderLayout.CENTER);
-        tablePanel.setBackground(new Color(114,128,255));
+        tablePanel.setBackground(color);
         
         instIdPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         instIdPanel.add(instIdLabel);
         instIdPanel.add(instId);
-        instIdPanel.setBackground(new Color(114,128,255));
+        instIdPanel.setBackground(color);
         
         courseIdPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        courseIdPanel.add(courseIdLabel);
-        courseIdPanel.add(courseId);
-        courseIdPanel.setBackground(new Color(114,128,255));
+        courseIdPanel.add(courseCodeLabel);
+        courseIdPanel.add(courseCode);
+        courseIdPanel.setBackground(color);
         
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         buttonsPanel.add(add);
         buttonsPanel.add(delete);
-        buttonsPanel.setBackground(new Color(114,128,255));
+        buttonsPanel.setBackground(color);
         
         nourthPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         nourthPanel.add(title);
-        nourthPanel.setBackground(new Color(114,128,255));
+        nourthPanel.setBackground(color);
         
         southPanel.setLayout(new GridLayout(3,1));
         southPanel.add(instIdPanel);
         southPanel.add(courseIdPanel);
         southPanel.add(buttonsPanel);
-        southPanel.setBackground(new Color(114,128,255));
+        southPanel.setBackground(color);
         
         mainPanel.setLayout(new BorderLayout(1,1));
         mainPanel.add(nourthPanel,BorderLayout.NORTH);
         mainPanel.add(tablePanel,BorderLayout.CENTER);
         mainPanel.add(southPanel,BorderLayout.SOUTH);
-        mainPanel.setBackground(new Color(114,128,255));
-        
-        add(mainPanel);
-        setBackground(new Color(114,128,255));
-        setTitle("inst Manage");
-		setSize(850, 550);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
+      
+        mainPanel.setBackground(color);
+        mainPanel.setTitle("Instructor Course Management");
+		mainPanel.setSize(850, 550);
+		mainPanel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		mainPanel.setLocationRelativeTo(null);
     }
-   
+    
+    public JFrame getMainFrame()
+    {
+        return this.mainPanel;
+    }
+
     public JTextField getInstIdField() {
     	return this.instId;
     }
-    public JTextField getCourseIdField() {
-    	return this.courseId;
+    public JComboBox<String> getCoursesList() {
+    	return this.courseCode;
     }
     public JTable getInstTable() {
     	return this.instTable;
@@ -140,6 +151,10 @@ public class AdminInstManageView extends JFrame {
     public void setInstId(String id)
     {
         this.instId.setText(id);
+    }
+    public void displayMessage(String message)
+    {
+        JOptionPane.showMessageDialog(null, message);
     }
     
 }

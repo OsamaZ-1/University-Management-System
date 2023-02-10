@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import Model.InstructorCourseModel;
 import View.InstructorPanelView;
 
@@ -47,7 +45,6 @@ public class InstructorController {
     public void fillCoursesList(String instEmail, String instPass) throws SQLException
     {   
             List<String> courses = instructorModel.getInstructorCourses(instEmail, instPass);
-           // instructorView.getCoursesList().addItem((Object)"")
             courses.forEach(code -> instructorView.getCoursesList().addItem(code));
 
     }
@@ -134,22 +131,37 @@ public class InstructorController {
                 String studentId = instructorView.getStudentIdField().getText().toString();
                 String courseCode = instructorView.getCourseCodeField().getText().toString();
                 String grade = instructorView.getStudentGradeField().getText().toString();
+
                 if(!studentId.equals("") && !courseCode.equals("") && !grade.equals(""))
-                {
+                {   
+                    float gradeCasted=-1;
                     try{
-                        if(instructorModel.updateStudentGrade(studentId,courseCode,grade))
-                        {
-                            fillTable(courseCode);
-                            JOptionPane.showMessageDialog(null, "Successfully Updated"); 
+                            gradeCasted = Float.valueOf(grade);
+                            if(gradeCasted>=0 && gradeCasted<=100)
+                            {
+                                try{
+                                    if(instructorModel.updateStudentGrade(studentId,courseCode,grade))
+                                    {
+                                        fillTable(courseCode);
+                                        instructorView.displayMessage("Successfully Updated"); 
+                                    }
+                                    else
+                                        instructorView.displayMessage("Error in updating student grade");   
+                                }catch(SQLException ex){ex.printStackTrace();}   
+                                instructorView.getStudentIdField().setText("");
+                                instructorView.getStudentGradeField().setText("");
+                            }
+                            else 
+                                instructorView.displayMessage("Grade must be between 0 and 100");
+                        }catch(NumberFormatException ex)
+                        {   ex.printStackTrace();
+                            instructorView.displayMessage("Grade must be a number");
                         }
-                        else
-                            JOptionPane.showMessageDialog(null, "Error in Updating student Grade");    
-                    }catch(SQLException ex){ex.printStackTrace();}   
-                    instructorView.getStudentIdField().setText("");
-                    instructorView.getStudentGradeField().setText("");
+
+                    
                 }
                 else
-                    JOptionPane.showMessageDialog(null, "You must fill in all fields");
+                    instructorView.displayMessage("You must fill in all fields");
                 
             }
             

@@ -2,26 +2,25 @@ package Model;
 
 import java.sql.SQLException;
 
-
+import DAO.AdminDaoImplementation;
 import DAO.InstructorDaoImplementation;
 import DAO.StudentDaoImplementation;
 
 public class LoginModel {
     StudentDaoImplementation stdDao = new StudentDaoImplementation();
     InstructorDaoImplementation instDao = new InstructorDaoImplementation();
+    AdminDaoImplementation adminDao = new AdminDaoImplementation();
 
-    public int loginMember(String email, String pass, int userMode) throws SQLException{
-        if(userMode == 2)
+    public int loginMember(String email, String pass, String userMode) throws SQLException{
+        
+        if (userMode.equals("Admin"))
+            return adminDao.uniqueAdminExists(email, pass);
+        if(userMode.equals("Student"))
             return stdDao.uniqueStudentExists(email, pass);
-        else if (userMode == 3)
+        if (userMode.equals("Instructor"))
             return instDao.uniqueInstructorExists(email, pass);  
-        if (userMode == 1){
-            if (email.equals("admin@admin.com") && pass.equals("admin123456"))
-                return 3;
-            return -1;
-        }
-
-        //no user mode was chosen
-        return -2;
+              
+        return -1;
+    
     }
 }

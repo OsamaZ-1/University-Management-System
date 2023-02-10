@@ -47,13 +47,21 @@ public class AdminPanel {
     private JScrollPane scrollPane;
     private DefaultTableModel tableModel;
 
+    //Font and Color
+    private Font font;
+    private Color blue;
+    private Color lightBlue;
+
     public AdminPanel()
-    {   
+    {  
         //Initialization of components
         logo = new ImageIcon("./Images/main_Icon.png");
         studentLogo = new ImageIcon("./Images/student.png");
         professorLogo = new ImageIcon("./Images/professor.png");
         coursesLogo = new ImageIcon("./Images/courses.png");
+        font = new Font("Arial",Font.BOLD,17);
+        blue = new Color(83,131,255);
+        lightBlue = new Color(131, 165, 252);
         mainIcon = new JLabel(logo);
         studentIcon = new JLabel(studentLogo);
         professorIcon = new JLabel(professorLogo);
@@ -64,7 +72,7 @@ public class AdminPanel {
         nbCourses = new JLabel("Total courses 0");
         activityLabel = new JLabel("New Registration Activities");
         studentButton = new JButton("Students");
-        professorButton = new JButton("Professors");
+        professorButton = new JButton("Instructors");
         courseButton = new JButton("Courses");
         logoutButton = new JButton("Logout");
         refreshActivity = new JButton("<html><center>Refresh<br/>Activities</center></html>");
@@ -115,16 +123,16 @@ public class AdminPanel {
         centerRightPanel.setPreferredSize(new Dimension(150,650));
 
         ///Fonts
-        dashboardLabel.setFont(new Font("Arial",Font.BOLD,17));
-        nbStudents.setFont(new Font("Arial",Font.BOLD,17));
-        nbProfessors.setFont(new Font("Arial",Font.BOLD,17));
-        nbCourses.setFont(new Font("Arial",Font.BOLD,17));
+        dashboardLabel.setFont(font);
+        nbStudents.setFont(font);
+        nbProfessors.setFont(font);
+        nbCourses.setFont(font);
         activityLabel.setFont(new Font("Arial",Font.BOLD,18));
         
         //Backgrounds
-        leftNavbar.setBackground(new Color(83,131,255));
-        topPanel.setBackground(Color.GREEN);
-        centerRightPanel.setBackground(Color.YELLOW);
+        leftNavbar.setBackground(blue);
+        topPanel.setBackground(lightBlue);
+        centerRightPanel.setBackground(blue);
 
         //Layouts
         springLayout = new SpringLayout();

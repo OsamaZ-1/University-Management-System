@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.lang.model.util.ElementScanner14;
 import javax.swing.JOptionPane;
 
 import Model.AdminCourseModel;
@@ -53,24 +54,25 @@ public class AdminCourseController {
     			String name=adminCourseView.getNameAddField().getText().toString();
     			String credits=adminCourseView.getCreditsAddField().getText().toString();
     			String hours=adminCourseView.getHouresAddField().getText().toString();
-    			String major=adminCourseView.getMajorAddField().getText().toString();
+    			String major=adminCourseView.getMajorAddField().getSelectedItem().toString();
     			String year=adminCourseView.getYearAddField().getText().toString();
     			
-    			if(!name.equals("") && !credits.equals("") && !hours.equals("") && !major.equals("") && !year.equals(""))
+    			if(!name.equals("") && !credits.equals("") && !hours.equals("") && !major.equals("Select Major") && !year.equals(""))
 				{	Course course=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(hours),major,Integer.parseInt(year));
 					try {
 
 						if(adminCourseModel.addCourse(course))
 						{
 							fillTable();
-					 		JOptionPane.showMessageDialog(null, "Successfully added course");
+							refreshPage("Add");
+					 		adminCourseView.displayMessage("Successfully added course");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Error adding course");
+							adminCourseView.displayMessage("Error adding course");
 					} catch (SQLException e1) {e1.printStackTrace();}
             	}
 				else
-					JOptionPane.showMessageDialog(null, "Fill all information");
+					adminCourseView.displayMessage("Fill all information");
             }});
     }
     public void deleteButtonAction() {
@@ -84,14 +86,15 @@ public class AdminCourseController {
 						if(adminCourseModel.deleteCourse(code))
 						{
 						 fillTable();
-						 JOptionPane.showMessageDialog(null, "Successfully deleted course");
+						 refreshPage("Delete");
+						 adminCourseView.displayMessage("Successfully deleted course");
 						}
 						else
-							JOptionPane.showMessageDialog(null,"Error deleting course");
+							adminCourseView.displayMessage("Error deleting course");
 					} catch (SQLException e1) {e1.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Enter course code");
+					adminCourseView.displayMessage("Enter course code");
             }
             });
     }
@@ -103,23 +106,24 @@ public class AdminCourseController {
     			String name=adminCourseView.getNameEditField().getText().toString();
     			String credits=adminCourseView.getCreditsEditField().getText().toString();
     			String hours=adminCourseView.getHouresEditField().getText().toString();
-    			String major=adminCourseView.getMajorEditField().getText().toString();
+    			String major=adminCourseView.getMajorEditField().getSelectedItem().toString();
     			String year=adminCourseView.getYearEditField().getText().toString().toString();
     			
-				if(!code.equals("") && !name.equals("") && !major.equals("") && !credits.equals("") && !hours.equals("") && !major.equals("") && !year.equals("") )
+				if(!code.equals("") && !name.equals("") && !major.equals("Select Major") && !credits.equals("") && !hours.equals("") && !major.equals("") && !year.equals("") )
     			{	Course course=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(hours),major,Integer.parseInt(year));
 					try {
 						if(adminCourseModel.editCourse(course))
 						{	
 							fillTable();
-							JOptionPane.showMessageDialog(null, "Updated sucessfully");
+							refreshPage("Edit");
+							adminCourseView.displayMessage("Updated sucessfully");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Error editing info");	
+							adminCourseView.displayMessage("Error editing info");	
 					} catch (SQLException e1) {e1.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Fill all inforamtion");
+					adminCourseView.displayMessage("Fill all inforamtion");
             }
             });
     }
@@ -142,9 +146,9 @@ public class AdminCourseController {
     public void actionCourseTable() {
     	adminCourseView.getCourseTable().addMouseListener(new MouseListener() {
     		public void mousePressed(MouseEvent e) {
-    			
-    			if(adminCourseView.getComboBoxActionFields().getSelectedItem()=="Edit") {
-        			int selectedRow=adminCourseView.getCourseTable().getSelectedRow();
+    			int selectedRow=adminCourseView.getCourseTable().getSelectedRow();
+    			if(adminCourseView.getComboBoxActionFields().getSelectedItem().equals("Edit")) {
+
         			String code=(String)adminCourseView.getCourseTable().getValueAt(selectedRow,1);
         			String name=(String)adminCourseView.getCourseTable().getValueAt(selectedRow,0);
         			String credits=adminCourseView.getCourseTable().getValueAt(selectedRow,2).toString();
@@ -155,9 +159,14 @@ public class AdminCourseController {
     				adminCourseView.getNameEditField().setText(name);
     				adminCourseView.getCreditsEditField().setText(credits);
     				adminCourseView.getHouresEditField().setText(houres);
-    				adminCourseView.getMajorEditField().setText(major);
+    				adminCourseView.getMajorEditField().setSelectedItem((Object)major);
     				adminCourseView.getYearEditField().setText(year);
     			}
+				else if(adminCourseView.getComboBoxActionFields().getSelectedItem().equals("Delete"))
+				{
+					String courseCode=(String)adminCourseView.getCourseTable().getValueAt(selectedRow,1);
+					adminCourseView.getCodeDeleteField().setText(courseCode);
+				}
     			
     		}
 
@@ -186,4 +195,27 @@ public class AdminCourseController {
 			}
     	});
     }
+
+	public void refreshPage(String mode)
+	{	
+		if(mode.equals("Add"))
+		{
+			adminCourseView.getNameAddField().setText("");
+			adminCourseView.getMajorAddField().setSelectedItem((Object)"Select Major");
+			adminCourseView.getCreditsAddField().setText("");
+			adminCourseView.getHouresAddField().setText("");
+			adminCourseView.getYearAddField().setText("");
+		}
+		else if(mode.equals("Edit"))
+		{
+			adminCourseView.getCodeEditField().setText("");
+			adminCourseView.getNameEditField().setText("");
+			adminCourseView.getMajorEditField().setSelectedItem((Object)"Select Major");
+			adminCourseView.getCreditsEditField().setText("");
+			adminCourseView.getHouresEditField().setText("");
+			adminCourseView.getYearEditField().setText("");
+		}
+		else 
+			adminCourseView.getCodeDeleteField().setText("");
+	}
 }

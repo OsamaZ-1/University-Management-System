@@ -6,6 +6,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
 
+import javax.lang.model.util.ElementScanner14;
+import javax.swing.JOptionPane;
+
 import Model.Instructor;
 import Model.RegisterModel;
 import Model.Student;
@@ -30,37 +33,50 @@ public class RegisterController {
         registerView.getRegisterButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String Fname = registerView.getFirstNameField().getText();
-                String Lname = registerView.getLastNameField().getText();
-                String Major = String.valueOf(registerView.getUserMajorField().getSelectedItem());
+                String fName = registerView.getFirstNameField().getText().toString();
+                String lName = registerView.getLastNameField().getText().toString();
+                String major = String.valueOf(registerView.getUserMajorField().getSelectedItem());
                 String password = registerView.getPasswordField().getText().toString();
-                String email = registerView.getEmailField().getText();
-                int phone = Integer.parseInt(registerView.getPhoneNumberField().getText().toString());
-                
-                if(registerView.getUserModeField().getSelectedIndex()==1){
-                    // register student
-                    UniversityMember uniMember = new Student(Fname, Lname, Major, email, password,phone);
-                    try {
-                        if(registerModel.registerMember(uniMember,"Student")==0)
-                            registerView.displayErrorMessage();
-                        else    
-                            registerView.displaySuccessMessage();
-                    } catch (SQLException e1) {
-                        e1.printStackTrace();
+                String email = registerView.getEmailField().getText().toString();
+                int phone=0;
+                Boolean phoneNumberValid = true;
+                try{
+                     phone = Integer.parseInt(registerView.getPhoneNumberField().getText().toString());
+                }catch(NumberFormatException ex){phoneNumberValid=false;ex.printStackTrace();}
+
+                if(!fName.equals("") && !lName.equals("") && !password.equals("") && !email.equals("") && phoneNumberValid)
+                {
+                    if((registerView.getUserModeField().getSelectedItem().toString().equals("Student")) && !major.equals("Select Major"))
+                    {   // register student
+                         UniversityMember uniMember = new Student(fName, lName, major, email, password,phone);
+                        try {
+                            if(registerModel.registerMember(uniMember,"Student")==0)
+                                registerView.displayMessage("Student with same Email or Phone Number already exists");
+                            else    
+                                {   
+                                    refreshPage();
+                                    registerView.displayMessage("Successfully Registered");
+                                }
+                         } catch (SQLException e1) {e1.printStackTrace();}
                     }
-                }
-                else if(registerView.getUserModeField().getSelectedIndex()==2){
-                    // register instructor
-                    UniversityMember uniMember = new Instructor(Fname, Lname, email, password, phone);
-                    try {
-                        if(registerModel.registerMember(uniMember,"Instructor")==0)
-                            registerView.displayErrorMessage();
-                        else    
-                            registerView.displaySuccessMessage();
-                    } catch (SQLException e1) {
-                        e1.printStackTrace();
+                    else if(registerView.getUserModeField().getSelectedItem().toString().equals("Instructor"))
+                    {   // register instructor
+                        UniversityMember uniMember = new Instructor(fName, lName, email, password, phone);
+                        try {
+                            if(registerModel.registerMember(uniMember,"Instructor")==0)
+                                registerView.displayMessage("Instructor with same Email or Phone Number already exists");
+                            else    
+                                {   
+                                    refreshPage();
+                                    registerView.displayMessage("Successfully Registered");
+                                }
+                        } catch (SQLException e1) {e1.printStackTrace();}
                     }
+                    else
+                        registerView.displayMessage("You must choose user mode and a major if you are a student");
                 }
+                else
+                    registerView.displayMessage("Make sure you enter all information and provide a valid phone number");
             }
         });  
     }
@@ -87,5 +103,16 @@ public class RegisterController {
                     registerView.getUserMajorField().setVisible(false);    
             }
         });
+    }
+
+    public void refreshPage()
+    {
+        registerView.getFirstNameField().setText("");
+        registerView.getLastNameField().setText("");
+        registerView.getEmailField().setText("");
+        registerView.getPasswordField().setText("");
+        registerView.getPhoneNumberField().setText("");
+        registerView.getUserModeField().setSelectedIndex(0);
+        
     }
 }

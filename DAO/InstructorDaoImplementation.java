@@ -55,15 +55,25 @@ public class InstructorDaoImplementation implements InstructorDao{
     }
 
     @Override
-    public int instructorEmailExist(String email) throws SQLException{
+    public int instructorEmailPhoneExist(String email, int phone) throws SQLException{
         String query = "SELECT Id FROM " + TABLE_INSTRUCTORS + " WHERE Email = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, email);
         ResultSet res = ps.executeQuery();
-        
+        int count = 0;
+
         if(res.next())
-            return 1; //instructor with same email already exist
-        return 0; //instructor with provided email doesn't exist    
+            count++; //instructor with same email already exist
+        
+        query = "SELECT Id FROM " + TABLE_INSTRUCTORS + " WHERE Phone = ?";
+        ps = con.prepareStatement(query);
+        ps.setInt(1,phone);
+        res = ps.executeQuery();
+
+        if(res.next())
+            count++; //instructor with same phone number already exist
+
+        return count; //instructor with provided email and password doesn't exist   
     }
     
 
@@ -146,23 +156,33 @@ public class InstructorDaoImplementation implements InstructorDao{
     }
 
     @Override
-    public boolean addInstructorToCourse(String instID, String courseId) throws SQLException
-    {
+    public boolean addInstructorToCourse(String instID, String courseCode) throws SQLException
+    {   
+        int courseId = 0;
+        try{
+            courseId = getCourseId(courseCode);
+        }catch(SQLException e){e.printStackTrace();}
+
         String query = "INSERT INTO " + TABLE_INST_TEACH + " (InstID, CourseId) VALUES(?,?)";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1,Integer.parseInt(instID));
-        ps.setInt(2,Integer.parseInt(courseId));
+        ps.setInt(2,courseId);
 
         return ps.executeUpdate()>0;
     }
 
     @Override 
-    public boolean deleteInstructorFromCourse(String instID, String courseId) throws SQLException
-    {
+    public boolean deleteInstructorFromCourse(String instID, String courseCode) throws SQLException
+    {   
+        int courseId = 0;
+        try{
+            courseId = getCourseId(courseCode);
+        }catch(SQLException e){e.printStackTrace();}
+
         String query = "DELETE FROM " + TABLE_INST_TEACH + " WHERE InstID = ? AND CourseId = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1,Integer.parseInt(instID));
-        ps.setInt(2,Integer.parseInt(courseId));
+        ps.setInt(2,courseId);
 
         return ps.executeUpdate()>0;
     }
@@ -299,6 +319,20 @@ public class InstructorDaoImplementation implements InstructorDao{
         ps.setInt(3, courseId);
 
         return ps.executeUpdate()>0;
+    }
+
+    public int getCourseId(String courseCode) throws SQLException
+    {
+        String query = "SELECT CourseId FROM " + TABLE_COURSE + " WHERE Code = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1,courseCode);
+        ResultSet res = ps.executeQuery();
+        int courseId = 0;
+        while(res.next())
+            courseId = res.getInt("CourseId");
+
+        return courseId;
+        
     }
     
 }

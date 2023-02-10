@@ -5,14 +5,14 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 
-public class AdminCourseView extends JFrame{
-
-	private JLabel title; 
-	
+public class AdminCourseView{
+	//Buttons
 	private JButton add;
 	private JButton delete;
 	private JButton edit;
 	
+    //Labels
+    private JLabel title; 
 	private JLabel nameLabelAdd;
 	private JLabel creditsLabelAdd;
 	private JLabel houresLabelAdd;
@@ -20,14 +20,7 @@ public class AdminCourseView extends JFrame{
 	private JLabel yearLabelAdd;
 	private JLabel codeLabel;
 	private JLabel editLabel;
-	
-	private JTextField nameAdd;
-	private JTextField creditsAdd;
-	private JTextField houresAdd;
-	private JTextField majorAdd;
-	private JTextField yearAdd;
-    private JTextField code;
-    
+
     private JLabel nameLabelEdit;
 	private JLabel creditsLabelEdit;
 	private JLabel houresLabelEdit;
@@ -35,20 +28,29 @@ public class AdminCourseView extends JFrame{
 	private JLabel yearLabelEdit;
 	private JLabel codeLabelEdit;
 	
+    //Fields
+	private JTextField nameAdd;
+	private JTextField creditsAdd;
+	private JTextField houresAdd;
+	private JComboBox<String> majorAdd;
+	private JTextField yearAdd;
+    private JTextField code;
+    
 	private JTextField nameEdit;
 	private JTextField creditsEdit;
 	private JTextField houresEdit;
-	private JTextField majorEdit;
+	private JComboBox<String> majorEdit;
 	private JTextField yearEdit;
     private JTextField codeEdit;
-    
 	private JComboBox<String> actionFields;
 	
+    //Table
 	private JTable courseTable;
     private JScrollPane scrollPane;
     private Object[] tableColumns;
     private DefaultTableModel tableModelInfo;
     
+    //Panel
     private JPanel tablePanel;
     private JPanel southPanel;
     private JPanel buttonsPanel;
@@ -57,11 +59,13 @@ public class AdminCourseView extends JFrame{
     private JPanel deletePanel;
     private JPanel editPanel;
     private JPanel titlePanel;
-    private JPanel mainPanel;
+    private JFrame mainPanel;
     
+    //Fonts and Color
     private Font font,fontTable,buttonFont;
     private CardLayout cardLayout;
     private SpringLayout springLayout,springLayout2;
+    private Color color;
     
     private final String ADD_PANEL_CODE="1";
     private final String DELETE_PANEL_CODE="2";
@@ -76,6 +80,7 @@ public class AdminCourseView extends JFrame{
     	font=new Font ("Arial", Font.BOLD, 17);
     	fontTable=new Font("Arial", Font.BOLD, 15);
     	buttonFont = new Font("Arial",Font.BOLD,17);
+        color = new Color(83,131,255);
 
     	title.setFont(new Font("Arial", Font.BOLD, 25));
     	
@@ -101,14 +106,14 @@ public class AdminCourseView extends JFrame{
         houresAdd=new JTextField();
         houresAdd.setColumns(5);
         houresAdd.setFont(font);
-        majorAdd=new JTextField();
-        majorAdd.setColumns(15);
+        majorAdd=new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
         majorAdd.setFont(font);
         yearAdd=new JTextField();
         yearAdd.setColumns(5);
         yearAdd.setFont(font);
         code=new JTextField();
         code.setColumns(5);
+        code.setEditable(false);
         code.setFont(font);
         
         nameLabelEdit=new JLabel("Name: ");
@@ -135,8 +140,7 @@ public class AdminCourseView extends JFrame{
         houresEdit=new JTextField();
         houresEdit.setColumns(5);
         houresEdit.setFont(font);
-        majorEdit=new JTextField();
-        majorEdit.setColumns(10);
+        majorEdit=new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
         majorEdit.setFont(font);
         yearEdit=new JTextField();
         yearEdit.setColumns(5);
@@ -180,12 +184,12 @@ public class AdminCourseView extends JFrame{
         deletePanel=new JPanel();
         editPanel=new JPanel();
         titlePanel=new JPanel();
-        mainPanel=new JPanel();
+        mainPanel=new JFrame();
         
-        tablePanel.setBackground(new Color(114,128,255));
-        buttonsPanel.setBackground(new Color(114,128,255));
-        titlePanel.setBackground(new Color(114,128,255));
-        mainPanel.setBackground(new Color(114,128,255));
+        tablePanel.setBackground(color);
+        buttonsPanel.setBackground(color);
+        titlePanel.setBackground(color);
+        mainPanel.setBackground(color);
         
         titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         titlePanel.add(title);
@@ -215,7 +219,7 @@ public class AdminCourseView extends JFrame{
         springLayout.putConstraint(SpringLayout.NORTH,nameLabelAdd,25,SpringLayout.NORTH,addPanel);
         springLayout.putConstraint(SpringLayout.NORTH,nameAdd,20,SpringLayout.NORTH,addPanel);
         springLayout.putConstraint(SpringLayout.NORTH,majorLabelAdd,25,SpringLayout.NORTH,addPanel);
-        springLayout.putConstraint(SpringLayout.NORTH,majorAdd,20,SpringLayout.NORTH,addPanel);
+        springLayout.putConstraint(SpringLayout.NORTH,majorAdd,25,SpringLayout.NORTH,addPanel);
         
         springLayout.putConstraint(SpringLayout.WEST,nameLabelAdd,0,SpringLayout.WEST,addPanel);
         springLayout.putConstraint(SpringLayout.WEST,nameAdd,0,SpringLayout.EAST,nameLabelAdd);
@@ -241,7 +245,7 @@ public class AdminCourseView extends JFrame{
         springLayout.putConstraint(SpringLayout.WEST,add,310,SpringLayout.WEST,addPanel);
        
         addPanel.setPreferredSize(new Dimension(100,150));
-        addPanel.setBackground(new Color(114,128,255));
+        addPanel.setBackground(color);
         
         springLayout2=new SpringLayout();
         editPanel.setLayout(springLayout2);
@@ -269,7 +273,7 @@ public class AdminCourseView extends JFrame{
         springLayout2.putConstraint(SpringLayout.NORTH,nameLabelEdit,45,SpringLayout.SOUTH,editLabel);
         springLayout2.putConstraint(SpringLayout.NORTH,nameEdit,40,SpringLayout.SOUTH,editLabel);
         springLayout2.putConstraint(SpringLayout.NORTH,majorLabelEdit,45,SpringLayout.SOUTH,editLabel);
-        springLayout2.putConstraint(SpringLayout.NORTH,majorEdit,40,SpringLayout.SOUTH,editLabel);
+        springLayout2.putConstraint(SpringLayout.NORTH,majorEdit,45,SpringLayout.SOUTH,editLabel);
         
         springLayout2.putConstraint(SpringLayout.WEST,codeLabelEdit,0,SpringLayout.WEST,editPanel);
         springLayout2.putConstraint(SpringLayout.WEST,codeEdit,10,SpringLayout.EAST,codeLabelEdit);
@@ -298,107 +302,138 @@ public class AdminCourseView extends JFrame{
         springLayout2.putConstraint(SpringLayout.WEST,edit,310,SpringLayout.WEST,editPanel);
        
         editPanel.setPreferredSize(new Dimension(100,180));
-        editPanel.setBackground(new Color(114,128,255));
+        editPanel.setBackground(color);
         
         deletePanel.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
         deletePanel.add(codeLabel);
         deletePanel.add(code);
         deletePanel.add(delete);
         deletePanel.setPreferredSize(new Dimension(100,100));
-        deletePanel.setBackground(new Color(114,128,255));
+        deletePanel.setBackground(color);
         
         cardPanel.setLayout(cardLayout);
         cardPanel.add(addPanel,getAddPanelCode());
         cardPanel.add(deletePanel,getDeletePanelCode());
         cardPanel.add(editPanel,getEditPanelCode());
-        cardPanel.setBackground(new Color(114,128,255));
+        cardPanel.setBackground(color);
         
         southPanel.setLayout(new BorderLayout());
         southPanel.add(buttonsPanel,BorderLayout.NORTH);
         southPanel.add(cardPanel,BorderLayout.CENTER);
-        southPanel.setBackground(new Color(114,128,255));
+        southPanel.setBackground(color);
         
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(titlePanel,BorderLayout.NORTH);
         mainPanel.add(tablePanel,BorderLayout.CENTER);
         mainPanel.add(southPanel,BorderLayout.SOUTH);
         
-        add(mainPanel);
-        setBackground(new Color(114,128,255));
-        setTitle("Course Management");
-		setSize(720, 550);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setVisible(true);
-		setLocationRelativeTo(null);
+        
+        mainPanel.setBackground(color);
+        mainPanel.setTitle("Course Management");
+		mainPanel.setSize(720, 550);
+		mainPanel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		mainPanel.setVisible(true);
+		mainPanel.setLocationRelativeTo(null);
     }
     
+    public JFrame getMainFrame()
+    {
+        return this.mainPanel;
+    }
+
     public JTable getCourseTable() {
     	return this.courseTable;
     }
+
     public DefaultTableModel getTableModel() {
     	return this.tableModelInfo;
     }
+
     public JButton getAddButton() {
     	return this.add;
     }
+
     public JButton getEditButton() {
     	return this.edit;
     }
+
     public JButton getDeleteButton() {
     	return this.delete;
     }
+
     public JTextField getNameEditField() {
     	return this.nameEdit;
     }
+
     public JTextField getCreditsEditField() {
     	return this.creditsEdit;
     }
+
     public JTextField getHouresEditField() {
     	return this.houresEdit;
     }
-    public JTextField getMajorEditField() {
+
+    public JComboBox<String> getMajorEditField() {
     	return this.majorEdit;
     }
+
     public JTextField getYearEditField() {
     	return this.yearEdit;
     }
+
     public JTextField getCodeEditField() {
     	return this.codeEdit;
     }
+
     public JTextField getNameAddField() {
     	return this.nameAdd;
     }
+
     public JTextField getCreditsAddField() {
     	return this.creditsAdd;
     }
+
     public JTextField getHouresAddField() {
     	return this.houresAdd;
     }
-    public JTextField getMajorAddField() {
+
+    public JComboBox<String> getMajorAddField() {
     	return this.majorAdd;
     }
+
     public JTextField getYearAddField() {
     	return this.yearAdd;
     }
+
     public JTextField getCodeDeleteField() {
     	return this.code;
     }
+
     public JComboBox<String> getComboBoxActionFields() {
     	return this.actionFields;
     }
+
     public CardLayout getCardLayout() {
     	return this.cardLayout;
     }
+
     public JPanel getCardPanel() {
     	return this.cardPanel;
     }
+
     public String getAddPanelCode() {
     	return this.ADD_PANEL_CODE;
     }
+
     public String getEditPanelCode() {
     	return this.EDIT_PANEL_CODE;
     }
+
     public String getDeletePanelCode() {
     	return this.DELETE_PANEL_CODE;
+    }
+
+    public void displayMessage(String message)
+    {   JOptionPane.showMessageDialog(null, message);
     }
 }

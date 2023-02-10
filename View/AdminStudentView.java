@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class AdminStudentView extends JFrame{
+public class AdminStudentView{
     
     //Panels
     private JPanel head;
@@ -20,9 +20,9 @@ public class AdminStudentView extends JFrame{
 
     //Fields
     private JComboBox<String> editManage;
+    private JComboBox<String> majorField;
     private JTextField fnameField;
     private JTextField lnameField;
-    private JTextField majorField;
     private JTextField emailField;
     private JTextField passwordField;
     private JTextField studentIdField1;
@@ -40,7 +40,7 @@ public class AdminStudentView extends JFrame{
     private JLabel phoneLabel;
     
 
-    //Table
+    //JTable
     private JTable studentTable;
     private JScrollPane scrollPane;
     private Object[] tableColumns;
@@ -48,15 +48,18 @@ public class AdminStudentView extends JFrame{
 
     //Layout
     private SpringLayout springLayout;
+
+    //Fonts and Color
     private Font font,fontTable;
+    private Color color;
 
     public AdminStudentView(){
         editButton = new JButton("Edit");
         manageButton = new JButton("Manage");
         editManage = new JComboBox<String>(new String[]{"Edit","Manage"});
+        majorField = new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
         fnameField = new JTextField(10);
         lnameField = new JTextField(10);
-        majorField = new JTextField(10);
         emailField = new JTextField(15);
         phoneField = new JTextField(10);
         studentIdField1 = new JTextField(5);
@@ -83,6 +86,7 @@ public class AdminStudentView extends JFrame{
         springLayout = new SpringLayout();
         font = new Font("Arial", Font.BOLD, 17);
         fontTable = new Font("Arial", Font.BOLD, 15);
+        color = new Color(83,131,255);
 
         studentIdField1.setEditable(false);
         studentIdField2.setEditable(false);
@@ -130,10 +134,10 @@ public class AdminStudentView extends JFrame{
         footManage.setPreferredSize(new Dimension(800,200));
         footManage.setVisible(false);
         
-        center.setBackground(new Color(114,128,255));
-        footCombo.setBackground(new Color(114,128,255));
-        footEdit.setBackground(new Color(114,128,255));
-        footManage.setBackground(new Color(114,128,255));
+        center.setBackground(color);
+        footCombo.setBackground(color);
+        footEdit.setBackground(color);
+        footManage.setBackground(color);
 
         springLayout.putConstraint(SpringLayout.NORTH,studentIdLabel1,10,SpringLayout.NORTH,footEdit);
         springLayout.putConstraint(SpringLayout.NORTH,studentIdField1,5,SpringLayout.NORTH,footEdit);
@@ -198,7 +202,7 @@ public class AdminStudentView extends JFrame{
         studentFrame.add(footCombo,BorderLayout.SOUTH);
 
         studentFrame.setTitle("Student Management");
-        studentFrame.setSize(800,700);
+        studentFrame.setSize(820,700);
         studentFrame.setLocationRelativeTo(null);
         studentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         studentFrame.setVisible(true);
@@ -224,7 +228,7 @@ public class AdminStudentView extends JFrame{
         return this.lnameField;
     }
 
-    public JTextField getStudentMajor()
+    public JComboBox<String> getStudentMajor()
     {
         return this.majorField;
     }
@@ -282,5 +286,10 @@ public class AdminStudentView extends JFrame{
     public JPanel getFootEditPanel()
     {
         return this.footEdit;
+    }
+
+    public void displayMessage(String message)
+    {
+        JOptionPane.showMessageDialog(null, message);
     }
 }

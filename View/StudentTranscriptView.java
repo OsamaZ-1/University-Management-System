@@ -35,7 +35,7 @@ public class StudentTranscriptView extends JFrame{
     
     private JButton logout;
     
-    //panels
+    //Panels
     private JPanel studentInfoPanel;
     private JPanel infoP1;
     private JPanel infoP2;
@@ -46,15 +46,21 @@ public class StudentTranscriptView extends JFrame{
     private JPanel gpaP2;
     private JPanel gpaP3;
     private JPanel trascriptPanel;
-    private JPanel mainPanel;
+    private JFrame mainPanel;
     
+    //Layouts
     private BorderLayout borderLayout;
     private SpringLayout springLayout;
+
+    //Fonts and Color
     private Font font,fontTable;
+    private Color color;
+
     public StudentTranscriptView() {
     	
-    	font=new Font ("AvantGarde", Font.BOLD, 18);
-    	fontTable=new Font("AvantGarde", Font.BOLD, 15);
+    	font=new Font ("Arial", Font.BOLD, 17);
+    	fontTable=new Font("Arial", Font.BOLD, 15);
+        color = new Color(83,131,255);
     	nameLabel=new JLabel("Name:");
     	nameLabel.setFont(font);
     	idLabel=new JLabel("ID:");
@@ -70,7 +76,7 @@ public class StudentTranscriptView extends JFrame{
     	totalCreditsLabel.setFont(font);
     	gpaLabel=new JLabel("GPA:");
     	gpaLabel.setFont(new Font ("AvantGarde", Font.BOLD, 25));
-    	gpaLabel.setForeground(new Color(200,10,10));
+    	gpaLabel.setForeground(new Color(245,5,5));
     	
     	name=new JLabel("");
     	name.setFont(font);
@@ -87,7 +93,7 @@ public class StudentTranscriptView extends JFrame{
     	totalCredits.setFont(font);
     	gpa=new JLabel("");
     	gpa.setFont(new Font ("AvantGarde", Font.BOLD, 25));
-    	gpa.setForeground(new Color(200,10,10));
+    	gpa.setForeground(new Color(245,5,5));
     	
     	tableColumns = new Object[]{"Year","Course Code","Title","Credits","Grade","Observation"};
     	
@@ -133,18 +139,18 @@ public class StudentTranscriptView extends JFrame{
         gpaP2=new JPanel();
         gpaP3=new JPanel();
         trascriptPanel=new JPanel();
-        mainPanel=new JPanel();
+        mainPanel=new JFrame();
         
-        infoP1.setBackground(new Color(114,128,255));
-        infoP2.setBackground(new Color(114,128,255));
-        infoP3.setBackground(new Color(114,128,255));
-        infoP4.setBackground(new Color(114,128,255));
-        studentInfoPanel.setBackground(new Color(114,128,255));
+        infoP1.setBackground(color);
+        infoP2.setBackground(color);
+        infoP3.setBackground(color);
+        infoP4.setBackground(color);
+        studentInfoPanel.setBackground(color);
     	trascriptPanel.setBackground(new Color(240,240,240));
-    	studentGpaPanel.setBackground(new Color(114,128,255));
-    	gpaP1.setBackground(new Color(114,128,255));
-    	gpaP2.setBackground(new Color(114,128,255));
-    	gpaP3.setBackground(new Color(114,128,255));
+    	studentGpaPanel.setBackground(color);
+    	gpaP1.setBackground(color);
+    	gpaP2.setBackground(color);
+    	gpaP3.setBackground(color);
     	
     	borderLayout=new BorderLayout(1,1);
     	
@@ -210,14 +216,20 @@ public class StudentTranscriptView extends JFrame{
         mainPanel.add(studentInfoPanel,BorderLayout.NORTH);
         mainPanel.add(trascriptPanel,BorderLayout.CENTER);
         mainPanel.add(studentGpaPanel,BorderLayout.SOUTH);
-        add(mainPanel);
-        setTitle("Student Transcript");
-		setSize(900, 800);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
-		setLocationRelativeTo(null);
+        
+        mainPanel.setTitle("Student Transcript");
+		mainPanel.setSize(900, 800);
+		mainPanel.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		mainPanel.setVisible(true);
+		mainPanel.setLocationRelativeTo(null);
     	
     }
+
+    public JFrame getMainFrame()
+    {
+        return this.mainPanel;
+    }
+
     public JLabel getNameLabel() {
     	return this.name;
     }

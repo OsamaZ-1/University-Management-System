@@ -14,7 +14,7 @@ interface InstructorDao {
         throws SQLException;
     public int uniqueInstructorExists(String email, String pass)
         throws SQLException;
-    public int instructorEmailExist(String email)
+    public int instructorEmailPhoneExist(String email, int phone)
         throws SQLException;
     public List<Instructor> getInstructors()
         throws SQLException;
@@ -26,9 +26,9 @@ interface InstructorDao {
         throws SQLException;
     public boolean updateInstructor(String[] s)
         throws SQLException;
-    public boolean addInstructorToCourse(String studentId, String courseId)
+    public boolean addInstructorToCourse(String studentId, String courseCode)
         throws SQLException;
-    public boolean deleteInstructorFromCourse(String studentId, String courseId)
+    public boolean deleteInstructorFromCourse(String studentId, String courseCode)
         throws SQLException;
     public Object[][] getAcceptedInstructorsInfo(String id) 
         throws SQLException;

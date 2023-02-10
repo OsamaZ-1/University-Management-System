@@ -1,10 +1,14 @@
 package Controller;
 
 import java.sql.SQLException;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 import View.AdminInstructorView;
 import View.AdminInstManageView;
 import Model.AdminInstructorModel;
+import Model.Course;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
@@ -22,7 +26,7 @@ public class AdminInstructorController {
         instView = new AdminInstructorView();
         instModel = new AdminInstructorModel();
         instManageView = new AdminInstManageView();
-        instManageView.setVisible(false);
+        instManageView.getMainFrame().setVisible(false);
 
         placeInfoInTable();
         editManageListener();
@@ -129,19 +133,30 @@ public class AdminInstructorController {
 				String password = (String)instView.getInstPassword().getText().toString();
 				String phone = (String)instView.getInstPhone().getText().toString();
 
-				if(!id.equals("") && !fname.equals("") && !lname.equals("") && !email.equals("") && !password.equals("") && !phone.equals("")){
-					String[] InstInfo = new String[]{id,fname,lname,email,password,phone};
+				if(!id.equals("") && !fname.equals("") && !lname.equals("") && !email.equals("") && !password.equals("") && !phone.equals(""))
+				{	
+					
 					try{
-						if(instModel.updateInstructor(InstInfo)){	
-							placeInfoInTable();
-							JOptionPane.showMessageDialog(null,"Updated successfully");
-						}
-						else
-							JOptionPane.showMessageDialog(null, "Error editing info");			
-					}catch(SQLException ex){ex.printStackTrace();}
+							int phoneCasted = Integer.parseInt(phone);
+							String[] InstInfo = new String[]{id,fname,lname,email,password,phone};
+							try{
+								if(instModel.updateInstructor(InstInfo))	
+								{	placeInfoInTable();
+									instView.displayMessage("Updated successfully");
+								}
+								else
+									instView.displayMessage("Error editing info");			
+							}catch(SQLException ex){ex.printStackTrace();}
+
+						}catch(NumberFormatException ex)
+						{	
+							ex.printStackTrace();
+							instView.displayMessage("Phone should consist of numbers only");
+						}	
+					
 				}
 				else
-					JOptionPane.showMessageDialog(null, "choose an Instructor and fill in all information!");
+					instView.displayMessage("choose an Instructor and fill in all information!");
 			}
 		});
 	}
@@ -162,15 +177,15 @@ public class AdminInstructorController {
 			public void actionPerformed(ActionEvent e) {
 				String id = instView.getInstId2().getText().toString();
 				if(!id.equals(""))
-				{
-					instManageView.setVisible(true);
+				{	fillCoursesList();
+					instManageView.getMainFrame().setVisible(true);
 					instManageView.setInstId(id);
 					try{
 						placeInfoInManageTable(instView.getInstId2().getText().toString());
 					}catch(SQLException ex){ex.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Select an Instructor from table");
+					instView.displayMessage("Select an Instructor from table");
 			}
 		});
 	}
@@ -182,23 +197,23 @@ public class AdminInstructorController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String instId = instManageView.getInstIdField().getText().toString();
-				String courseId = instManageView.getCourseIdField().getText().toString();
+				String courseCode = instManageView.getCoursesList().getSelectedItem().toString();
 
-				if(!courseId.equals("")) //instId can't be null it comes filled from previous step
+				if(!courseCode.equals("")) //instId can't be null it comes filled from previous step
 				{
 					try{
-						if(instModel.addInstructorToCourse(instId,courseId))
+						if(instModel.addInstructorToCourse(instId,courseCode))
 						{	
 							placeInfoInManageTable(instId);
-							JOptionPane.showMessageDialog(null,"Successfully added");
+							instManageView.displayMessage("Successfully added");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Error adding Instructor to course");
+							instManageView.displayMessage("Error adding Instructor to course");
 
 					}catch(SQLException ex){ex.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Choose Course Id");
+					instManageView.displayMessage("Choose Course Id");
 			}
 			
 		});
@@ -211,24 +226,38 @@ public class AdminInstructorController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String instId = instManageView.getInstIdField().getText().toString();
-				String courseId = instManageView.getCourseIdField().getText().toString();
-				if(!courseId.equals("")) //instId can't be null it comes filled from previous step
+				String courseCode = instManageView.getCoursesList().getSelectedItem().toString();
+				if(!courseCode.equals("")) //instId can't be null it comes filled from previous step
 				{
 					try{
-						if(instModel.deleteInstructorFromCourse(instId,courseId))
+						if(instModel.deleteInstructorFromCourse(instId,courseCode))
 						{	
 							placeInfoInManageTable(instId);
-							JOptionPane.showMessageDialog(null,"Successfully Deleted");
+							instManageView.displayMessage("Successfully Deleted");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Error deleting Instructor from course");
+							instManageView.displayMessage("Error deleting Instructor from course");
 
 					}catch(SQLException ex){ex.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Choose Course Id");
+					instManageView.displayMessage("Choose Course Id");
 			}
 
 		});
 	}
+
+	public void fillCoursesList()
+		{	
+			List<Course> courses = null;
+			instManageView.getCoursesList().removeAllItems();
+			try{
+				courses = instModel.getCoursesList();
+			}catch(SQLException e){e.printStackTrace();}
+
+			if(courses!=null)
+			{
+			courses.forEach(course -> instManageView.getCoursesList().addItem(course.getCode()));
+			}
+		}
 }
