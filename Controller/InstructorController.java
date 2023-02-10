@@ -91,7 +91,6 @@ public class InstructorController {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                // TODO Auto-generated method stub
                 int selectedRow = instructorView.getStudentsCourseGradesTable().getSelectedRow();
                 String id = instructorView.getStudentsCourseGradesTable().getValueAt(selectedRow, 0).toString();
                 instructorView.getStudentIdField().setText(id);
@@ -132,7 +131,6 @@ public class InstructorController {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
                 String studentId = instructorView.getStudentIdField().getText().toString();
                 String courseCode = instructorView.getCourseCodeField().getText().toString();
                 String grade = instructorView.getStudentGradeField().getText().toString();
