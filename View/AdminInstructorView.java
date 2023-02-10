@@ -266,4 +266,9 @@ public class AdminInstructorView {
     {
         return this.footEdit;
     }
+
+    public void displayMessage(String message)
+    {
+        JOptionPane.showMessageDialog(null, message);
+    }
 }

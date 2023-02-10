@@ -287,4 +287,9 @@ public class AdminStudentView{
     {
         return this.footEdit;
     }
+
+    public void displayMessage(String message)
+    {
+        JOptionPane.showMessageDialog(null, message);
+    }
 }

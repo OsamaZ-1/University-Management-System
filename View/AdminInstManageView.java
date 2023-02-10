@@ -152,6 +152,10 @@ public class AdminInstManageView{
     {
         this.instId.setText(id);
     }
+    public void displayMessage(String message)
+    {
+        JOptionPane.showMessageDialog(null, message);
+    }
     
 }
 

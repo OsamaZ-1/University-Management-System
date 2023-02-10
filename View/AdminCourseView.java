@@ -432,4 +432,8 @@ public class AdminCourseView{
     public String getDeletePanelCode() {
     	return this.DELETE_PANEL_CODE;
     }
+
+    public void displayMessage(String message)
+    {   JOptionPane.showMessageDialog(null, message);
+    }
 }

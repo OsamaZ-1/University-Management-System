@@ -65,14 +65,14 @@ public class AdminCourseController {
 						{
 							fillTable();
 							refreshPage("Add");
-					 		JOptionPane.showMessageDialog(null, "Successfully added course");
+					 		adminCourseView.displayMessage("Successfully added course");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Error adding course");
+							adminCourseView.displayMessage("Error adding course");
 					} catch (SQLException e1) {e1.printStackTrace();}
             	}
 				else
-					JOptionPane.showMessageDialog(null, "Fill all information");
+					adminCourseView.displayMessage("Fill all information");
             }});
     }
     public void deleteButtonAction() {
@@ -87,14 +87,14 @@ public class AdminCourseController {
 						{
 						 fillTable();
 						 refreshPage("Delete");
-						 JOptionPane.showMessageDialog(null, "Successfully deleted course");
+						 adminCourseView.displayMessage("Successfully deleted course");
 						}
 						else
-							JOptionPane.showMessageDialog(null,"Error deleting course");
+							adminCourseView.displayMessage("Error deleting course");
 					} catch (SQLException e1) {e1.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Enter course code");
+					adminCourseView.displayMessage("Enter course code");
             }
             });
     }
@@ -116,14 +116,14 @@ public class AdminCourseController {
 						{	
 							fillTable();
 							refreshPage("Edit");
-							JOptionPane.showMessageDialog(null, "Updated sucessfully");
+							adminCourseView.displayMessage("Updated sucessfully");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Error editing info");	
+							adminCourseView.displayMessage("Error editing info");	
 					} catch (SQLException e1) {e1.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Fill all inforamtion");
+					adminCourseView.displayMessage("Fill all inforamtion");
             }
             });
     }

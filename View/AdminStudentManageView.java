@@ -159,4 +159,8 @@ public class AdminStudentManageView{
         this.studentId.setText(id);
     }
     
+    public void displayMessage(String message)
+    {
+        JOptionPane.showMessageDialog(null, message);
+    }
 }

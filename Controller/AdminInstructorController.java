@@ -142,21 +142,21 @@ public class AdminInstructorController {
 							try{
 								if(instModel.updateInstructor(InstInfo))	
 								{	placeInfoInTable();
-									JOptionPane.showMessageDialog(null,"Updated successfully");
+									instView.displayMessage("Updated successfully");
 								}
 								else
-									JOptionPane.showMessageDialog(null, "Error editing info");			
+									instView.displayMessage("Error editing info");			
 							}catch(SQLException ex){ex.printStackTrace();}
 
 						}catch(NumberFormatException ex)
 						{	
 							ex.printStackTrace();
-							JOptionPane.showMessageDialog(null, "Phone consist of numbers only");
+							instView.displayMessage("Phone should consist of numbers only");
 						}	
 					
 				}
 				else
-					JOptionPane.showMessageDialog(null, "choose an Instructor and fill in all information!");
+					instView.displayMessage("choose an Instructor and fill in all information!");
 			}
 		});
 	}
@@ -185,7 +185,7 @@ public class AdminInstructorController {
 					}catch(SQLException ex){ex.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Select an Instructor from table");
+					instView.displayMessage("Select an Instructor from table");
 			}
 		});
 	}
@@ -205,15 +205,15 @@ public class AdminInstructorController {
 						if(instModel.addInstructorToCourse(instId,courseCode))
 						{	
 							placeInfoInManageTable(instId);
-							JOptionPane.showMessageDialog(null,"Successfully added");
+							instManageView.displayMessage("Successfully added");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Error adding Instructor to course");
+							instManageView.displayMessage("Error adding Instructor to course");
 
 					}catch(SQLException ex){ex.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Choose Course Id");
+					instManageView.displayMessage("Choose Course Id");
 			}
 			
 		});
@@ -233,15 +233,15 @@ public class AdminInstructorController {
 						if(instModel.deleteInstructorFromCourse(instId,courseCode))
 						{	
 							placeInfoInManageTable(instId);
-							JOptionPane.showMessageDialog(null,"Successfully Deleted");
+							instManageView.displayMessage("Successfully Deleted");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Error deleting Instructor from course");
+							instManageView.displayMessage("Error deleting Instructor from course");
 
 					}catch(SQLException ex){ex.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Choose Course Id");
+					instManageView.displayMessage("Choose Course Id");
 			}
 
 		});

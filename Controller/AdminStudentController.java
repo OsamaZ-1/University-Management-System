@@ -158,15 +158,15 @@ public class AdminStudentController {
 						if(adminStudentModel.updateStudent(studentInfo))
 						{	
 							fillFirstTable();
-							JOptionPane.showMessageDialog(null,"Updated successfully");
+							adminStudentView.displayMessage("Updated successfully");
 							
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Error editing info");			
+							adminStudentView.displayMessage("Error editing info");			
 					}catch(SQLException ex){ex.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "choose a student and fill in all information!");
+					adminStudentView.displayMessage("choose a student and fill in all information!");
 			}
 			
 		});
@@ -190,7 +190,7 @@ public class AdminStudentController {
 					}catch(SQLException ex){ex.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Select a student from table");
+					adminStudentView.displayMessage("Select a student from table");
 			}
 		});
 	}
@@ -210,15 +210,15 @@ public class AdminStudentController {
 						if(adminStudentModel.addStudentToCourse(studentId,courseCode))
 						{	
 							fillSecondTable(studentId);
-							JOptionPane.showMessageDialog(null,"Successfully added");
+							adminStudentManageView.displayMessage("Successfully added");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Error adding student to course");
+							adminStudentManageView.displayMessage("Error adding student to course");
 
 					}catch(SQLException ex){ex.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Choose Course Id");
+					adminStudentManageView.displayMessage("Choose Course Id");
 			}
 			
 		});
@@ -239,15 +239,15 @@ public class AdminStudentController {
 						if(adminStudentModel.deleteStudentFromCourse(studentId,courseCode))
 						{	
 							fillSecondTable(studentId);
-							JOptionPane.showMessageDialog(null,"Successfully Deleted");
+							adminStudentManageView.displayMessage("Successfully Deleted");
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Error deleting student from course");
+							adminStudentManageView.displayMessage("Error deleting student from course");
 
 					}catch(SQLException ex){ex.printStackTrace();}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Choose Course Id");
+					adminStudentManageView.displayMessage("Choose Course Id");
 			}
 
 		});
