@@ -45,6 +45,7 @@ public class AdminInstructorView {
     //Layout
     private SpringLayout springLayout;
     private Font font,fontTable;
+    private Color color;
 
     public AdminInstructorView(){
         editButton = new JButton("Edit");
@@ -62,8 +63,8 @@ public class AdminInstructorView {
         emailLabel = new JLabel("Email:");
         passwordLabel = new JLabel("Password:");
         phoneLabel = new JLabel("Phone:");
-        instIdLabel1 = new JLabel("inst Id:");
-        instIdLabel2 = new JLabel("inst Id:");
+        instIdLabel1 = new JLabel("Instructor Id:");
+        instIdLabel2 = new JLabel("Instructor Id:");
         tableColumns = new Object[]{"ID","First Name","Last Name","Email","Password","Phone"};
     	instTable=new JTable();
         scrollPane = new JScrollPane(instTable);
@@ -77,6 +78,7 @@ public class AdminInstructorView {
         springLayout = new SpringLayout();
         font = new Font("Arial", Font.BOLD, 17);
         fontTable = new Font("Arial", Font.BOLD, 15);
+        color = new Color(83,131,255);
 
         instIdField1.setEditable(false);
         instIdField2.setEditable(false);
@@ -122,17 +124,19 @@ public class AdminInstructorView {
         footManage.setPreferredSize(new Dimension(800,200));
         footManage.setVisible(false);
         
-        center.setBackground(new Color(114,128,255));
-        footCombo.setBackground(new Color(114,128,255));
-        footEdit.setBackground(new Color(114,128,255));
-        footManage.setBackground(new Color(114,128,255));
+        center.setBackground(color);
+        footCombo.setBackground(color);
+        footEdit.setBackground(color);
+        footManage.setBackground(color);
 
         springLayout.putConstraint(SpringLayout.NORTH,instIdLabel1,10,SpringLayout.NORTH,footEdit);
         springLayout.putConstraint(SpringLayout.NORTH,instIdField1,5,SpringLayout.NORTH,footEdit);
         springLayout.putConstraint(SpringLayout.NORTH,fnameLabel,25,SpringLayout.SOUTH,instIdLabel1);
         springLayout.putConstraint(SpringLayout.NORTH,lnameLabel,25,SpringLayout.SOUTH,instIdLabel1);
+        springLayout.putConstraint(SpringLayout.NORTH,phoneLabel,25,SpringLayout.SOUTH,instIdLabel1);
         springLayout.putConstraint(SpringLayout.NORTH,fnameField,20,SpringLayout.SOUTH,instIdLabel1);
         springLayout.putConstraint(SpringLayout.NORTH,lnameField,20,SpringLayout.SOUTH,instIdLabel1);
+        springLayout.putConstraint(SpringLayout.NORTH,phoneField,20,SpringLayout.SOUTH,instIdLabel1);
         springLayout.putConstraint(SpringLayout.NORTH,emailLabel,30,SpringLayout.SOUTH,fnameLabel);
         springLayout.putConstraint(SpringLayout.NORTH,emailField,20,SpringLayout.SOUTH,fnameField);
         springLayout.putConstraint(SpringLayout.NORTH,passwordLabel,30,SpringLayout.SOUTH,lnameLabel);
@@ -176,13 +180,13 @@ public class AdminInstructorView {
         footCombo.add(footManage, BorderLayout.CENTER);
         footCombo.add(footEdit, BorderLayout.NORTH);
         
-        instFrame.getContentPane().setBackground(new Color(114,128,255));
+        instFrame.getContentPane().setBackground(color);
         instFrame.add(head,BorderLayout.NORTH);
         instFrame.add(center,BorderLayout.CENTER);
         instFrame.add(footCombo,BorderLayout.SOUTH);
 
-        instFrame.setTitle("inst Management");
-        instFrame.setSize(800,700);
+        instFrame.setTitle("Instructor Management");
+        instFrame.setSize(820,700);
         instFrame.setLocationRelativeTo(null);
         instFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         instFrame.setVisible(true);

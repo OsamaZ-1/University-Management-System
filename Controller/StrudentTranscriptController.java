@@ -40,7 +40,7 @@ public class StrudentTranscriptController {
 	public void logoutButtonAction() {
 		view.getLogoutButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				view.dispose();
+				view.getMainFrame().dispose();
                 new LoginController();   
 			}
 		});

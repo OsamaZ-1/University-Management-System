@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 09, 2023 at 08:02 PM
+-- Generation Time: Feb 10, 2023 at 03:45 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -65,13 +65,13 @@ CREATE TABLE `course` (
 --
 
 INSERT INTO `course` (`CourseId`, `Name`, `Code`, `Credits`, `Hours`, `Major`, `Year`) VALUES
-(1, 'Intro CS', 'I1001', 3, 30, 'Infomatrics', 1),
-(2, 'Algorithm', 'I1002', 6, 60, 'Infomatrics', 1),
-(3, 'Algorithm2', 'I1003', 5, 50, 'Infomatrics', 1),
-(4, 'web1', 'I2004', 4, 40, 'Infomatrics', 2),
-(5, 'java oop', 'I2005', 5, 50, 'Infomatrics', 2),
-(6, 'web2', 'I3006', 4, 40, 'Infomatrics', 3),
-(7, 'Graphical user interphase', 'I3007', 3, 30, 'Infomatrics', 3);
+(1, 'Intro CS', 'I1001', 3, 30, 'Informatics', 1),
+(2, 'Algorithm', 'I1002', 6, 60, 'Informatics', 1),
+(3, 'Algorithm2', 'I1003', 5, 50, 'Informatics', 1),
+(4, 'web1', 'I2004', 4, 40, 'Informatics', 2),
+(5, 'java oop', 'I2005', 5, 50, 'Informatics', 2),
+(6, 'web2', 'I3006', 4, 40, 'Informatics', 3),
+(7, 'Graphical user interphase', 'I3007', 3, 30, 'Informatics', 3);
 
 -- --------------------------------------------------------
 
@@ -94,7 +94,10 @@ CREATE TABLE `instructors` (
 --
 
 INSERT INTO `instructors` (`Id`, `Fname`, `Lname`, `Password`, `Email`, `Phone`, `Accepted`) VALUES
-(1, 'Mohammad', 'Dandash', 'php123', 'moe@dandash.com', 81721345, 1);
+(1, 'Mohammad', 'Dandash', 'php123', 'moe@dandash.com', 81721345, 1),
+(3, 'Osama', 'Zein', 'ZeinOs123', 'os_zein@gmail.com', 30030040, 1),
+(4, 'Charbel', 'Rahhal', 'Char321', 'charahal@hotmail.com', 33000033, 1),
+(5, 'anonymous', 'anon', 'hacker123', 'anon@gmail.com', 70037181, 0);
 
 -- --------------------------------------------------------
 
@@ -142,7 +145,8 @@ INSERT INTO `student` (`Id`, `Fname`, `Lname`, `Major`, `Password`, `Email`, `Ph
 (2, 'Hadi', 'Kattan', 'Computer Science', '123', 'hadi@gmail.com', 76488386, 1),
 (4, 'Osama', 'Zammar', 'Computer Science', '321', 'oz@hotmail.com', 71999000, 1),
 (5, 'mohammad', 'Abo alfoul', 'Computer Science', '9876', 'moh@gmail.com', 81370598, 1),
-(9, 'Obaida', 'Ammar', 'Computer Science', 'ObAm123', 'ammarobaida@gmail.com', 3030303, 0);
+(9, 'Obaida', 'Ammar', 'Computer Science', 'ObAm123', 'ammarobaida@gmail.com', 3030303, 1),
+(11, 'Mostafa', 'Kamal', 'Biology', 'kamal12', 'mostK@hotmail.com', 70970790, 0);
 
 -- --------------------------------------------------------
 
@@ -153,7 +157,7 @@ INSERT INTO `student` (`Id`, `Fname`, `Lname`, `Major`, `Password`, `Email`, `Ph
 CREATE TABLE `studentgrades` (
   `Id` int(100) NOT NULL,
   `CourseId` int(100) NOT NULL,
-  `Grade` decimal(65,0) DEFAULT NULL
+  `Grade` decimal(65,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -161,15 +165,19 @@ CREATE TABLE `studentgrades` (
 --
 
 INSERT INTO `studentgrades` (`Id`, `CourseId`, `Grade`) VALUES
-(1, 1, '85'),
-(1, 2, '80'),
-(1, 3, '50'),
-(1, 4, '50'),
-(1, 5, '25'),
-(1, 6, '38'),
-(2, 1, '91'),
-(5, 1, '91'),
-(4, 1, '91');
+(1, 1, '85.00'),
+(1, 2, '80.00'),
+(1, 3, '50.00'),
+(1, 4, '50.00'),
+(1, 5, '25.00'),
+(2, 1, '91.00'),
+(5, 1, '91.00'),
+(4, 1, '91.00'),
+(1, 6, '-1.00'),
+(9, 2, '89.50'),
+(9, 3, '95.00'),
+(9, 4, '87.70'),
+(9, 6, '95.20');
 
 --
 -- Indexes for dumped tables
@@ -221,19 +229,19 @@ ALTER TABLE `Admin`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `CourseId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `CourseId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `instructors`
 --
 ALTER TABLE `instructors`
-  MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

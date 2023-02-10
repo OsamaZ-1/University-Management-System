@@ -38,7 +38,7 @@ public class AdminStudentManageView{
     private Color color;
 
     public AdminStudentManageView() {
-    	title=new JLabel("Student Management");
+    	title=new JLabel("Student Courses Management");
     	studentIdLabel=new JLabel("Student ID:");
     	courseIdLabel=new JLabel("Course Code:");
     	studentId=new JTextField();
@@ -118,7 +118,7 @@ public class AdminStudentManageView{
         mainPanel.setBackground(color);
         
         
-        mainPanel.setTitle("Student Management");
+        mainPanel.setTitle("Student Courses Management");
 		mainPanel.setSize(850, 550);
 		mainPanel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		mainPanel.setLocationRelativeTo(null);

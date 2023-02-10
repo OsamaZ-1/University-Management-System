@@ -26,9 +26,9 @@ interface InstructorDao {
         throws SQLException;
     public boolean updateInstructor(String[] s)
         throws SQLException;
-    public boolean addInstructorToCourse(String studentId, String courseId)
+    public boolean addInstructorToCourse(String studentId, String courseCode)
         throws SQLException;
-    public boolean deleteInstructorFromCourse(String studentId, String courseId)
+    public boolean deleteInstructorFromCourse(String studentId, String courseCode)
         throws SQLException;
     public Object[][] getAcceptedInstructorsInfo(String id) 
         throws SQLException;

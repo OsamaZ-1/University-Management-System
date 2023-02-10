@@ -42,12 +42,15 @@ public class InstructorPanelView{
     private JPanel studentGradePanel;
     private JPanel addButtonPanel;
     
+    //Fonts and Color
     private Font font,fontTable;
+    private Color color;
 
     public InstructorPanelView() {
     	instructorFrame = new JFrame();
     	font = new Font("Arial", Font.BOLD, 17);
         fontTable = new Font("Arial", Font.BOLD, 15);
+        color = new Color(83,131,255);
     	header=new JLabel("Courses Grade Management");
     	header.setFont(new Font("Arial", Font.BOLD, 25));
     	idLabel=new JLabel("ID:");
@@ -96,35 +99,35 @@ public class InstructorPanelView{
         logoutButton.setFont(font);
         
         headPanel=new JPanel();
-        headPanel.setBackground(new Color(114,128,255));
+        headPanel.setBackground(color);
         instructorInfoPanel=new JPanel();
-        instructorInfoPanel.setBackground(new Color(114,128,255));
+        instructorInfoPanel.setBackground(color);
         instructorNamePanel=new JPanel();
-        instructorNamePanel.setBackground(new Color(114,128,255));
+        instructorNamePanel.setBackground(color);
         instructorIdPanel=new JPanel();
-        instructorIdPanel.setBackground(new Color(114,128,255));
+        instructorIdPanel.setBackground(color);
         instructorLogoutPanel=new JPanel();
-        instructorLogoutPanel.setBackground(new Color(114,128,255));
+        instructorLogoutPanel.setBackground(color);
         coursesListPanel=new JPanel();
-        coursesListPanel.setBackground(new Color(114,128,255));
+        coursesListPanel.setBackground(color);
         tablePanel=new JPanel();
-        tablePanel.setBackground(new Color(114,128,255));
+        tablePanel.setBackground(color);
         northPanel=new JPanel();
-        northPanel.setBackground(new Color(114,128,255));
+        northPanel.setBackground(color);
         southPanel=new JPanel();
-        southPanel.setBackground(new Color(114,128,255));
+        southPanel.setBackground(color);
         centerPanel=new JPanel();
-        centerPanel.setBackground(new Color(114,128,255));
+        centerPanel.setBackground(color);
         mainPanel=new JPanel();
-        mainPanel.setBackground(new Color(114,128,255));
+        mainPanel.setBackground(color);
         studentIdPanel=new JPanel();
-        studentIdPanel.setBackground(new Color(114,128,255));
+        studentIdPanel.setBackground(color);
         courseCodePanel=new JPanel();
-        courseCodePanel.setBackground(new Color(114,128,255));
+        courseCodePanel.setBackground(color);
         studentGradePanel=new JPanel();
-        studentGradePanel.setBackground(new Color(114,128,255));
+        studentGradePanel.setBackground(color);
         addButtonPanel=new JPanel();
-        addButtonPanel.setBackground(new Color(114,128,255));
+        addButtonPanel.setBackground(color);
         
         headPanel.setLayout(new FlowLayout(FlowLayout.CENTER,1,2));
         headPanel.add(header);
@@ -190,7 +193,7 @@ public class InstructorPanelView{
         mainPanel.add(southPanel,BorderLayout.SOUTH);
         
         instructorFrame.add(mainPanel);
-    	instructorFrame.setBackground(new Color(114,128,255));
+    	instructorFrame.setBackground(color);
         instructorFrame.setTitle("Instructor Panel");
 		instructorFrame.setSize(900, 700);
 		instructorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

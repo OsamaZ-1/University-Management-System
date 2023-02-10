@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.lang.model.util.ElementScanner14;
 import javax.swing.JOptionPane;
 
 import Model.AdminCourseModel;
@@ -53,16 +54,17 @@ public class AdminCourseController {
     			String name=adminCourseView.getNameAddField().getText().toString();
     			String credits=adminCourseView.getCreditsAddField().getText().toString();
     			String hours=adminCourseView.getHouresAddField().getText().toString();
-    			String major=adminCourseView.getMajorAddField().getText().toString();
+    			String major=adminCourseView.getMajorAddField().getSelectedItem().toString();
     			String year=adminCourseView.getYearAddField().getText().toString();
     			
-    			if(!name.equals("") && !credits.equals("") && !hours.equals("") && !major.equals("") && !year.equals(""))
+    			if(!name.equals("") && !credits.equals("") && !hours.equals("") && !major.equals("Select Major") && !year.equals(""))
 				{	Course course=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(hours),major,Integer.parseInt(year));
 					try {
 
 						if(adminCourseModel.addCourse(course))
 						{
 							fillTable();
+							refreshPage("Add");
 					 		JOptionPane.showMessageDialog(null, "Successfully added course");
 						}
 						else
@@ -84,6 +86,7 @@ public class AdminCourseController {
 						if(adminCourseModel.deleteCourse(code))
 						{
 						 fillTable();
+						 refreshPage("Delete");
 						 JOptionPane.showMessageDialog(null, "Successfully deleted course");
 						}
 						else
@@ -103,15 +106,16 @@ public class AdminCourseController {
     			String name=adminCourseView.getNameEditField().getText().toString();
     			String credits=adminCourseView.getCreditsEditField().getText().toString();
     			String hours=adminCourseView.getHouresEditField().getText().toString();
-    			String major=adminCourseView.getMajorEditField().getText().toString();
+    			String major=adminCourseView.getMajorEditField().getSelectedItem().toString();
     			String year=adminCourseView.getYearEditField().getText().toString().toString();
     			
-				if(!code.equals("") && !name.equals("") && !major.equals("") && !credits.equals("") && !hours.equals("") && !major.equals("") && !year.equals("") )
+				if(!code.equals("") && !name.equals("") && !major.equals("Select Major") && !credits.equals("") && !hours.equals("") && !major.equals("") && !year.equals("") )
     			{	Course course=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(hours),major,Integer.parseInt(year));
 					try {
 						if(adminCourseModel.editCourse(course))
 						{	
 							fillTable();
+							refreshPage("Edit");
 							JOptionPane.showMessageDialog(null, "Updated sucessfully");
 						}
 						else
@@ -142,9 +146,9 @@ public class AdminCourseController {
     public void actionCourseTable() {
     	adminCourseView.getCourseTable().addMouseListener(new MouseListener() {
     		public void mousePressed(MouseEvent e) {
-    			
-    			if(adminCourseView.getComboBoxActionFields().getSelectedItem()=="Edit") {
-        			int selectedRow=adminCourseView.getCourseTable().getSelectedRow();
+    			int selectedRow=adminCourseView.getCourseTable().getSelectedRow();
+    			if(adminCourseView.getComboBoxActionFields().getSelectedItem().equals("Edit")) {
+
         			String code=(String)adminCourseView.getCourseTable().getValueAt(selectedRow,1);
         			String name=(String)adminCourseView.getCourseTable().getValueAt(selectedRow,0);
         			String credits=adminCourseView.getCourseTable().getValueAt(selectedRow,2).toString();
@@ -155,9 +159,14 @@ public class AdminCourseController {
     				adminCourseView.getNameEditField().setText(name);
     				adminCourseView.getCreditsEditField().setText(credits);
     				adminCourseView.getHouresEditField().setText(houres);
-    				adminCourseView.getMajorEditField().setText(major);
+    				adminCourseView.getMajorEditField().setSelectedItem((Object)major);
     				adminCourseView.getYearEditField().setText(year);
     			}
+				else if(adminCourseView.getComboBoxActionFields().getSelectedItem().equals("Delete"))
+				{
+					String courseCode=(String)adminCourseView.getCourseTable().getValueAt(selectedRow,1);
+					adminCourseView.getCodeDeleteField().setText(courseCode);
+				}
     			
     		}
 
@@ -186,4 +195,27 @@ public class AdminCourseController {
 			}
     	});
     }
+
+	public void refreshPage(String mode)
+	{	
+		if(mode.equals("Add"))
+		{
+			adminCourseView.getNameAddField().setText("");
+			adminCourseView.getMajorAddField().setSelectedItem((Object)"Select Major");
+			adminCourseView.getCreditsAddField().setText("");
+			adminCourseView.getHouresAddField().setText("");
+			adminCourseView.getYearAddField().setText("");
+		}
+		else if(mode.equals("Edit"))
+		{
+			adminCourseView.getCodeEditField().setText("");
+			adminCourseView.getNameEditField().setText("");
+			adminCourseView.getMajorEditField().setSelectedItem((Object)"Select Major");
+			adminCourseView.getCreditsEditField().setText("");
+			adminCourseView.getHouresEditField().setText("");
+			adminCourseView.getYearEditField().setText("");
+		}
+		else 
+			adminCourseView.getCodeDeleteField().setText("");
+	}
 }

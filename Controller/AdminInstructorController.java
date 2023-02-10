@@ -1,10 +1,14 @@
 package Controller;
 
 import java.sql.SQLException;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 import View.AdminInstructorView;
 import View.AdminInstManageView;
 import Model.AdminInstructorModel;
+import Model.Course;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
@@ -22,7 +26,7 @@ public class AdminInstructorController {
         instView = new AdminInstructorView();
         instModel = new AdminInstructorModel();
         instManageView = new AdminInstManageView();
-        instManageView.setVisible(false);
+        instManageView.getMainFrame().setVisible(false);
 
         placeInfoInTable();
         editManageListener();
@@ -162,8 +166,8 @@ public class AdminInstructorController {
 			public void actionPerformed(ActionEvent e) {
 				String id = instView.getInstId2().getText().toString();
 				if(!id.equals(""))
-				{
-					instManageView.setVisible(true);
+				{	fillCoursesList();
+					instManageView.getMainFrame().setVisible(true);
 					instManageView.setInstId(id);
 					try{
 						placeInfoInManageTable(instView.getInstId2().getText().toString());
@@ -182,12 +186,12 @@ public class AdminInstructorController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String instId = instManageView.getInstIdField().getText().toString();
-				String courseId = instManageView.getCourseIdField().getText().toString();
+				String courseCode = instManageView.getCoursesList().getSelectedItem().toString();
 
-				if(!courseId.equals("")) //instId can't be null it comes filled from previous step
+				if(!courseCode.equals("")) //instId can't be null it comes filled from previous step
 				{
 					try{
-						if(instModel.addInstructorToCourse(instId,courseId))
+						if(instModel.addInstructorToCourse(instId,courseCode))
 						{	
 							placeInfoInManageTable(instId);
 							JOptionPane.showMessageDialog(null,"Successfully added");
@@ -211,11 +215,11 @@ public class AdminInstructorController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String instId = instManageView.getInstIdField().getText().toString();
-				String courseId = instManageView.getCourseIdField().getText().toString();
-				if(!courseId.equals("")) //instId can't be null it comes filled from previous step
+				String courseCode = instManageView.getCoursesList().getSelectedItem().toString();
+				if(!courseCode.equals("")) //instId can't be null it comes filled from previous step
 				{
 					try{
-						if(instModel.deleteInstructorFromCourse(instId,courseId))
+						if(instModel.deleteInstructorFromCourse(instId,courseCode))
 						{	
 							placeInfoInManageTable(instId);
 							JOptionPane.showMessageDialog(null,"Successfully Deleted");
@@ -231,4 +235,18 @@ public class AdminInstructorController {
 
 		});
 	}
+
+	public void fillCoursesList()
+		{	
+			List<Course> courses = null;
+
+			try{
+				courses = instModel.getCoursesList();
+			}catch(SQLException e){e.printStackTrace();}
+
+			if(courses!=null)
+			{
+			courses.forEach(course -> instManageView.getCoursesList().addItem(course.getCode()));
+			}
+		}
 }

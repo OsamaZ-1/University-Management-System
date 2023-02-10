@@ -57,7 +57,7 @@ public class AdminStudentView{
         editButton = new JButton("Edit");
         manageButton = new JButton("Manage");
         editManage = new JComboBox<String>(new String[]{"Edit","Manage"});
-        majorField = new JComboBox<>(new String[]{"Select Major","Computer Science","Math","Physics","Biology","Chemistry"});
+        majorField = new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
         fnameField = new JTextField(10);
         lnameField = new JTextField(10);
         emailField = new JTextField(15);

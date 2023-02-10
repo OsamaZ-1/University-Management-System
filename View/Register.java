@@ -72,7 +72,7 @@ public class Register{
         emailField = new JTextField(15);
         phoneNumberField = new JTextField(15);
         userModeField = new JComboBox<String>(new String[]{"Select User Mode","Student","Instructor"});
-        userMajorField = new JComboBox<String>(new String[]{"Select Major","Computer Science","Math","Physics","Biology","Chemistry"});
+        userMajorField = new JComboBox<String>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
         userMajorField.setVisible(false);
         mainIcon = new JLabel(logo);
         emailIcon = new JLabel(mailLogo);

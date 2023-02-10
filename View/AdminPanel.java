@@ -53,7 +53,7 @@ public class AdminPanel {
     private Color lightBlue;
 
     public AdminPanel()
-    {   
+    {  
         //Initialization of components
         logo = new ImageIcon("./Images/main_Icon.png");
         studentLogo = new ImageIcon("./Images/student.png");
@@ -72,7 +72,7 @@ public class AdminPanel {
         nbCourses = new JLabel("Total courses 0");
         activityLabel = new JLabel("New Registration Activities");
         studentButton = new JButton("Students");
-        professorButton = new JButton("Professors");
+        professorButton = new JButton("Instructors");
         courseButton = new JButton("Courses");
         logoutButton = new JButton("Logout");
         refreshActivity = new JButton("<html><center>Refresh<br/>Activities</center></html>");
