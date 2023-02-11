@@ -9,7 +9,7 @@ import Database.DatabaseConnection;
 
 public class AdminDaoImplementation implements AdminDao{
     static Connection con = DatabaseConnection.getConnection();
-    private final String TABLE_ADMIN = "Admin";
+    private final String TABLE_ADMIN = "admin";
 
     public int uniqueAdminExists(String email, String pass) throws SQLException
     {

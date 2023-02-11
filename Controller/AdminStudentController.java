@@ -152,18 +152,24 @@ public class AdminStudentController {
 				String phone = (String)adminStudentView.getStudentPhone().getText().toString();
 
 				if(!id.equals("") && !fname.equals("") && !lname.equals("") && !major.equals("Select Major") && !email.equals("") && !password.equals("") && !phone.equals(""))
-				{
-					String[] studentInfo = new String[]{id,fname,lname,major,email,password,phone};
-					try{
-						if(adminStudentModel.updateStudent(studentInfo))
-						{	
-							fillFirstTable();
-							adminStudentView.displayMessage("Updated successfully");
+				{	
+					try{	
+							int phoneCasted = Integer.parseInt(phone);
+							String[] studentInfo = new String[]{id,fname,lname,major,email,password,phone};
+							try
+							{	if(adminStudentModel.updateStudent(studentInfo))
+								{	
+									fillFirstTable();
+									adminStudentView.displayMessage("Updated successfully");
 							
+								}
+								else
+									adminStudentView.displayMessage("Error editing info");			
+							}catch(SQLException ex){ex.printStackTrace();}
+						}catch(NumberFormatException ex)
+						{ex.printStackTrace();
+						 adminStudentView.displayMessage("Phone consists of numbers only");
 						}
-						else
-							adminStudentView.displayMessage("Error editing info");			
-					}catch(SQLException ex){ex.printStackTrace();}
 				}
 				else
 					adminStudentView.displayMessage("choose a student and fill in all information!");
