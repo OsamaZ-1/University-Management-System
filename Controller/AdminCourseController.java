@@ -91,7 +91,10 @@ public class AdminCourseController {
 						}
 						else
 							adminCourseView.displayMessage("Error deleting course");
-					} catch (SQLException e1) {e1.printStackTrace();}
+					} catch (SQLException e1) {
+						adminCourseView.displayMessage("Not delete course have student marks");
+						e1.printStackTrace();
+						}
 				}
 				else
 					adminCourseView.displayMessage("Enter course code");

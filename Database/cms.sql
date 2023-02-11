@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Feb 10, 2023 at 06:12 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Host: 127.0.0.1
+-- Generation Time: Feb 11, 2023 at 01:17 AM
+-- Server version: 5.7.17
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -24,23 +25,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Admin`
+-- Table structure for table `admin`
 --
 
-CREATE TABLE `Admin` (
+CREATE TABLE `admin` (
   `Id` int(100) NOT NULL,
   `Fname` varchar(100) NOT NULL,
   `Lname` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Password` varchar(100) NOT NULL,
   `Phone` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `Admin`
+-- Dumping data for table `admin`
 --
 
-INSERT INTO `Admin` (`Id`, `Fname`, `Lname`, `Email`, `Password`, `Phone`) VALUES
+INSERT INTO `admin` (`Id`, `Fname`, `Lname`, `Email`, `Password`, `Phone`) VALUES
 (1, 'admin', 'admin', 'admin1@gmail.com', 'Admin1123', 70711770),
 (2, 'Admin', 'University', 'admin2@gmail.com', 'Admin2123', 71717171);
 
@@ -58,22 +59,22 @@ CREATE TABLE `course` (
   `Hours` int(10) NOT NULL,
   `Major` varchar(50) NOT NULL,
   `Year` int(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `course`
 --
 
 INSERT INTO `course` (`CourseId`, `Name`, `Code`, `Credits`, `Hours`, `Major`, `Year`) VALUES
-(1, 'Intro CS', 'I1001', 3, 30, 'Informatics', 1),
+(1, 'intro CS', 'I1001', 3, 30, 'Informatics', 1),
 (2, 'Algorithm', 'I1002', 6, 60, 'Informatics', 1),
 (3, 'Algorithm2', 'I1003', 5, 50, 'Informatics', 1),
 (4, 'web1', 'I2004', 4, 40, 'Informatics', 2),
 (5, 'java oop', 'I2005', 5, 50, 'Informatics', 2),
 (6, 'web2', 'I3006', 4, 40, 'Informatics', 3),
 (7, 'Graphical user interphase', 'I3007', 3, 30, 'Informatics', 3),
-(11, 'Algebra', 'M2011', 4, 35, 'Math', 2),
-(10, 'Analysis', 'M2008', 3, 30, 'Math', 2);
+(10, 'Analysis', 'M2008', 3, 30, 'Math', 2),
+(11, 'Algebra', 'M2011', 4, 35, 'Math', 2);
 
 -- --------------------------------------------------------
 
@@ -88,8 +89,8 @@ CREATE TABLE `instructors` (
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Phone` int(10) NOT NULL,
-  `Accepted` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `Accepted` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `instructors`
@@ -110,7 +111,7 @@ INSERT INTO `instructors` (`Id`, `Fname`, `Lname`, `Password`, `Email`, `Phone`,
 CREATE TABLE `instructorteaches` (
   `InstID` int(11) NOT NULL,
   `CourseID` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `instructorteaches`
@@ -135,8 +136,8 @@ CREATE TABLE `student` (
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Phone` int(10) NOT NULL,
-  `Accepted` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Accepted` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `student`
@@ -160,7 +161,7 @@ CREATE TABLE `studentgrades` (
   `Id` int(100) NOT NULL,
   `CourseId` int(100) NOT NULL,
   `Grade` decimal(65,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `studentgrades`
@@ -182,12 +183,6 @@ INSERT INTO `studentgrades` (`Id`, `CourseId`, `Grade`) VALUES
 --
 
 --
--- Indexes for table `Admin`
---
-ALTER TABLE `Admin`
-  ADD PRIMARY KEY (`Id`);
-
---
 -- Indexes for table `course`
 --
 ALTER TABLE `course`
@@ -199,6 +194,13 @@ ALTER TABLE `course`
 --
 ALTER TABLE `instructors`
   ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `instructorteaches`
+--
+ALTER TABLE `instructorteaches`
+  ADD KEY `instructorteaches_instructor_r1` (`InstID`),
+  ADD KEY `instructorteaches_courses_r1` (`CourseID`);
 
 --
 -- Indexes for table `student`
@@ -218,38 +220,37 @@ ALTER TABLE `studentgrades`
 --
 
 --
--- AUTO_INCREMENT for table `Admin`
---
-ALTER TABLE `Admin`
-  MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
   MODIFY `CourseId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
 --
 -- AUTO_INCREMENT for table `instructors`
 --
 ALTER TABLE `instructors`
   MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
   MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `instructorteaches`
+--
+ALTER TABLE `instructorteaches`
+  ADD CONSTRAINT `instructorteaches_courses_r1` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseId`),
+  ADD CONSTRAINT `instructorteaches_instructor_r1` FOREIGN KEY (`InstID`) REFERENCES `instructors` (`Id`);
+
+--
 -- Constraints for table `studentgrades`
 --
 ALTER TABLE `studentgrades`
-  ADD CONSTRAINT `studentgrades_ibfk_1` FOREIGN KEY (`Id`) REFERENCES `student` (`Id`);
+  ADD CONSTRAINT `studentgrades_courses_r1` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`),
+  ADD CONSTRAINT `studentgrades_students_r1` FOREIGN KEY (`Id`) REFERENCES `student` (`Id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
