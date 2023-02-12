@@ -10,15 +10,11 @@ import Model.UniversityMember;
 interface StudentDao {
     public int add(Student s)
         throws SQLException;
-    public void delete(int id)
-        throws SQLException;
     public int uniqueStudentExists(String email, String pass)
         throws SQLException;
     public int studentEmailPhoneExist(String email, int phone)
         throws SQLException;
     public List<Student> getStudents()
-        throws SQLException;
-    public void update(Student s)
         throws SQLException;
     public Object[][] getStudentCoursesInformation(String email,String password)
         throws SQLException;

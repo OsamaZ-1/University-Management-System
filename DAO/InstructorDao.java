@@ -10,8 +10,6 @@ import Model.UniversityMember;
 interface InstructorDao {
     public int add(Instructor s)
         throws SQLException;
-    public void delete(int id)
-        throws SQLException;
     public int uniqueInstructorExists(String email, String pass)
         throws SQLException;
     public int instructorEmailPhoneExist(String email, int phone)
@@ -28,15 +26,15 @@ interface InstructorDao {
         throws SQLException;
     public boolean updateInstructor(String[] s)
         throws SQLException;
-    public boolean addInstructorToCourse(String studentId, String courseCode)
+    public boolean addInstructorToCourse(String instId, String courseCode)
         throws SQLException;
-    public boolean deleteInstructorFromCourse(String studentId, String courseCode)
+    public boolean deleteInstructorFromCourse(String instId, String courseCode)
         throws SQLException;
-    public Object[][] getAcceptedInstructorsInfo(String id) 
+    public Object[][] getAcceptedInstructorsInfo(String id)
         throws SQLException;
-    public List<String> getInstructorCourses(String instEmail, String instPass)
+    public List<String> getInstructorCourses(String email, String pass)
         throws SQLException;
-    public HashMap<String,String> getInstructorInfo(String instEmai, String intPass)
+    public HashMap<String,String> getInstructorInfo(String email, String pass)
         throws SQLException;
     public Object[][] getEnrolledStudents(String courseCode) 
         throws SQLException;

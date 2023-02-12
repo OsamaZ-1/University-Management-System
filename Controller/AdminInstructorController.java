@@ -137,7 +137,6 @@ public class AdminInstructorController {
 				{	
 					
 					try{
-							int phoneCasted = Integer.parseInt(phone);
 							String[] InstInfo = new String[]{id,fname,lname,email,password,phone};
 							try{
 								if(instModel.updateInstructor(InstInfo))	

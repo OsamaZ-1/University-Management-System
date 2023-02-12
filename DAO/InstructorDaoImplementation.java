@@ -33,11 +33,6 @@ public class InstructorDaoImplementation implements InstructorDao{
     }
 
     @Override
-    public void delete(int id) throws SQLException {
-        
-    }
-
-    @Override
     public int uniqueInstructorExists(String email, String pass) throws SQLException {
         String query = "SELECT Id, Accepted FROM " + TABLE_INSTRUCTORS + " WHERE Password = ? AND Email = ?";
         PreparedStatement ps = con.prepareStatement(query);

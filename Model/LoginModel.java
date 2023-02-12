@@ -7,9 +7,9 @@ import DAO.InstructorDaoImplementation;
 import DAO.StudentDaoImplementation;
 
 public class LoginModel {
-    StudentDaoImplementation stdDao = new StudentDaoImplementation();
-    InstructorDaoImplementation instDao = new InstructorDaoImplementation();
-    AdminDaoImplementation adminDao = new AdminDaoImplementation();
+    private StudentDaoImplementation stdDao = new StudentDaoImplementation();
+    private InstructorDaoImplementation instDao = new InstructorDaoImplementation();
+    private AdminDaoImplementation adminDao = new AdminDaoImplementation();
 
     public int loginMember(String email, String pass, String userMode) throws SQLException{
         

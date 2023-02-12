@@ -13,8 +13,8 @@ public class StrudentTranscriptController {
 	private StudentTranscriptModel model;
 	private Object[][] grades;
 	private String[] studentInfo;
+
 	public StrudentTranscriptController(String email,String password) throws SQLException {
-		
     	view=new StudentTranscriptView();
     	model=new StudentTranscriptModel(email,password);
     	

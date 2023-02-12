@@ -14,11 +14,11 @@ public class LoginController {
         loginModel = new LoginModel();
         loginView = new Login();
 
-        logStudentIn();
+        logMemberIn();
         goToRegisterPage();
     }
 
-    public void logStudentIn(){
+    public void logMemberIn(){
         loginView.getLoginButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){

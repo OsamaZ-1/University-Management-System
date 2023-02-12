@@ -433,7 +433,7 @@ public class AdminCourseView{
     	return this.DELETE_PANEL_CODE;
     }
 
-    public void displayMessage(String message)
-    {   JOptionPane.showMessageDialog(null, message);
+    public void displayMessage(String message){   
+        JOptionPane.showMessageDialog(null, message);
     }
 }

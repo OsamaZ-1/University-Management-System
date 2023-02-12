@@ -9,10 +9,11 @@ import Model.Student;
 import Model.UniversityMember;
 
 public class StudentDaoImplementation implements StudentDao {
-    static Connection con = DatabaseConnection.getConnection();
+    static private Connection con = DatabaseConnection.getConnection();
     private final String TABLE_NAME = "student";
     private final String TABLE_STUDENT_COURSE = "studentgrades";
     private final String TABLE_COURSE = "course";
+    
     @Override
     public int add(Student s) throws SQLException {
         String query
@@ -26,11 +27,6 @@ public class StudentDaoImplementation implements StudentDao {
         ps.setInt(6, s.getPhone());
         int n = ps.executeUpdate();
         return n;
-    }
-
-    @Override
-    public void delete(int id) throws SQLException {
-        
     }
 
     @Override
@@ -85,11 +81,6 @@ public class StudentDaoImplementation implements StudentDao {
             listStudents.add(s);
         }
         return listStudents;
-    }
-
-    @Override
-    public void update(Student s) throws SQLException {
-        
     }
 
 	@Override
@@ -229,8 +220,6 @@ public class StudentDaoImplementation implements StudentDao {
 		ps.setInt(1, 1);
         ps.setInt(2, Integer.parseInt(id));
 		ResultSet res=ps.executeQuery();
-		ResultSetMetaData md=res.getMetaData();
-		int colCount=md.getColumnCount();
 		
 		Object[][] gradesInformation=new Object[countRows][6];
 		int i=0;

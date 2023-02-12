@@ -69,14 +69,6 @@ public class CourseDaoImplementation implements CourseDao{
 	}
 
 	@Override
-	public Course getCourse(String code) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-
-	@Override
 	public List<Course> getCourses() throws SQLException {
 		// TODO Auto-generated method stub/
 		String query = "SELECT Name,Code,Credits,Hours,Major,Year FROM " + TABLE_NAME;

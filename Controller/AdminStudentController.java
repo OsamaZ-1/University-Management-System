@@ -24,6 +24,7 @@ public class AdminStudentController {
 	private AdminStudentModel adminStudentModel;
 	private Object[][] tableInfo;
 	private String studentMajor;
+	
 	public AdminStudentController() throws SQLException {
 		adminStudentManageView= new AdminStudentManageView();
 		adminStudentView = new AdminStudentView();
