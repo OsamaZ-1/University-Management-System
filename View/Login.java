@@ -42,10 +42,10 @@ public class Login{
     public Login()
     {   
         //Initializations
-        logo = new ImageIcon("./Images/main_Icon.png");
-        userLogo = new ImageIcon("./Images/person.png");
-        mailLogo = new ImageIcon("./Images/mail.png");
-        keyLogo = new ImageIcon("./Images/key.png");
+        logo = new ImageIcon("INFO404-PROJECT/Images/main_Icon.png");
+        userLogo = new ImageIcon("INFO404-PROJECT/Images/person.png");
+        mailLogo = new ImageIcon("INFO404-PROJECT/Images/mail.png");
+        keyLogo = new ImageIcon("INFO404-PROJECT/Images/key.png");
         font = new Font("Arial",Font.PLAIN,17);
         color = new Color(83,131,255);
         emailField = new JTextField(15);

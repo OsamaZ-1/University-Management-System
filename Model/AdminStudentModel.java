@@ -24,6 +24,11 @@ public class AdminStudentModel {
 		return stdDao.updateStudent(studentinfo);
 	}
 
+	public boolean deleteStudent(String id) throws SQLException
+	{
+		return stdDao.delete(id);
+	}
+
 	public boolean addStudentToCourse(String studentId, String courseCode) throws SQLException
 	{
 		return stdDao.addStudentToCourse(studentId, courseCode);

@@ -10,6 +10,7 @@ public class AdminStudentView{
     private JPanel head;
     private JPanel center;
     private JPanel footEdit;
+    private JPanel footDelete;
     private JPanel footManage;
     private JPanel footCombo;
     private JFrame studentFrame;
@@ -17,6 +18,7 @@ public class AdminStudentView{
     //Buttons
     private JButton editButton;
     private JButton manageButton;
+    private JButton deleteButton;
 
     //Fields
     private JComboBox<String> editManage;
@@ -27,6 +29,7 @@ public class AdminStudentView{
     private JTextField passwordField;
     private JTextField studentIdField1;
     private JTextField studentIdField2;
+    private JTextField studentIdField3;
     private JTextField phoneField;
 
     //Labels
@@ -37,6 +40,7 @@ public class AdminStudentView{
     private JLabel passwordLabel;
     private JLabel studentIdLabel1;
     private JLabel studentIdLabel2;
+    private JLabel studentIdLabel3;
     private JLabel phoneLabel;
     
 
@@ -56,7 +60,8 @@ public class AdminStudentView{
     public AdminStudentView(){
         editButton = new JButton("Edit");
         manageButton = new JButton("Manage");
-        editManage = new JComboBox<String>(new String[]{"Edit","Manage"});
+        deleteButton = new JButton("Delete");
+        editManage = new JComboBox<String>(new String[]{"Edit","Delete","Manage"});
         majorField = new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
         fnameField = new JTextField(10);
         lnameField = new JTextField(10);
@@ -64,6 +69,7 @@ public class AdminStudentView{
         phoneField = new JTextField(10);
         studentIdField1 = new JTextField(5);
         studentIdField2 = new JTextField(5);
+        studentIdField3 = new JTextField(5);
         passwordField = new JTextField(10);
         fnameLabel = new JLabel("First Name:");
         lnameLabel = new JLabel("Last Name:");
@@ -73,6 +79,7 @@ public class AdminStudentView{
         phoneLabel = new JLabel("Phone:");
         studentIdLabel1 = new JLabel("Student Id:");
         studentIdLabel2 = new JLabel("Student Id:");
+        studentIdLabel3 = new JLabel("Student Id:");
         tableColumns = new Object[]{"ID","First Name","Last Name","Major","Email","Password","Phone"};
     	studentTable=new JTable();
         scrollPane = new JScrollPane(studentTable);
@@ -81,6 +88,7 @@ public class AdminStudentView{
         center = new JPanel();
         footCombo = new JPanel();
         footEdit = new JPanel();
+        footDelete = new JPanel();
         footManage = new JPanel();
         studentFrame = new JFrame();
         springLayout = new SpringLayout();
@@ -90,6 +98,7 @@ public class AdminStudentView{
 
         studentIdField1.setEditable(false);
         studentIdField2.setEditable(false);
+        studentIdField3.setEditable(false);
 
         editManage.setFont(font);
         fnameField.setFont(font);
@@ -108,12 +117,15 @@ public class AdminStudentView{
         phoneLabel.setFont(font);
         studentIdLabel1.setFont(font);
         studentIdLabel2.setFont(font);
+        studentIdLabel3.setFont(font);
         editButton.setFont(font);
         editButton.setPreferredSize(new Dimension(90,40));
         editButton.setBackground(Color.green);
         manageButton.setFont(font);
         manageButton.setPreferredSize(new Dimension(100,40));
         manageButton.setBackground(Color.cyan);
+        deleteButton.setFont(font);
+        deleteButton.setPreferredSize(new Dimension(90,40));
         studentTable.setFont(font);
     	studentTable.getTableHeader().setFont(font);
     	studentTable.getTableHeader().setForeground(Color.BLUE);
@@ -130,13 +142,17 @@ public class AdminStudentView{
         footCombo.setPreferredSize(new Dimension(800,200));
         footEdit.setLayout(springLayout);
         footEdit.setPreferredSize(new Dimension(800,200));
+        footDelete.setLayout(springLayout);
+        footDelete.setPreferredSize(new Dimension(800,200));
         footManage.setLayout(new FlowLayout(FlowLayout.CENTER));
         footManage.setPreferredSize(new Dimension(800,200));
         footManage.setVisible(false);
+        footDelete.setVisible(false);
         
         center.setBackground(color);
         footCombo.setBackground(color);
         footEdit.setBackground(color);
+        footDelete.setBackground(color);
         footManage.setBackground(color);
 
         springLayout.putConstraint(SpringLayout.NORTH,studentIdLabel1,10,SpringLayout.NORTH,footEdit);
@@ -155,10 +171,18 @@ public class AdminStudentView{
         springLayout.putConstraint(SpringLayout.NORTH,phoneField,20,SpringLayout.SOUTH,majorField);
         springLayout.putConstraint(SpringLayout.NORTH,editButton,20,SpringLayout.SOUTH,passwordField);
 
+        springLayout.putConstraint(SpringLayout.NORTH,studentIdField3,20,SpringLayout.NORTH,footDelete);
+        springLayout.putConstraint(SpringLayout.NORTH,studentIdLabel3,25,SpringLayout.NORTH,footDelete);
+        springLayout.putConstraint(SpringLayout.NORTH,deleteButton,15,SpringLayout.SOUTH,studentIdField3);
+
         springLayout.putConstraint(SpringLayout.WEST,studentIdLabel1,10,SpringLayout.WEST,footEdit);
         springLayout.putConstraint(SpringLayout.WEST,fnameLabel,10,SpringLayout.WEST,footEdit);
         springLayout.putConstraint(SpringLayout.WEST,emailLabel,10,SpringLayout.WEST,footEdit);
         springLayout.putConstraint(SpringLayout.WEST,editButton,350,SpringLayout.WEST,footEdit);
+
+        springLayout.putConstraint(SpringLayout.WEST,studentIdLabel3,360,SpringLayout.WEST,footDelete);
+        springLayout.putConstraint(SpringLayout.WEST,studentIdField3,10,SpringLayout.EAST,studentIdLabel3);
+        springLayout.putConstraint(SpringLayout.WEST,deleteButton,360,SpringLayout.WEST,footDelete);
 
         springLayout.putConstraint(SpringLayout.WEST,studentIdField1,5,SpringLayout.EAST,studentIdLabel1);
         springLayout.putConstraint(SpringLayout.WEST,fnameField,5,SpringLayout.EAST,fnameLabel);
@@ -190,11 +214,15 @@ public class AdminStudentView{
         footEdit.add(phoneLabel);
         footEdit.add(phoneField);
         footEdit.add(editButton);
+        footDelete.add(studentIdLabel3);
+        footDelete.add(studentIdField3);
+        footDelete.add(deleteButton);
         footManage.add(studentIdLabel2);
         footManage.add(studentIdField2);
         footManage.add(manageButton);
         footCombo.add(footManage, BorderLayout.CENTER);
         footCombo.add(footEdit, BorderLayout.NORTH);
+        footCombo.add(footDelete, BorderLayout.CENTER);
         
         studentFrame.getContentPane().setBackground(new Color(114,128,255));
         studentFrame.add(head,BorderLayout.NORTH);
@@ -216,6 +244,11 @@ public class AdminStudentView{
     public JButton getManageButton()
     {
         return this.manageButton;
+    }
+
+    public JButton getDeleButton()
+    {
+        return this.deleteButton;
     }
 
     public JTextField getStudentFname()
@@ -257,6 +290,11 @@ public class AdminStudentView{
     {
         return this.studentIdField2;
     }
+    
+    public JTextField getStudentId3()
+    {
+        return this.studentIdField3;
+    }
 
     public JComboBox<String> getEditManageComboBox()
     {
@@ -286,6 +324,11 @@ public class AdminStudentView{
     public JPanel getFootEditPanel()
     {
         return this.footEdit;
+    }
+
+    public JPanel getFootDeletePanel()
+    {
+        return this.footDelete;
     }
 
     public void displayMessage(String message)

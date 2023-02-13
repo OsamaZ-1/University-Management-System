@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.lang.model.util.ElementScanner14;
 import javax.swing.JOptionPane;
 
 
@@ -31,20 +32,12 @@ public class AdminStudentController {
 		adminStudentModel=new AdminStudentModel();
 		adminStudentManageView.getMainFrame().setVisible(false);
 		fillFirstTable();
-		editManageListener();
+		editDeleteManageListener();
 		studentTableListener();
 		manageButtonListener();
 		editButtonListener();
 		addButtonListener();
 		deleteButtonListener();
-	}
-
-	public void fillSecondTable(String id) throws SQLException {
-		adminStudentManageView.getTableModel().setNumRows(0);
-		tableInfo=adminStudentModel.getAcceptedStudentsInfo(id);
-		for(int i=0;i<tableInfo.length;i++) {
-			adminStudentManageView.getTableModel().addRow(tableInfo[i]);
-		}
 	}
 
 	public void fillFirstTable() throws SQLException{
@@ -53,8 +46,17 @@ public class AdminStudentController {
 		for(int i=0; i<listStudents.length;i++)
 			adminStudentView.getTableModel().addRow(listStudents[i]);
 	}
+	
+	public void fillSecondTable(String id) throws SQLException {
+		adminStudentManageView.getTableModel().setNumRows(0);
+		tableInfo=adminStudentModel.getAcceptedStudentsInfo(id);
+		for(int i=0;i<tableInfo.length;i++) {
+			adminStudentManageView.getTableModel().addRow(tableInfo[i]);
+		}
+	}
 
-	public void editManageListener(){
+
+	public void editDeleteManageListener(){
 		adminStudentView.getEditManageComboBox().addItemListener(new ItemListener(){
 
 			@Override
@@ -64,11 +66,20 @@ public class AdminStudentController {
 				if(mode.equals("Edit"))
 				{	
 					adminStudentView.getFootManagePanel().setVisible(false);
+					adminStudentView.getFootDeletePanel().setVisible(false);
 					adminStudentView.getFootEditPanel().setVisible(true);
 				}
-				else{
+				else if(mode.equals("Manage")){
 					adminStudentView.getFootEditPanel().setVisible(false);
+					adminStudentView.getFootDeletePanel().setVisible(false);
 					adminStudentView.getFootManagePanel().setVisible(true);
+					
+				}
+				else
+				{
+					adminStudentView.getFootEditPanel().setVisible(false);
+					adminStudentView.getFootManagePanel().setVisible(false);
+					adminStudentView.getFootDeletePanel().setVisible(true);
 					
 				}
 			}
@@ -101,12 +112,17 @@ public class AdminStudentController {
     				adminStudentView.getStudentPassword().setText(password);
 					adminStudentView.getStudentPhone().setText(phone);
     			}
-				else
+				else if(adminStudentView.getEditManageComboBox().getSelectedItem().equals("Manage"))
 				{
 					int selectedRow=adminStudentView.getStudentTable().getSelectedRow();	
 					String id=(String)adminStudentView.getStudentTable().getValueAt(selectedRow,0).toString();
 				    studentMajor=(String)adminStudentView.getStudentTable().getValueAt(selectedRow,3).toString();
 					adminStudentView.getStudentId2().setText(id);
+				}
+				else{
+					int selectedRow=adminStudentView.getStudentTable().getSelectedRow();	
+					String id=(String)adminStudentView.getStudentTable().getValueAt(selectedRow,0).toString();
+					adminStudentView.getStudentId3().setText(id);
 				}
 				
 			}
@@ -195,6 +211,31 @@ public class AdminStudentController {
 					try{
 						fillSecondTable(adminStudentView.getStudentId2().getText().toString());
 					}catch(SQLException ex){ex.printStackTrace();}
+				}
+				else
+					adminStudentView.displayMessage("Select a student from table");
+			}
+		});
+	}
+
+	public void deleteStudentListener()
+	{
+		adminStudentView.getDeleButton().addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				String id = adminStudentView.getStudentId3().getText().toString();
+				if(!id.equals(""))
+				{	
+					try{	
+							if(adminStudentModel.deleteStudent(id))
+							{	
+								fillFirstTable();
+								adminStudentView.displayMessage("Updated successfully");		
+							}
+							else 
+								adminStudentView.displayMessage("Error deleting student");
+						}
+						catch(SQLException ex){ex.printStackTrace();}		
 				}
 				else
 					adminStudentView.displayMessage("Select a student from table");

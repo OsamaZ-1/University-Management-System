@@ -34,7 +34,7 @@ interface InstructorDao {
         throws SQLException;
     public List<String> getInstructorCourses(String email, String pass)
         throws SQLException;
-    public HashMap<String,String> getInstructorInfo(String email, String pass)
+    public HashMap<String,String> getInstructorInfo(String instEmail, String intPass)
         throws SQLException;
     public Object[][] getEnrolledStudents(String courseCode) 
         throws SQLException;

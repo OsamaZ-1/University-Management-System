@@ -256,7 +256,7 @@ public class AdminInstructorController {
 
 			if(courses!=null)
 			{
-			courses.forEach(course -> instManageView.getCoursesList().addItem(course.getCode()));
+			 courses.forEach(course -> instManageView.getCoursesList().addItem(course.getCode()));
 			}
 		}
 }

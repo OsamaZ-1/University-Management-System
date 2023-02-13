@@ -30,6 +30,15 @@ public class StudentDaoImplementation implements StudentDao {
     }
 
     @Override
+    public boolean delete(String id) throws SQLException {
+        
+        String query = "DELETE FROM "+TABLE_NAME+ " WHERE Id = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1,Integer.parseInt(id));
+        return ps.executeUpdate()>0;
+    }
+
+    @Override
     public int uniqueStudentExists(String email, String pass) throws SQLException {
         String query = "SELECT Id, Accepted FROM " + TABLE_NAME + " WHERE Password = ? AND Email = ?";
         PreparedStatement ps = con.prepareStatement(query);
