@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2023 at 01:17 AM
+-- Generation Time: Feb 13, 2023 at 01:13 PM
 -- Server version: 5.7.17
 -- PHP Version: 5.6.30
 
@@ -58,23 +58,24 @@ CREATE TABLE `course` (
   `Credits` int(10) NOT NULL,
   `Hours` int(10) NOT NULL,
   `Major` varchar(50) NOT NULL,
-  `Year` int(10) NOT NULL
+  `Year` int(10) NOT NULL,
+  `semester` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`CourseId`, `Name`, `Code`, `Credits`, `Hours`, `Major`, `Year`) VALUES
-(1, 'intro CS', 'I1001', 3, 30, 'Informatics', 1),
-(2, 'Algorithm', 'I1002', 6, 60, 'Informatics', 1),
-(3, 'Algorithm2', 'I1003', 5, 50, 'Informatics', 1),
-(4, 'web1', 'I2004', 4, 40, 'Informatics', 2),
-(5, 'java oop', 'I2005', 5, 50, 'Informatics', 2),
-(6, 'web2', 'I3006', 4, 40, 'Informatics', 3),
-(7, 'Graphical user interphase', 'I3007', 3, 30, 'Informatics', 3),
-(10, 'Analysis', 'M2008', 3, 30, 'Math', 2),
-(11, 'Algebra', 'M2011', 4, 35, 'Math', 2);
+INSERT INTO `course` (`CourseId`, `Name`, `Code`, `Credits`, `Hours`, `Major`, `Year`, `semester`) VALUES
+(1, 'intro CS', 'I1001', 3, 30, 'Informatics', 1, 1),
+(2, 'Algorithm', 'I1002', 6, 60, 'Informatics', 1, 1),
+(3, 'Algorithm2', 'I1003', 5, 50, 'Informatics', 1, 2),
+(4, 'web1', 'I2004', 4, 40, 'Informatics', 2, 1),
+(5, 'java oop', 'I2005', 5, 50, 'Informatics', 2, 2),
+(6, 'web2', 'I3006', 4, 40, 'Informatics', 3, 1),
+(7, 'Graphical user interphase', 'I3007', 3, 30, 'Informatics', 3, 1),
+(10, 'Analysis', 'M2008', 3, 30, 'Math', 2, 1),
+(11, 'Algebra', 'M2011', 4, 35, 'Math', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -160,23 +161,24 @@ INSERT INTO `student` (`Id`, `Fname`, `Lname`, `Major`, `Password`, `Email`, `Ph
 CREATE TABLE `studentgrades` (
   `Id` int(100) NOT NULL,
   `CourseId` int(100) NOT NULL,
-  `Grade` decimal(65,2) DEFAULT NULL
+  `Grade` decimal(65,2) DEFAULT NULL,
+  `year` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `studentgrades`
 --
 
-INSERT INTO `studentgrades` (`Id`, `CourseId`, `Grade`) VALUES
-(2, 1, '91.00'),
-(5, 1, '91.00'),
-(4, 1, '92.00'),
-(9, 2, '89.50'),
-(9, 3, '95.00'),
-(9, 4, '87.70'),
-(9, 6, '95.20'),
-(1, 10, '80.00'),
-(1, 11, '86.00');
+INSERT INTO `studentgrades` (`Id`, `CourseId`, `Grade`, `year`) VALUES
+(2, 1, '91.00', '2021-2022'),
+(5, 1, '91.00', '2021-2022'),
+(4, 1, '92.00', '2021-2022'),
+(9, 2, '89.50', '2020-2021'),
+(9, 3, '95.00', '2020-2021'),
+(9, 4, '87.70', '2020-2021'),
+(9, 6, '95.20', '2020-2021'),
+(1, 10, '80.00', '2020-2021'),
+(1, 11, '86.00', '2020-2021');
 
 --
 -- Indexes for dumped tables
