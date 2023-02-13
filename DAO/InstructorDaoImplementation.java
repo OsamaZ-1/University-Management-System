@@ -3,6 +3,7 @@ package DAO;
 import java.sql.Connection;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -293,7 +294,8 @@ public class InstructorDaoImplementation implements InstructorDao{
                        TABLE_STUDENT+","+TABLE_COURSE+","+TABLE_STUDENT_GRADES+
                        " WHERE course.CourseId = studentgrades.CourseId "+
                        "AND studentgrades.Id = student.Id "+
-                       "AND course.Code = ?";
+                       "AND course.Code = ?"+
+                       "ORDER BY studentgrades.Grade DESC";
         ps = con.prepareStatement(query);
         ps.setString(1,courseCode);
         res = ps.executeQuery();
