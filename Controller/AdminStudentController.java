@@ -9,10 +9,6 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.lang.model.util.ElementScanner14;
-import javax.swing.JOptionPane;
-
-
 import Model.AdminStudentModel;
 import Model.Course;
 import View.AdminStudentManageView;
