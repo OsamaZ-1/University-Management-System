@@ -61,7 +61,7 @@ public class AdminStudentView{
         editButton = new JButton("Edit");
         manageButton = new JButton("Manage");
         deleteButton = new JButton("Delete");
-        editManage = new JComboBox<String>(new String[]{"Edit","Delete","Manage"});
+        editManage = new JComboBox<String>(new String[]{"Edit","Manage","Delete"});
         majorField = new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
         fnameField = new JTextField(10);
         lnameField = new JTextField(10);
@@ -91,7 +91,7 @@ public class AdminStudentView{
         footDelete = new JPanel();
         footManage = new JPanel();
         studentFrame = new JFrame();
-        springLayout = new SpringLayout();
+        springLayout = new SpringLayout(); 
         font = new Font("Arial", Font.BOLD, 17);
         fontTable = new Font("Arial", Font.BOLD, 15);
         color = new Color(83,131,255);
@@ -109,6 +109,7 @@ public class AdminStudentView{
         phoneField.setFont(font);
         studentIdField1.setFont(font);
         studentIdField2.setFont(font);
+        studentIdField3.setFont(font);
         fnameLabel.setFont(font);
         lnameLabel.setFont(font);
         majorLabel.setFont(font);
@@ -220,9 +221,9 @@ public class AdminStudentView{
         footManage.add(studentIdLabel2);
         footManage.add(studentIdField2);
         footManage.add(manageButton);
-        footCombo.add(footManage, BorderLayout.CENTER);
-        footCombo.add(footEdit, BorderLayout.NORTH);
-        footCombo.add(footDelete, BorderLayout.CENTER);
+        footCombo.add(footManage, BorderLayout.NORTH);
+        footCombo.add(footEdit, BorderLayout.CENTER);
+        footCombo.add(footDelete, BorderLayout.SOUTH);
         
         studentFrame.getContentPane().setBackground(new Color(114,128,255));
         studentFrame.add(head,BorderLayout.NORTH);

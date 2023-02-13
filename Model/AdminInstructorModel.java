@@ -18,6 +18,10 @@ public class AdminInstructorModel {
         return instDao.updateInstructor(s);
     }
 
+    public boolean deleteInstructor(String id) throws SQLException{
+        return instDao.delete(id);
+    }
+
     public boolean addInstructorToCourse(String instID, String courseCode) throws SQLException{
         return instDao.addInstructorToCourse(instID, courseCode);
     }

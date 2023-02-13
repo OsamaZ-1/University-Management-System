@@ -38,6 +38,7 @@ public class AdminStudentController {
 		editButtonListener();
 		addButtonListener();
 		deleteButtonListener();
+		deleteStudentListener();
 	}
 
 	public void fillFirstTable() throws SQLException{

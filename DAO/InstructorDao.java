@@ -10,6 +10,8 @@ import Model.UniversityMember;
 interface InstructorDao {
     public int add(Instructor s)
         throws SQLException;
+    public boolean delete(String id)
+        throws SQLException;
     public int uniqueInstructorExists(String email, String pass)
         throws SQLException;
     public int instructorEmailPhoneExist(String email, int phone)

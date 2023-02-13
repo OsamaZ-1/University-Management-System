@@ -35,6 +35,7 @@ public class AdminInstructorController {
         manageButtonListener();
         addButtonListener();
         deleteButtonListener();
+		deleteInstructorListener();
     }
 
     public void placeInfoInTable(){
@@ -51,20 +52,28 @@ public class AdminInstructorController {
     }
 
     public void editManageListener(){
-		instView.getEditManageComboBox().addItemListener(new ItemListener(){
+		instView.getEditDeleteManageComboBox().addItemListener(new ItemListener(){
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				String mode = String.valueOf(instView.getEditManageComboBox().getSelectedItem());
+				String mode = String.valueOf(instView.getEditDeleteManageComboBox().getSelectedItem());
 				if(mode.equals("Edit"))
 				{	
 					instView.getFootManagePanel().setVisible(false);
+					instView.getFootDeletePanel().setVisible(false);
 					instView.getFootEditPanel().setVisible(true);
 				}
-				else{
+				else if(mode.equals("Manage")){
 					instView.getFootEditPanel().setVisible(false);
+					instView.getFootDeletePanel().setVisible(false);
 					instView.getFootManagePanel().setVisible(true);
 					
+				}
+				else 
+				{
+					instView.getFootEditPanel().setVisible(false);
+					instView.getFootManagePanel().setVisible(false);
+					instView.getFootDeletePanel().setVisible(true);	
 				}
 			}
 		});
@@ -72,10 +81,10 @@ public class AdminInstructorController {
 
     public void instructorTableListener(){
 		instView.getInstTable().addMouseListener(new MouseListener() {
-
+			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if(instView.getEditManageComboBox().getSelectedItem().equals("Edit")) {
+				if(instView.getEditDeleteManageComboBox().getSelectedItem().toString().equals("Edit")) {
         			int selectedRow=instView.getInstTable().getSelectedRow();
         			String id=(String)instView.getInstTable().getValueAt(selectedRow,0).toString();
         			String fname=(String)instView.getInstTable().getValueAt(selectedRow,1).toString();
@@ -90,10 +99,16 @@ public class AdminInstructorController {
     				instView.getInstPassword().setText(password);
 					instView.getInstPhone().setText(phone);
     			}
-				else{
+				else if(instView.getEditDeleteManageComboBox().getSelectedItem().toString().equals("Manage")){
 					int selectedRow=instView.getInstTable().getSelectedRow();	
 					String id=(String)instView.getInstTable().getValueAt(selectedRow,0).toString();
 					instView.getInstId2().setText(id);
+				}
+				else 
+				{
+					int selectedRow=instView.getInstTable().getSelectedRow();	
+					String id=(String)instView.getInstTable().getValueAt(selectedRow,0).toString();
+					instView.getInstId3().setText(id);
 				}
 				
 			}
@@ -215,6 +230,32 @@ public class AdminInstructorController {
 					instManageView.displayMessage("Choose Course Id");
 			}
 			
+		});
+	}
+
+	public void deleteInstructorListener()
+	{
+		instView.getDeleteButton().addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e)
+			{
+				String id = instView.getInstId3().getText().toString();
+				if(!id.equals(""))
+				{	
+					try{	
+							if(instModel.deleteInstructor(id))
+							{	
+								placeInfoInTable();
+								instView.displayMessage("Deleted successfully");		
+							}
+							else 
+								instView.displayMessage("Error deleting instructor");
+						}
+						catch(SQLException ex){ex.printStackTrace();}		
+				}
+				else
+					instView.displayMessage("Select an instructor from table");
+			}
 		});
 	}
 
