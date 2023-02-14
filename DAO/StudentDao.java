@@ -18,6 +18,8 @@ interface StudentDao {
         throws SQLException;
     public List<Student> getStudents()
         throws SQLException;
+    public Object[][] getStudentSemesterCoursesInformation(String email,String password,int semester)
+            throws SQLException;
     public Object[][] getStudentCoursesInformation(String email,String password)
         throws SQLException;
     public String[] getStudent(String email,String password)
@@ -37,5 +39,7 @@ interface StudentDao {
     public boolean addStudentToCourse(String studentId, String courseId)
         throws SQLException;
     public boolean deleteStudentFromCourse(String studentId, String courseId)
+        throws SQLException;
+    public List<String> getStudentSemesters(String email,String password)
         throws SQLException;
 }

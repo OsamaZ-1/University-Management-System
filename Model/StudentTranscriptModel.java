@@ -2,6 +2,10 @@ package Model;
 
 import java.sql.SQLException;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 import DAO.StudentDaoImplementation;
 
 public class StudentTranscriptModel {
@@ -11,6 +15,11 @@ public class StudentTranscriptModel {
 	private int[] totalCredits;
 	private boolean[] earnedCredits;
 	private double[] grades;
+	
+	private int[] totalSemesterCredits;
+	private boolean[] earnedSemesterCredits;
+	private double[] semesterGrades;
+	
 	public StudentTranscriptModel(String email,String password) {
 	this.email=email;
 	this.password=password;
@@ -26,9 +35,9 @@ public class StudentTranscriptModel {
 		earnedCredits=new boolean[info.length];
 		grades=new double[info.length];
 		for(int i=0;i<info.length;i++) {
-			totalCredits[i]=Integer.parseInt(String.valueOf(info[i][3]));
-			if(info[i][4]!="grade not in Acc. history") {
-			grades[i]=Double.parseDouble(String.valueOf(info[i][4]));
+			totalCredits[i]=Integer.parseInt(String.valueOf(info[i][4]));
+			if(info[i][5]!="N/A") {
+			grades[i]=Double.parseDouble(String.valueOf(info[i][5]));
 			}
 			else {
 				grades[i]=0;
@@ -37,6 +46,26 @@ public class StudentTranscriptModel {
 				earnedCredits[i]=true;
 			else
 				earnedCredits[i]=false;
+		}
+		return info;
+	}
+	public Object[][] getStudentSemesterGrades(int semester) throws SQLException{
+		Object[][] info=stdDao.getStudentSemesterCoursesInformation(this.email, this.password, semester);
+		totalSemesterCredits=new int[info.length];
+		earnedSemesterCredits=new boolean[info.length];
+		semesterGrades=new double[info.length];
+		for(int i=0;i<info.length;i++) {
+			totalSemesterCredits[i]=Integer.parseInt(String.valueOf(info[i][3]));
+			if(info[i][4]!="grade not in Acc. history") {
+				semesterGrades[i]=Double.parseDouble(String.valueOf(info[i][4]));
+			}
+			else {
+				semesterGrades[i]=0;
+			}
+			if(semesterGrades[i]>=50)
+				earnedSemesterCredits[i]=true;
+			else
+				earnedSemesterCredits[i]=false;
 		}
 		return info;
 	}
@@ -65,5 +94,34 @@ public class StudentTranscriptModel {
 		double result=gpa/(double)this.getTotalCredits();
 		result=Math.round(result*100)/100.00;
 		return result;
+	}
+	
+	public int getTotalSemesterCredits() {
+		int sum=0;
+		for(int i=0;i<totalSemesterCredits.length;i++) {
+			sum+=totalSemesterCredits[i];
+		}
+		return sum;
+	}
+	public int getEarnedSemesterCredits() {
+		int sum=0;
+		for(int i=0;i<totalSemesterCredits.length;i++) {
+			if(earnedSemesterCredits[i]) {
+				sum+=totalSemesterCredits[i];
+			}
+		}
+		return sum;
+	}
+	public Double getStudentSemesterGpa() {
+		double gpa=0;
+		for(int i=0;i<totalSemesterCredits.length;i++) {
+			gpa+=totalSemesterCredits[i]*semesterGrades[i];
+		}
+		double result=gpa/(double)this.getTotalSemesterCredits();
+		result=Math.round(result*100)/100.00;
+		return result;
+	}
+	public List<String> getStudentSemesters() throws SQLException {
+		return stdDao.getStudentSemesters(this.email, this.password);
 	}
 }
