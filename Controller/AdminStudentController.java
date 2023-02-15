@@ -11,20 +11,23 @@ import java.util.List;
 
 import Model.AdminStudentModel;
 import Model.Course;
-import View.AdminStudentManageView;
+import View.AdminStudentCourseView;
+import View.AdminStudentGradesView;
 import View.AdminStudentView;
 
 public class AdminStudentController {
 
-	private AdminStudentManageView adminStudentManageView;
+	private AdminStudentCourseView adminStudentManageView;
 	private AdminStudentView adminStudentView;
+	private AdminStudentGradesView adminStudentGrade;
 	private AdminStudentModel adminStudentModel;
 	private Object[][] tableInfo;
 	private String studentMajor;
 	
 	public AdminStudentController() throws SQLException {
-		adminStudentManageView= new AdminStudentManageView();
+		adminStudentManageView= new AdminStudentCourseView();
 		adminStudentView = new AdminStudentView();
+		adminStudentGrade = new AdminStudentGradesView();
 		adminStudentModel=new AdminStudentModel();
 		adminStudentManageView.getMainFrame().setVisible(false);
 		fillFirstTable();
@@ -200,17 +203,25 @@ public class AdminStudentController {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String id = adminStudentView.getStudentId2().getText().toString();
-				if(!id.equals(""))
+				String managementType = adminStudentView.getManagementType().getSelectedItem().toString();
+				if(!id.equals("") && !managementType.equals("Select Manage Type"))
 				{	
-					fillCoursesList(studentMajor);
-					adminStudentManageView.getMainFrame().setVisible(true);
-					adminStudentManageView.setStudentId(id);
-					try{
-						fillSecondTable(adminStudentView.getStudentId2().getText().toString());
-					}catch(SQLException ex){ex.printStackTrace();}
+					if(managementType.equals("Student-Courses"))
+					{	
+						fillCoursesList(studentMajor);
+						adminStudentManageView.getMainFrame().setVisible(true);
+						adminStudentManageView.setStudentId(id);
+						try{
+							fillSecondTable(adminStudentView.getStudentId2().getText().toString());
+						}catch(SQLException ex){ex.printStackTrace();}
+					}
+					else
+					{
+						adminStudentGrade.getMainFrame().setVisible(true);
+					}
 				}
 				else
-					adminStudentView.displayMessage("Select a student from table");
+					adminStudentView.displayMessage("Select a student from table and a Management Type!");
 			}
 		});
 	}
