@@ -23,6 +23,7 @@ public class AdminStudentView{
     //Fields
     private JComboBox<String> editManage;
     private JComboBox<String> majorField;
+    private JComboBox<String> managementType;
     private JTextField fnameField;
     private JTextField lnameField;
     private JTextField emailField;
@@ -61,7 +62,8 @@ public class AdminStudentView{
         editButton = new JButton("Edit");
         manageButton = new JButton("Manage");
         deleteButton = new JButton("Delete");
-        editManage = new JComboBox<String>(new String[]{"Edit","Manage","Delete"});
+        managementType = new JComboBox<>(new String[]{"Select Manage Type","Student-Courses","Student-Grades"});
+        editManage = new JComboBox<>(new String[]{"Edit","Manage","Delete"});
         majorField = new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
         fnameField = new JTextField(10);
         lnameField = new JTextField(10);
@@ -101,6 +103,7 @@ public class AdminStudentView{
         studentIdField3.setEditable(false);
 
         editManage.setFont(font);
+        managementType.setFont(font);
         fnameField.setFont(font);
         lnameField.setFont(font);
         majorField.setFont(font);
@@ -145,7 +148,7 @@ public class AdminStudentView{
         footEdit.setPreferredSize(new Dimension(800,200));
         footDelete.setLayout(springLayout);
         footDelete.setPreferredSize(new Dimension(800,200));
-        footManage.setLayout(new FlowLayout(FlowLayout.CENTER));
+        footManage.setLayout(springLayout);
         footManage.setPreferredSize(new Dimension(800,200));
         footManage.setVisible(false);
         footDelete.setVisible(false);
@@ -198,6 +201,17 @@ public class AdminStudentView{
         springLayout.putConstraint(SpringLayout.WEST,passwordLabel,20,SpringLayout.EAST,emailField);
         springLayout.putConstraint(SpringLayout.WEST,phoneLabel,20,SpringLayout.EAST,passwordField);
 
+        springLayout.putConstraint(SpringLayout.NORTH, studentIdLabel2, 25, SpringLayout.NORTH, footManage);
+        springLayout.putConstraint(SpringLayout.NORTH, studentIdField2, 20, SpringLayout.NORTH, footManage);
+        springLayout.putConstraint(SpringLayout.NORTH, managementType, 20, SpringLayout.SOUTH, studentIdField2);
+        springLayout.putConstraint(SpringLayout.NORTH, manageButton, 20, SpringLayout.SOUTH, managementType);
+
+        springLayout.putConstraint(SpringLayout.WEST, studentIdLabel2, 330, SpringLayout.WEST, footManage);
+        springLayout.putConstraint(SpringLayout.WEST, studentIdField2, 5, SpringLayout.EAST, studentIdLabel2);
+        springLayout.putConstraint(SpringLayout.WEST, managementType, 300, SpringLayout.WEST, footManage);
+        springLayout.putConstraint(SpringLayout.WEST, manageButton, 350, SpringLayout.WEST, footManage);
+
+
         head.add(scrollPane,BorderLayout.CENTER);
         center.add(editManage);
         footEdit.add(studentIdLabel1);
@@ -220,6 +234,7 @@ public class AdminStudentView{
         footDelete.add(deleteButton);
         footManage.add(studentIdLabel2);
         footManage.add(studentIdField2);
+        footManage.add(managementType);
         footManage.add(manageButton);
         footCombo.add(footManage, BorderLayout.NORTH);
         footCombo.add(footEdit, BorderLayout.CENTER);
@@ -265,6 +280,11 @@ public class AdminStudentView{
     public JComboBox<String> getStudentMajor()
     {
         return this.majorField;
+    }
+
+    public JComboBox<String> getManagementType()
+    {
+        return this.managementType;
     }
 
     public JTextField getStudentEmail()

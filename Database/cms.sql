@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 13, 2023 at 06:19 PM
+-- Generation Time: Feb 15, 2023 at 10:11 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -82,7 +82,7 @@ INSERT INTO `course` (`CourseId`, `Name`, `Code`, `Prerequisite`, `Credits`, `Ho
 --
 DELIMITER $$
 CREATE TRIGGER `before_delete_course` BEFORE DELETE ON `course` FOR EACH ROW BEGIN
-INSERT INTO CourseHistory VALUES(OLD.CourseId,OLD.Name,OLD.Code,OLD.Prerequisite,OLD.Credits,OLD.Hours,OLD.Major,OLD.Year,OLD.Semester);
+INSERT INTO CourseHistory VALUES(OLD.CourseId,OLD.Name,OLD.Code,OLD.Prerequisite,OLD.Credits,OLD.Hours,OLD.Major,OLD.Year,OLD.Semester,NOW());
 UPDATE course SET Prerequisite = 'none' WHERE Prerequisite = OLD.Code;
 DELETE FROM studentgrades WHERE studentgrades.CourseId = OLD.CourseId;
 DELETE FROM instructorteaches WHERE instructorteaches.CourseID = OLD.CourseId;
@@ -105,7 +105,8 @@ CREATE TABLE `CourseHistory` (
   `Hours` int(10) NOT NULL,
   `Major` varchar(50) NOT NULL,
   `Year` int(10) NOT NULL,
-  `Semester` int(10) NOT NULL
+  `Semester` int(10) NOT NULL,
+  `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -116,7 +117,8 @@ CREATE TABLE `CourseHistory` (
 
 CREATE TABLE `InstructorCourseHistory` (
   `InstID` int(11) NOT NULL,
-  `CourseID` int(11) NOT NULL
+  `CourseID` int(11) NOT NULL,
+  `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -132,7 +134,8 @@ CREATE TABLE `InstructorHistory` (
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Phone` int(10) NOT NULL,
-  `Accepted` tinyint(1) NOT NULL
+  `Accepted` tinyint(1) NOT NULL,
+  `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -166,7 +169,7 @@ INSERT INTO `instructors` (`Id`, `Fname`, `Lname`, `Password`, `Email`, `Phone`,
 --
 DELIMITER $$
 CREATE TRIGGER `before_delete_instructor` BEFORE DELETE ON `instructors` FOR EACH ROW BEGIN
-INSERT INTO InstructorHistory VALUES(OLD.Id,OLD.Fname,OLD.Lname,OLD.Password,OLD.Email,OLD.Phone,OLD.Accepted);
+INSERT INTO InstructorHistory VALUES(OLD.Id,OLD.Fname,OLD.Lname,OLD.Password,OLD.Email,OLD.Phone,OLD.Accepted,NOW());
 DELETE from instructorteaches WHERE instructorteaches.InstID = OLD.Id;
 END
 $$
@@ -197,7 +200,7 @@ INSERT INTO `instructorteaches` (`InstID`, `CourseID`) VALUES
 --
 DELIMITER $$
 CREATE TRIGGER `before_delete_instructor_course` BEFORE DELETE ON `instructorteaches` FOR EACH ROW BEGIN
-INSERT INTO InstructorCourseHistory VALUES(OLD.InstID,OLD.CourseID);
+INSERT INTO InstructorCourseHistory VALUES(OLD.InstID,OLD.CourseID,NOW());
 END
 $$
 DELIMITER ;
@@ -224,7 +227,7 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`Id`, `Fname`, `Lname`, `Major`, `Password`, `Email`, `Phone`, `Accepted`) VALUES
-(1, 'ahmad', 'majed', 'Math', '123456', 'ahmad@gmail.com', 81370594, 1),
+(1, 'Ahmad', 'Majed', 'Math', '123456', 'ahmad@gmail.com', 81370594, 1),
 (2, 'Hadi', 'Kattan', 'Informatics', '123', 'hadi@gmail.com', 76488386, 1),
 (4, 'Osama', 'Zammar', 'Informatics', '321', 'oz@hotmail.com', 71999000, 1),
 (5, 'mohammad', 'Abo alfoul', 'Informatics', '9876', 'moh@gmail.com', 81370598, 1),
@@ -236,7 +239,7 @@ INSERT INTO `student` (`Id`, `Fname`, `Lname`, `Major`, `Password`, `Email`, `Ph
 --
 DELIMITER $$
 CREATE TRIGGER `before_delete_student` BEFORE DELETE ON `student` FOR EACH ROW BEGIN
-INSERT INTO StudentHistory VALUES(OLD.Id,OLD.Fname,OLD.Lname,OLD.Major,OLD.Password,OLD.Email,OLD.Phone,OLD.Accepted);
+INSERT INTO StudentHistory VALUES(OLD.Id,OLD.Fname,OLD.Lname,OLD.Major,OLD.Password,OLD.Email,OLD.Phone,OLD.Accepted,NOW());
 DELETE FROM studentgrades WHERE studentgrades.Id = OLD.Id;
 END
 $$
@@ -276,7 +279,7 @@ INSERT INTO `studentgrades` (`Id`, `CourseId`, `Grade`, `Year`, `Submitted`) VAL
 --
 DELIMITER $$
 CREATE TRIGGER `before_delete_student_grades` BEFORE DELETE ON `studentgrades` FOR EACH ROW BEGIN
-INSERT INTO StudentGradesHistory VALUES(OLD.Id,OLD.CourseId,OLD.Grade,OLD.Year,OLD.Submitted);
+INSERT INTO StudentGradesHistory VALUES(OLD.Id,OLD.CourseId,OLD.Grade,OLD.Year,OLD.Submitted,NOW());
 END
 $$
 DELIMITER ;
@@ -292,7 +295,8 @@ CREATE TABLE `StudentGradesHistory` (
   `CourseId` int(100) NOT NULL,
   `Grade` decimal(65,2) NOT NULL,
   `Year` varchar(15) NOT NULL,
-  `Submitted` tinyint(1) NOT NULL
+  `Submitted` tinyint(1) NOT NULL,
+  `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -309,7 +313,8 @@ CREATE TABLE `StudentHistory` (
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Phone` int(10) NOT NULL,
-  `Accepted` tinyint(1) NOT NULL
+  `Accepted` tinyint(1) NOT NULL,
+  `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

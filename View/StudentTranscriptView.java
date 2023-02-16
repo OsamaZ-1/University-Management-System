@@ -27,12 +27,15 @@ public class StudentTranscriptView extends JFrame{
 	private JLabel totalCredits;
 	private JLabel gpa;
 	
+	private JComboBox<String> studentSemesters;
+	
 	//transcripts table for student marks
 	private JTable transcriptTable;
     private JScrollPane scrollPane;
     private Object[] tableColumns;
     private DefaultTableModel tableModelInfo;
     
+    private JButton finalTranscript;
     private JButton logout;
     
     //Panels
@@ -46,6 +49,7 @@ public class StudentTranscriptView extends JFrame{
     private JPanel gpaP2;
     private JPanel gpaP3;
     private JPanel trascriptPanel;
+    private JPanel filterPanel;
     private JFrame mainPanel;
     
     //Layouts
@@ -95,6 +99,10 @@ public class StudentTranscriptView extends JFrame{
     	gpa.setFont(new Font ("AvantGarde", Font.BOLD, 25));
     	gpa.setForeground(new Color(245,5,5));
     	
+    	studentSemesters= new JComboBox<String>();
+    	studentSemesters.setPreferredSize(new Dimension(180,40));
+    	studentSemesters.setFont(font);
+    	
     	tableColumns = new Object[]{"Year","Course Code","Title","Credits","Grade","Observation"};
     	
     	transcriptTable = new JTable() {
@@ -107,7 +115,7 @@ public class StudentTranscriptView extends JFrame{
     			else if(value.equals("Failed")) {
     				comp.setForeground(Color.red);
     			}
-    			else if(value.equals("grade not in Acc. history")) {
+    			else if(value.equals("grade not in Acc. history") || value.equals("N/A")) {
     				comp.setForeground(Color.black);
     			}
     			else {
@@ -128,6 +136,10 @@ public class StudentTranscriptView extends JFrame{
         
         logout=new JButton("Logout");
         logout.setFont(font);
+        finalTranscript=new JButton("Final Transcript");
+        finalTranscript.setFont(font);
+        finalTranscript.setBackground(Color.CYAN);
+        finalTranscript.setPreferredSize(new Dimension(180,40));
         
         studentInfoPanel=new JPanel();
         infoP1=new JPanel();
@@ -152,7 +164,7 @@ public class StudentTranscriptView extends JFrame{
     	gpaP2.setBackground(color);
     	gpaP3.setBackground(color);
     	
-    	borderLayout=new BorderLayout(1,1);
+    	borderLayout=new BorderLayout(0,0);
     	
     	//Information panel setup
     	studentInfoPanel.setLayout(new GridLayout(2,2));
@@ -177,8 +189,15 @@ public class StudentTranscriptView extends JFrame{
         studentInfoPanel.add(infoP3);
         studentInfoPanel.add(infoP4);
         
+        filterPanel=new JPanel();
+        filterPanel.setLayout(new FlowLayout(FlowLayout.CENTER,60,5));
+        filterPanel.setBackground(color);
+        filterPanel.add(studentSemesters);
+        filterPanel.add(finalTranscript);
+        
         //transcript panel setup
         trascriptPanel.setLayout(new BorderLayout());
+        trascriptPanel.add(filterPanel,BorderLayout.NORTH);
         trascriptPanel.add(scrollPane,BorderLayout.CENTER);
         
         //gpa panel setup
@@ -259,6 +278,12 @@ public class StudentTranscriptView extends JFrame{
     }
     public JButton getLogoutButton() {
     	return this.logout;
+    }
+    public JButton getFinalTranscriptButton() {
+    	return this.finalTranscript;
+    }
+    public JComboBox getStudentSemestersList() {
+    	return this.studentSemesters;
     }
     
 }

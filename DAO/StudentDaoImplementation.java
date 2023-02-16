@@ -101,9 +101,21 @@ public class StudentDaoImplementation implements StudentDao {
 		ResultSet resCount=sCount.executeQuery();
 		resCount.next();
 		int countRows=resCount.getInt(1);
-		String query="SELECT course.Year,course.Code,course.Name,course.Credits,studentgrades.Grade"
-				+ " FROM student,course,studentgrades WHERE studentgrades.Id=student.Id AND studentgrades.CourseId=course.CourseId"
-				+ " AND student.Email=? AND student.Password=?";
+		String query="SELECT "
+				+ "    studentgrades.Year, "
+				+ "    course.Semester, "
+				+ "    course.Code, "
+				+ "    course.Name, "
+				+ "    course.Credits, "
+				+ "    studentgrades.Grade, "
+				+ "    studentgrades.Submitted "
+				+ "FROM "
+				+ "    student, "
+				+ "    course, "
+				+ "    studentgrades "
+				+ "WHERE "
+				+ "    studentgrades.Id = student.Id AND studentgrades.CourseId = course.CourseId AND student.Email =? AND student.Password =? "
+				+ " ORDER BY course.Semester";
 		PreparedStatement ps=con.prepareStatement(query);
 		ps.setString(1, email);
 		ps.setString(2, password);
@@ -111,26 +123,27 @@ public class StudentDaoImplementation implements StudentDao {
 		ResultSetMetaData md=res.getMetaData();
 		int colCount=md.getColumnCount();
 		
-		Object[][] gradesInformation=new Object[countRows][colCount+1];
+		Object[][] gradesInformation=new Object[countRows][colCount];
 		int i=0;
 		while(res.next()) {
-			gradesInformation[i][0]=(Object)res.getInt(1);
-			gradesInformation[i][1]=(Object)res.getString(2);
+			gradesInformation[i][0]=(Object)res.getString(1);
+			gradesInformation[i][1]=(Object)res.getInt(2);
 			gradesInformation[i][2]=(Object)res.getString(3);
-			gradesInformation[i][3]=(Object)res.getInt(4);
-			double grade=res.getDouble(5);
-			if(grade==-1) {
-				gradesInformation[i][4]=(Object)"grade not in Acc. history";
-				gradesInformation[i][5]=(Object)"grade not in Acc. history";
+			gradesInformation[i][3]=(Object)res.getString(4);
+			gradesInformation[i][4]=(Object)res.getInt(5);
+			double grade=res.getDouble(6);
+			if(grade==-1  || res.getInt(7)==0) {
+				gradesInformation[i][5]=(Object)"N/A";
+				gradesInformation[i][6]=(Object)"N/A";
 			}
 			else {
-			gradesInformation[i][4]=(Object)grade;
+			gradesInformation[i][5]=(Object)grade;
 			if(grade>=50) {
-				gradesInformation[i][5]=(Object)"Passed";
+				gradesInformation[i][6]=(Object)"Passed";
 			}
 			else
 			{
-				gradesInformation[i][5]=(Object)"Failed";
+				gradesInformation[i][6]=(Object)"Failed";
 			}
 			}
 			i++;
@@ -334,5 +347,80 @@ public class StudentDaoImplementation implements StudentDao {
         return courseId;
         
     }
+
+	@Override
+	public Object[][] getStudentSemesterCoursesInformation(String email, String password, int semester)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		String queryCount="SELECT COUNT(studentgrades.Id) FROM studentgrades,student,course WHERE studentgrades.Id=student.Id AND studentgrades.CourseId=course.CourseId AND student.Email=? AND student.Password=? AND course.Semester="+semester+";";
+		PreparedStatement sCount=con.prepareStatement(queryCount);
+		sCount.setString(1, email);
+		sCount.setString(2, password);
+		ResultSet resCount=sCount.executeQuery();
+		resCount.next();
+		int countRows=resCount.getInt(1);
+		String query="SELECT studentgrades.Year,course.Code,course.Name,course.Credits,studentgrades.Grade,studentgrades.Submitted"
+				+ " FROM student,course,studentgrades WHERE studentgrades.Id=student.Id AND studentgrades.CourseId=course.CourseId"
+				+ " AND student.Email=? AND student.Password=? AND course.Semester="+semester+";";
+		PreparedStatement ps=con.prepareStatement(query);
+		ps.setString(1, email);
+		ps.setString(2, password);
+		ResultSet res=ps.executeQuery();
+		ResultSetMetaData md=res.getMetaData();
+		int colCount=md.getColumnCount();
+		
+		Object[][] gradesInformation=new Object[countRows][colCount+1];
+		int i=0;
+		while(res.next()) {
+			gradesInformation[i][0]=(Object)res.getString(1);
+			gradesInformation[i][1]=(Object)res.getString(2);
+			gradesInformation[i][2]=(Object)res.getString(3);
+			gradesInformation[i][3]=(Object)res.getInt(4);
+			double grade=res.getDouble(5);
+			if(grade==-1  || res.getInt(6)==0) {
+				gradesInformation[i][4]=(Object)"grade not in Acc. history";
+				gradesInformation[i][5]=(Object)"grade not in Acc. history";
+			}
+			else {
+			gradesInformation[i][4]=(Object)grade;
+			if(grade>=50) {
+				gradesInformation[i][5]=(Object)"Passed";
+			}
+			else
+			{
+				gradesInformation[i][5]=(Object)"Failed";
+			}
+			}
+			i++;
+		}
+		
+		return gradesInformation;
+	}
+
+	@Override
+	public List<String> getStudentSemesters(String email, String password) throws SQLException {
+		// TODO Auto-generated method stub
+		List<String> semestersStudent=new ArrayList<String>();
+		String query="SELECT"
+				+ "    course.Semester "
+				+ "FROM"
+				+ "    student, "
+				+ "    studentgrades,"
+				+ "    course "
+				+ "WHERE"
+				+ "    studentgrades.Id = student.Id AND studentgrades.CourseId = course.CourseId AND student.Email=? and student.Password=?"
+				+ "GROUP BY"
+				+ "    course.Semester "
+				+ "ORDER BY course.Semester ASC";
+		PreparedStatement prep=con.prepareStatement(query);
+		prep.setString(1, email);
+		prep.setString(2, password);
+		ResultSet res=prep.executeQuery();
+		
+		while(res.next()) {
+			semestersStudent.add("Sem"+res.getInt(1));
+		}
+		return semestersStudent;
+	}
     
 }

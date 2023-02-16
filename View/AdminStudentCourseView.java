@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class AdminStudentManageView{
+public class AdminStudentCourseView{
     //Labels
 	private JLabel title;
     private JLabel studentIdLabel;
@@ -37,15 +37,15 @@ public class AdminStudentManageView{
     private Font font,fontTable;
     private Color color;
 
-    public AdminStudentManageView() {
+    public AdminStudentCourseView() {
     	title=new JLabel("Student Courses Management");
     	studentIdLabel=new JLabel("Student ID:");
     	courseIdLabel=new JLabel("Course Code:");
     	studentId=new JTextField();
         studentId.setEditable(false);
         coursesList = new JComboBox<>();
-    	add=new JButton("ADD");
-    	delete=new JButton("DELETE");
+    	add=new JButton("Add");
+    	delete=new JButton("Delete");
         color = new Color(83,131,255);
     	
     	font=new Font ("Arial", Font.BOLD, 17);
