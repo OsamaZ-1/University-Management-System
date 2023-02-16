@@ -19,6 +19,10 @@ public class AdminStudentModel {
 		return stdDao.getStudentsWithId();
 	}
 
+	public Object[][] getStudentGrades(String id) throws SQLException{
+		return stdDao.getStudentGrades(id);
+	}
+
 	public boolean updateStudent(String[] studentinfo) throws SQLException
 	{
 		return stdDao.updateStudent(studentinfo);
@@ -43,6 +47,11 @@ public class AdminStudentModel {
 	{
 		return coursesDao.getMajorCourses(major);
 	}
+
+	public boolean updateStudentGrade(String studentId, String courseCode, String grade) throws SQLException
+    {
+        return stdDao.updateStudentGrade(studentId, courseCode, grade);
+    }
 
 	
 }

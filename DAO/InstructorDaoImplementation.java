@@ -320,15 +320,11 @@ public class InstructorDaoImplementation implements InstructorDao{
 
     public boolean updateStudentGrade(String studentId, String courseCode, String grade) throws SQLException
     {
-        String query = "SELECT CourseId FROM "+TABLE_COURSE+" WHERE Code = ?";
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1,courseCode);
-        ResultSet res = ps.executeQuery();
-        res.next();
-        int courseId = res.getInt("CourseId");
+        
+        int courseId = getCourseId(courseCode);
 
         String update = "UPDATE "+TABLE_STUDENT_GRADES+" SET Grade = ? WHERE Id = ? AND CourseId = ?";
-        ps = con.prepareStatement(update);
+        PreparedStatement ps = con.prepareStatement(update);
         ps.setFloat(1, Float.valueOf(grade));
         ps.setInt(2, Integer.valueOf(studentId));
         ps.setInt(3, courseId);
@@ -343,8 +339,8 @@ public class InstructorDaoImplementation implements InstructorDao{
         ps.setString(1,courseCode);
         ResultSet res = ps.executeQuery();
         int courseId = 0;
-        while(res.next())
-            courseId = res.getInt("CourseId");
+        res.next();
+        courseId = res.getInt("CourseId");
 
         return courseId;
         

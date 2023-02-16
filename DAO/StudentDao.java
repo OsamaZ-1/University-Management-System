@@ -42,4 +42,8 @@ interface StudentDao {
         throws SQLException;
     public List<String> getStudentSemesters(String email,String password)
         throws SQLException;
+    public Object[][] getStudentGrades(String id)
+        throws SQLException;
+    public boolean updateStudentGrade(String studentId, String courseCode, String grade)
+        throws SQLException;
 }

@@ -9,6 +9,8 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthUI;
+
 import Model.AdminStudentModel;
 import Model.Course;
 import View.AdminStudentCourseView;
@@ -30,7 +32,7 @@ public class AdminStudentController {
 		adminStudentGrade = new AdminStudentGradesView();
 		adminStudentModel=new AdminStudentModel();
 		adminStudentManageView.getMainFrame().setVisible(false);
-		fillFirstTable();
+		fillStudentsTable();
 		editDeleteManageListener();
 		studentTableListener();
 		manageButtonListener();
@@ -40,19 +42,26 @@ public class AdminStudentController {
 		deleteStudentListener();
 	}
 
-	public void fillFirstTable() throws SQLException{
+	public void fillStudentsTable() throws SQLException{
 		Object[][] listStudents = adminStudentModel.getStudents();
 		adminStudentView.getTableModel().setRowCount(0);
-		for(int i=0; i<listStudents.length;i++)
-			adminStudentView.getTableModel().addRow(listStudents[i]);
+		for(Object[] student : listStudents)
+			adminStudentView.getTableModel().addRow(student);
 	}
 	
-	public void fillSecondTable(String id) throws SQLException {
+	public void fillStudentCoursesTable(String id) throws SQLException {
 		adminStudentManageView.getTableModel().setNumRows(0);
 		tableInfo=adminStudentModel.getAcceptedStudentsInfo(id);
-		for(int i=0;i<tableInfo.length;i++) {
-			adminStudentManageView.getTableModel().addRow(tableInfo[i]);
+		for(Object[] studentCouse : tableInfo) {
+			adminStudentManageView.getTableModel().addRow(studentCouse);
 		}
+	}
+
+	public void fillStudentGradesTable(String id) throws SQLException {
+		Object[][] studentGrades = adminStudentModel.getStudentGrades(id);
+		adminStudentGrade.getTableModel().setNumRows(0);
+		for(Object[] grade : studentGrades)
+			adminStudentGrade.getTableModel().addRow(grade);
 	}
 
 
@@ -153,6 +162,48 @@ public class AdminStudentController {
 		});
 	}
 
+	public void studentGradesTableListener()
+	{
+		adminStudentGrade.getStudentTable().addMouseListener(new MouseListener() {
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+        			int selectedRow=adminStudentGrade.getStudentTable().getSelectedRow();
+        			String id=(String)adminStudentGrade.getStudentTable().getValueAt(selectedRow,0).toString();
+        		    String courseCode=(String)adminStudentGrade.getStudentTable().getValueAt(selectedRow,3).toString();
+        			
+        			adminStudentGrade.getStudentId().setText(id);
+					adminStudentGrade.getCourseCode().setText(courseCode);	
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+
 	public void editButtonListener()
 	{
 		adminStudentView.getEditButton().addActionListener(new ActionListener(){
@@ -176,7 +227,7 @@ public class AdminStudentController {
 							try
 							{	if(adminStudentModel.updateStudent(studentInfo))
 								{	
-									fillFirstTable();
+									fillStudentsTable();
 									adminStudentView.displayMessage("Updated successfully");
 							
 								}
@@ -192,6 +243,51 @@ public class AdminStudentController {
 					adminStudentView.displayMessage("choose a student and fill in all information!");
 			}
 			
+		});
+	}
+
+	public void editGradeButtonListener()
+	{
+		adminStudentGrade.getEditButton().addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e)
+			{
+				String studentId = adminStudentGrade.getStudentId().getText().toString();
+                String courseCode = adminStudentGrade.getCourseCode().getText().toString();
+                String grade = adminStudentGrade.getStudentGrade().getText().toString();
+
+                if(!studentId.equals("") && !courseCode.equals("") && !grade.equals(""))
+                {   
+                    float gradeCasted=-1;
+                    try{
+                            gradeCasted = Float.valueOf(grade);
+                            if(gradeCasted>=0 && gradeCasted<=100)
+                            {
+                                try{
+                                    if(adminStudentModel.updateStudentGrade(studentId,courseCode,grade))
+                                    {
+                                        fillStudentGradesTable(studentId);
+                                        adminStudentGrade.displayMessage("Successfully Updated"); 
+                                    }
+                                    else
+                                        adminStudentGrade.displayMessage("Error in updating student grade");   
+                                }catch(SQLException ex){ex.printStackTrace();}   
+                                adminStudentGrade.getStudentId().setText("");
+								adminStudentGrade.getCourseCode().setText("");
+                                adminStudentGrade.getStudentGrade().setText("");
+                            }
+                            else 
+                                adminStudentGrade.displayMessage("Grade must be between 0 and 100");
+                        }catch(NumberFormatException ex)
+                        {   ex.printStackTrace();
+                            adminStudentGrade.displayMessage("Grade must be a number");
+                        }
+
+                    
+                }
+                else
+                    adminStudentGrade.displayMessage("Select From table and enter grade!");
+			}
 		});
 	}
 
@@ -212,11 +308,16 @@ public class AdminStudentController {
 						adminStudentManageView.getMainFrame().setVisible(true);
 						adminStudentManageView.setStudentId(id);
 						try{
-							fillSecondTable(adminStudentView.getStudentId2().getText().toString());
+							fillStudentCoursesTable(adminStudentView.getStudentId2().getText().toString());
 						}catch(SQLException ex){ex.printStackTrace();}
 					}
 					else
-					{
+					{	
+						try{
+							fillStudentGradesTable(adminStudentView.getStudentId2().getText().toString());
+							studentGradesTableListener();
+							editGradeButtonListener();
+						}catch(SQLException ex){ex.printStackTrace();}
 						adminStudentGrade.getMainFrame().setVisible(true);
 					}
 				}
@@ -237,7 +338,7 @@ public class AdminStudentController {
 					try{	
 							if(adminStudentModel.deleteStudent(id))
 							{	
-								fillFirstTable();
+								fillStudentsTable();
 								adminStudentView.displayMessage("Updated successfully");		
 							}
 							else 
@@ -265,7 +366,7 @@ public class AdminStudentController {
 					try{
 						if(adminStudentModel.addStudentToCourse(studentId,courseCode))
 						{	
-							fillSecondTable(studentId);
+							fillStudentCoursesTable(studentId);
 							adminStudentManageView.displayMessage("Successfully added");
 						}
 						else
@@ -294,7 +395,7 @@ public class AdminStudentController {
 					try{
 						if(adminStudentModel.deleteStudentFromCourse(studentId,courseCode))
 						{	
-							fillSecondTable(studentId);
+							fillStudentCoursesTable(studentId);
 							adminStudentManageView.displayMessage("Successfully Deleted");
 						}
 						else
