@@ -287,9 +287,9 @@ public class InstructorDaoImplementation implements InstructorDao{
         ResultSet res = ps.executeQuery();
         res.next();
         int rowsCount = res.getInt(1);
-        Object[][] enrolledStudents = new Object [rowsCount][4];
+        Object[][] enrolledStudents = new Object [rowsCount][5];
 
-        String query = "SELECT student.Id,student.Fname,student.Lname,studentgrades.Grade FROM "+
+        String query = "SELECT student.Id,student.Fname,student.Lname,studentgrades.Grade,studentgrades.Submitted FROM "+
                        TABLE_STUDENT+","+TABLE_COURSE+","+TABLE_STUDENT_GRADES+
                        " WHERE course.CourseId = studentgrades.CourseId "+
                        "AND studentgrades.Id = student.Id "+
@@ -311,6 +311,7 @@ public class InstructorDaoImplementation implements InstructorDao{
             else {
             enrolledStudents[i][3] = (Object) grade;
             }
+            enrolledStudents[i][4] = (Object)res.getInt("Submitted");
             i++;
         }
 
@@ -323,11 +324,25 @@ public class InstructorDaoImplementation implements InstructorDao{
         
         int courseId = getCourseId(courseCode);
 
-        String update = "UPDATE "+TABLE_STUDENT_GRADES+" SET Grade = ? WHERE Id = ? AND CourseId = ?";
+        String update = "UPDATE "+TABLE_STUDENT_GRADES+" SET Grade = ? WHERE Id = ? AND CourseId = ? AND Submitted = ?";
         PreparedStatement ps = con.prepareStatement(update);
         ps.setFloat(1, Float.valueOf(grade));
         ps.setInt(2, Integer.valueOf(studentId));
         ps.setInt(3, courseId);
+        ps.setInt(4, 0);
+
+        return ps.executeUpdate()>0;
+    }
+
+    public boolean saveStudentsGrades(String courseCode) throws SQLException
+    {
+        int courseId = getCourseId(courseCode);
+
+        String update = "UPDATE "+TABLE_STUDENT_GRADES+" SET Submitted = ? WHERE CourseId = ? AND Grade != ?";
+        PreparedStatement ps = con.prepareStatement(update);
+        ps.setInt(1,1);
+        ps.setInt(2,courseId);
+        ps.setInt(3,-1);
 
         return ps.executeUpdate()>0;
     }

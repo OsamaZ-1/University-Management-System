@@ -26,7 +26,8 @@ public class InstructorController {
         fillInstructorInfo(email, pass);
         coursesListListener();
         tableListener();
-        buttonListener();
+        addbuttonListener();
+        saveButtonListener();
     }
 
     public void logout()
@@ -77,8 +78,8 @@ public class InstructorController {
     {
         Object[][] students = instructorModel.getEnrolledStudents(courseCode);
         instructorView.getTableModel().setRowCount(0);
-        for(int i=0; i<students.length;i++)
-            instructorView.getTableModel().addRow(students[i]);
+        for(Object[] std : students)
+            instructorView.getTableModel().addRow(std);
     }
 
     public void tableListener() throws SQLException
@@ -122,7 +123,7 @@ public class InstructorController {
             
     }
 
-    public void buttonListener()
+    public void addbuttonListener()
     {
         instructorView.getAddButton().addActionListener(new ActionListener(){
 
@@ -146,7 +147,7 @@ public class InstructorController {
                                         instructorView.displayMessage("Successfully Updated"); 
                                     }
                                     else
-                                        instructorView.displayMessage("Error in updating student grade");   
+                                        instructorView.displayMessage("Grade for this student already Submitted!!");   
                                 }catch(SQLException ex){ex.printStackTrace();}   
                                 instructorView.getStudentIdField().setText("");
                                 instructorView.getStudentGradeField().setText("");
@@ -165,6 +166,31 @@ public class InstructorController {
                 
             }
             
+        });
+    }
+
+    public void saveButtonListener()
+    {
+        instructorView.getSaveButton().addActionListener(new ActionListener(){
+
+            public void actionPerformed(ActionEvent e)
+            {   String courseCode = instructorView.getCoursesList().getSelectedItem().toString();
+                if(!courseCode.equals("Courses"))
+                {    
+                    try{
+                         if(instructorModel.saveStudentsGrades(courseCode))
+                         {  
+                            fillTable(courseCode);
+                            instructorView.displayMessage("Grades Sumbitted!!");
+                         }
+                         else
+                            instructorView.displayMessage("Everything Up-to-Date");
+                    }catch(SQLException ex){ex.printStackTrace();}
+           
+                }
+                else
+                    instructorView.displayMessage("You must select a course");
+            }
         });
     }
 }

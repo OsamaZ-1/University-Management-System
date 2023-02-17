@@ -42,4 +42,6 @@ interface InstructorDao {
         throws SQLException;
     public boolean updateStudentGrade(String studentId, String courseCode, String grade)
         throws SQLException;
+    public boolean saveStudentsGrades(String courseCode)
+        throws SQLException;
 }
