@@ -27,7 +27,7 @@ public class InstructorDaoImplementation implements InstructorDao{
         ps.setString(2, s.getLname());
         ps.setString(3, s.getPassword());
         ps.setString(4, s.getEmail());
-        ps.setInt(5, s.getPhone());
+        ps.setString(5, s.getPhone());
         int n = ps.executeUpdate();
         return n;
     }
@@ -58,7 +58,7 @@ public class InstructorDaoImplementation implements InstructorDao{
     }
 
     @Override
-    public int instructorEmailPhoneExist(String email, int phone) throws SQLException{
+    public int instructorEmailPhoneExist(String email, String phone) throws SQLException{
         String query = "SELECT Id FROM " + TABLE_INSTRUCTORS + " WHERE Email = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, email);
@@ -70,7 +70,7 @@ public class InstructorDaoImplementation implements InstructorDao{
         
         query = "SELECT Id FROM " + TABLE_INSTRUCTORS + " WHERE Phone = ?";
         ps = con.prepareStatement(query);
-        ps.setInt(1,phone);
+        ps.setString(1,phone);
         res = ps.executeQuery();
 
         if(res.next())
@@ -88,7 +88,7 @@ public class InstructorDaoImplementation implements InstructorDao{
         List<Instructor> listInstructors = new ArrayList<>();
         while(res.next())
         {
-            Instructor s = new Instructor(res.getString("Fname"), res.getString("Lname"), res.getString("Password"), res.getString("Email"), res.getInt("Phone"));
+            Instructor s = new Instructor(res.getString("Fname"), res.getString("Lname"), res.getString("Password"), res.getString("Email"), res.getString("Phone"));
             listInstructors.add(s);
         }
         return listInstructors;
@@ -102,7 +102,7 @@ public class InstructorDaoImplementation implements InstructorDao{
         ArrayList<UniversityMember> listInstructors = new ArrayList<>();
         while(res.next())
         {
-            Instructor s = new Instructor(res.getString("Fname"), res.getString("Lname"), res.getString("Email"), res.getString("Password"), res.getInt("Phone"));
+            Instructor s = new Instructor(res.getString("Fname"), res.getString("Lname"), res.getString("Email"), res.getString("Password"), res.getString("Phone"));
             listInstructors.add(s);
         }
         return listInstructors;
@@ -149,7 +149,7 @@ public class InstructorDaoImplementation implements InstructorDao{
             acceptedInstructors[i][2] = (Object)res.getString("Lname");
             acceptedInstructors[i][3] = (Object)res.getString("Email");
             acceptedInstructors[i][4] = (Object)res.getString("Password");
-            acceptedInstructors[i][5] = (Object)res.getInt("Phone");
+            acceptedInstructors[i][5] = (Object)res.getString("Phone");
             i++;
         }
         return acceptedInstructors;
@@ -163,7 +163,7 @@ public class InstructorDaoImplementation implements InstructorDao{
         ps.setString(2,instInfo[2]);
         ps.setString(3,instInfo[3]);
         ps.setString(4,instInfo[4]);
-        ps.setInt(5,Integer.parseInt(instInfo[5]));
+        ps.setString(5,instInfo[5]);
         ps.setInt(6,Integer.parseInt(instInfo[0]));
 
         return ps.executeUpdate()>0;

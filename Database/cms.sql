@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 15, 2023 at 10:11 PM
+-- Generation Time: Feb 18, 2023 at 03:22 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -33,7 +33,7 @@ CREATE TABLE `admin` (
   `Lname` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Password` varchar(100) NOT NULL,
-  `Phone` int(10) NOT NULL
+  `Phone` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -41,8 +41,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`Id`, `Fname`, `Lname`, `Email`, `Password`, `Phone`) VALUES
-(1, 'admin', 'admin', 'admin1@gmail.com', 'Admin1123', 70711770),
-(2, 'Admin', 'University', 'admin2@gmail.com', 'Admin2123', 71717171);
+(1, 'admin', 'admin', 'admin1@gmail.com', 'Admin1123', '70711770'),
+(2, 'Admin', 'University', 'admin2@gmail.com', 'Admin2123', '71717171');
 
 -- --------------------------------------------------------
 
@@ -133,7 +133,7 @@ CREATE TABLE `InstructorHistory` (
   `Lname` varchar(100) NOT NULL,
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
-  `Phone` int(10) NOT NULL,
+  `Phone` varchar(20) NOT NULL,
   `Accepted` tinyint(1) NOT NULL,
   `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -150,7 +150,7 @@ CREATE TABLE `instructors` (
   `Lname` varchar(100) NOT NULL,
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
-  `Phone` int(10) NOT NULL,
+  `Phone` varchar(20) NOT NULL,
   `Accepted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -159,10 +159,10 @@ CREATE TABLE `instructors` (
 --
 
 INSERT INTO `instructors` (`Id`, `Fname`, `Lname`, `Password`, `Email`, `Phone`, `Accepted`) VALUES
-(1, 'Mohammad', 'Dandash', 'php123', 'moe@dandash.com', 81721345, 1),
-(3, 'Osama', 'Zein', 'ZeinOs123', 'os_zein@gmail.com', 30030040, 1),
-(4, 'Charbel', 'Rahhal', 'Char321', 'charahal@hotmail.com', 33000033, 1),
-(5, 'anonymous', 'anon', 'hacker123', 'anon@gmail.com', 70037181, 0);
+(1, 'Mohammad', 'Dandash', 'php123', 'moe@dandash.com', '81721345', 1),
+(3, 'Osama', 'Zein', 'ZeinOs123', 'os_zein@gmail.com', '30030040', 1),
+(4, 'Charbel', 'Rahhal', 'Char321', 'charahal@hotmail.com', '33000033', 1),
+(5, 'anonymous', 'anon', 'hacker123', 'anon@gmail.com', '70037181', 0);
 
 --
 -- Triggers `instructors`
@@ -218,7 +218,7 @@ CREATE TABLE `student` (
   `Major` varchar(100) NOT NULL,
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
-  `Phone` int(10) NOT NULL,
+  `Phone` varchar(20) NOT NULL,
   `Accepted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -227,12 +227,12 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`Id`, `Fname`, `Lname`, `Major`, `Password`, `Email`, `Phone`, `Accepted`) VALUES
-(1, 'Ahmad', 'Majed', 'Math', '123456', 'ahmad@gmail.com', 81370594, 1),
-(2, 'Hadi', 'Kattan', 'Informatics', '123', 'hadi@gmail.com', 76488386, 1),
-(4, 'Osama', 'Zammar', 'Informatics', '321', 'oz@hotmail.com', 71999000, 1),
-(5, 'mohammad', 'Abo alfoul', 'Informatics', '9876', 'moh@gmail.com', 81370598, 1),
-(9, 'Obaida', 'Ammar', 'Informatics', 'ObAm123', 'ammarobaida@gmail.com', 3030303, 1),
-(11, 'Mostafa', 'Kamal', 'Biology', 'kamal12', 'mostK@hotmail.com', 70970790, 0);
+(1, 'Ahmad', 'Majed', 'Math', '123456', 'ahmad@gmail.com', '81370594', 1),
+(2, 'Hadi', 'Kattan', 'Informatics', '123', 'hadi@gmail.com', '76488386', 1),
+(4, 'Osama', 'Zammar', 'Informatics', '321', 'oz@hotmail.com', '71999000', 1),
+(5, 'mohammad', 'Abo alfoul', 'Informatics', '9876', 'moh@gmail.com', '81370598', 1),
+(9, 'Obaida', 'Ammar', 'Informatics', 'ObAm123', 'ammarobaida@gmail.com', '03030303', 1),
+(11, 'Mostafa', 'Kamal', 'Biology', 'kamal12', 'mostK@hotmail.com', '70970790', 0);
 
 --
 -- Triggers `student`
@@ -264,10 +264,10 @@ CREATE TABLE `studentgrades` (
 --
 
 INSERT INTO `studentgrades` (`Id`, `CourseId`, `Grade`, `Year`, `Submitted`) VALUES
-(2, 1, '91.00', '2021-2022', 0),
-(5, 1, '91.00', '2021-2022', 0),
-(4, 1, '92.00', '2021-2022', 0),
-(9, 2, '89.50', '2020-2021', 0),
+(2, 1, '91.00', '2021-2022', 1),
+(5, 1, '91.00', '2021-2022', 1),
+(4, 1, '92.00', '2021-2022', 1),
+(9, 2, '93.00', '2020-2021', 1),
 (9, 3, '95.00', '2020-2021', 0),
 (9, 4, '87.70', '2020-2021', 0),
 (9, 6, '95.20', '2020-2021', 0),
@@ -312,10 +312,17 @@ CREATE TABLE `StudentHistory` (
   `Major` varchar(100) NOT NULL,
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
-  `Phone` int(10) NOT NULL,
+  `Phone` varchar(20) NOT NULL,
   `Accepted` tinyint(1) NOT NULL,
   `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `StudentHistory`
+--
+
+INSERT INTO `StudentHistory` (`Id`, `Fname`, `Lname`, `Major`, `Password`, `Email`, `Phone`, `Accepted`, `Date`) VALUES
+(13, 'Ali', 'Siblani', 'Informatics', 'Siblani', 'siblani@hotmail.com', '3303990', 0, '2023-02-18');
 
 --
 -- Indexes for dumped tables
@@ -404,7 +411,7 @@ ALTER TABLE `instructors`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

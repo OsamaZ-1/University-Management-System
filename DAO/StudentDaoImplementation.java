@@ -24,7 +24,7 @@ public class StudentDaoImplementation implements StudentDao {
         ps.setString(3, s.getMajor());
         ps.setString(4, s.getPassword());
         ps.setString(5, s.getEmail());
-        ps.setInt(6, s.getPhone());
+        ps.setString(6, s.getPhone());
         int n = ps.executeUpdate();
         return n;
     }
@@ -56,7 +56,7 @@ public class StudentDaoImplementation implements StudentDao {
     }
 
     @Override
-    public int studentEmailPhoneExist(String email, int phone) throws SQLException{
+    public int studentEmailPhoneExist(String email, String phone) throws SQLException{
         String query = "SELECT Id FROM " + TABLE_STUDENT + " WHERE Email = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, email);
@@ -68,7 +68,7 @@ public class StudentDaoImplementation implements StudentDao {
 
         query = "SELECT Id FROM " + TABLE_STUDENT + " WHERE Phone = ?";
         ps = con.prepareStatement(query);
-        ps.setInt(1, phone);
+        ps.setString(1, phone);
         res = ps.executeQuery();
 
         if(res.next())
@@ -86,7 +86,7 @@ public class StudentDaoImplementation implements StudentDao {
         List<Student> listStudents = new ArrayList<>();
         while(res.next())
         {
-            Student s = new Student(res.getString("Fname"), res.getString("Lname"), res.getString("Major"),res.getString("Email"), res.getString("Password"), res.getInt("Phone"));
+            Student s = new Student(res.getString("Fname"), res.getString("Lname"), res.getString("Major"),res.getString("Email"), res.getString("Password"), res.getString("Phone"));
             listStudents.add(s);
         }
         return listStudents;
@@ -167,7 +167,7 @@ public class StudentDaoImplementation implements StudentDao {
             information[2]=(String)res.getString(3);
             information[3]=(String)res.getString(4);
             information[4]=(String)res.getString(5);
-            information[5]=Integer.toString(res.getInt(6));
+            information[5]=(String)res.getString(6);
         }
        return information;
 	}
@@ -188,8 +188,8 @@ public class StudentDaoImplementation implements StudentDao {
                 res.getString(3),
                 res.getString(5),
                 res.getString(4),
-                Integer.parseInt(res.getString(6))
-            ));
+                res.getString(6))
+            );
         }
         return unaccepted;
     }
@@ -280,7 +280,7 @@ public class StudentDaoImplementation implements StudentDao {
             acceptedStudents[i][3] = (Object)res.getString("Major");
             acceptedStudents[i][4] = (Object)res.getString("Email");
             acceptedStudents[i][5] = (Object)res.getString("Password");
-            acceptedStudents[i][6] = (Object)res.getInt("Phone");
+            acceptedStudents[i][6] = (Object)res.getString("Phone");
             i++;
         }
         return acceptedStudents;
@@ -296,7 +296,7 @@ public class StudentDaoImplementation implements StudentDao {
         ps.setString(3,studentInfo[3]);
         ps.setString(4,studentInfo[4]);
         ps.setString(5,studentInfo[5]);
-        ps.setInt(6,Integer.parseInt(studentInfo[6]));
+        ps.setString(6,studentInfo[6]);
         ps.setInt(7,Integer.parseInt(studentInfo[0]));
 
         return ps.executeUpdate()>0;

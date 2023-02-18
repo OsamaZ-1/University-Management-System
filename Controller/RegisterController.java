@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
-
+import java.util.regex.*;
 import javax.lang.model.util.ElementScanner14;
 import javax.swing.JOptionPane;
 
@@ -38,13 +38,29 @@ public class RegisterController {
                 String major = String.valueOf(registerView.getUserMajorField().getSelectedItem());
                 String password = registerView.getPasswordField().getText().toString();
                 String email = registerView.getEmailField().getText().toString();
-                int phone=0;
-                Boolean phoneNumberValid = true;
-                try{
-                     phone = Integer.parseInt(registerView.getPhoneNumberField().getText().toString());
-                }catch(NumberFormatException ex){phoneNumberValid=false;ex.printStackTrace();}
+                String phone= registerView.getPhoneNumberField().getText().toString();
+                int testPhoneEmail = 2;
+                
+                Pattern pattern = Pattern.compile("^(03|70|71|76|81)(\\d{6})$");
+                Matcher matcher = pattern.matcher(phone);
+                Boolean phoneNumberValid = matcher.matches();
 
-                if(!fName.equals("") && !lName.equals("") && !password.equals("") && !email.equals("") && phoneNumberValid)
+                pattern = Pattern.compile("^[a-zA-Z]+[a-zA-Z0-9]*[.-_]?[a-zA-Z0-9]+@(hotmail|gmail)\\.com$");
+                matcher = pattern.matcher(email);
+                Boolean emailValid = matcher.matches();
+
+                if(!phoneNumberValid)
+                {   
+                    registerView.displayMessage("Invalid phone number, only enter 8 digit valid number");
+                    testPhoneEmail--;
+                }
+                if(!emailValid)
+                {   
+                    registerView.displayMessage("Invalid email address, use only (Letters, numbers, . , - , _) @ (hotmail or gmail) .com");
+                    testPhoneEmail--;
+                }
+
+                if(!fName.equals("") && !lName.equals("") && !password.equals("") && !email.equals("") && testPhoneEmail==2)
                 {
                     if((registerView.getUserModeField().getSelectedItem().toString().equals("Student")) && !major.equals("Select Major"))
                     {   // register student
@@ -76,7 +92,7 @@ public class RegisterController {
                         registerView.displayMessage("You must choose user mode and a major if you are a student");
                 }
                 else
-                    registerView.displayMessage("Make sure you enter all information and provide a valid phone number");
+                    registerView.displayMessage("Make sure you enter all information Correclty");
             }
         });  
     }
