@@ -9,6 +9,8 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
+
 import Model.AdminCourseModel;
 import Model.Course;
 import View.AdminCourseView;
@@ -27,11 +29,13 @@ public class AdminCourseController {
         deleteButtonAction();
         actionFieldComboBoxListener();
         actionCourseTable();
+        addYearListAction();
+        editYearListAction();
 	}
 
 	public void fillTable() throws SQLException {
 		tableInfo=adminCourseModel.getAllCourses();
-		Object[] courseInfo=new Object[6];
+		Object[] courseInfo=new Object[7];
 		adminCourseView.getTableModel().setNumRows(0);
 		//Name,Code,Credits,Hours,Major,Year
 		for(int i=0;i<tableInfo.size();i++) {
@@ -41,6 +45,7 @@ public class AdminCourseController {
 			courseInfo[3]=(Object)tableInfo.get(i).getHours();
 			courseInfo[4]=(Object)tableInfo.get(i).getMajor();
 			courseInfo[5]=(Object)tableInfo.get(i).getYear();
+			courseInfo[6]=(Object)tableInfo.get(i).getSemester();
 			adminCourseView.getTableModel().addRow(courseInfo);
 		}
 	}
@@ -53,10 +58,11 @@ public class AdminCourseController {
     			String credits=adminCourseView.getCreditsAddField().getText().toString();
     			String hours=adminCourseView.getHouresAddField().getText().toString();
     			String major=adminCourseView.getMajorAddField().getSelectedItem().toString();
-    			String year=adminCourseView.getYearAddField().getText().toString();
+    			String year=adminCourseView.getYearAddList().getSelectedItem().toString();
+    			String semester=adminCourseView.getAddSemesterList().getSelectedItem().toString();
     			
-    			if(!name.equals("") && !credits.equals("") && !hours.equals("") && !major.equals("Select Major") && !year.equals(""))
-				{	Course course=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(hours),major,Integer.parseInt(year));
+    			if(!name.equals("") && !credits.equals("") && !hours.equals("") && !major.equals("Select Major") && !year.equals("") && !semester.equals(""))
+				{	Course course=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(hours),major,Integer.parseInt(year),Integer.parseInt(semester));
 					try {
 
 						if(adminCourseModel.addCourse(course))
@@ -107,10 +113,11 @@ public class AdminCourseController {
     			String credits=adminCourseView.getCreditsEditField().getText().toString();
     			String hours=adminCourseView.getHouresEditField().getText().toString();
     			String major=adminCourseView.getMajorEditField().getSelectedItem().toString();
-    			String year=adminCourseView.getYearEditField().getText().toString().toString();
+    			String year=adminCourseView.getYearEditList().getSelectedItem().toString();
+    			String semester=adminCourseView.getEditSemesterList().getSelectedItem().toString();
     			
-				if(!code.equals("") && !name.equals("") && !major.equals("Select Major") && !credits.equals("") && !hours.equals("") && !major.equals("") && !year.equals("") )
-    			{	Course course=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(hours),major,Integer.parseInt(year));
+				if(!code.equals("") && !name.equals("") && !major.equals("Select Major") && !credits.equals("") && !hours.equals("") && !major.equals("") && !year.equals("") && !semester.equals("") )
+    			{	Course course=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(hours),major,Integer.parseInt(year),Integer.parseInt(semester));
 					try {
 						if(adminCourseModel.editCourse(course))
 						{	
@@ -156,12 +163,14 @@ public class AdminCourseController {
         			String houres=(String)adminCourseView.getCourseTable().getValueAt(selectedRow,3).toString();
         			String major=(String)adminCourseView.getCourseTable().getValueAt(selectedRow,4).toString();
         			String year=(String)adminCourseView.getCourseTable().getValueAt(selectedRow,5).toString();
+        			String semester=(String)adminCourseView.getCourseTable().getValueAt(selectedRow,6).toString();
         			adminCourseView.getCodeEditField().setText(code);
     				adminCourseView.getNameEditField().setText(name);
     				adminCourseView.getCreditsEditField().setText(credits);
     				adminCourseView.getHouresEditField().setText(houres);
     				adminCourseView.getMajorEditField().setSelectedItem((Object)major);
-    				adminCourseView.getYearEditField().setText(year);
+    				adminCourseView.getYearEditList().setSelectedItem((Object)year);
+    				adminCourseView.getEditSemesterList().setSelectedItem((Object)semester);
     			}
 				else if(adminCourseView.getComboBoxActionFields().getSelectedItem().equals("Delete"))
 				{
@@ -205,7 +214,8 @@ public class AdminCourseController {
 			adminCourseView.getMajorAddField().setSelectedItem((Object)"Select Major");
 			adminCourseView.getCreditsAddField().setText("");
 			adminCourseView.getHouresAddField().setText("");
-			adminCourseView.getYearAddField().setText("");
+			adminCourseView.getYearAddList().setSelectedItem((Object)"Select Year");
+			adminCourseView.getAddSemesterList().setSelectedItem((Object)"Select Semester");
 		}
 		else if(mode.equals("Edit"))
 		{
@@ -214,9 +224,54 @@ public class AdminCourseController {
 			adminCourseView.getMajorEditField().setSelectedItem((Object)"Select Major");
 			adminCourseView.getCreditsEditField().setText("");
 			adminCourseView.getHouresEditField().setText("");
-			adminCourseView.getYearEditField().setText("");
+			adminCourseView.getYearEditList().setSelectedItem((Object)"Select Year");
+			adminCourseView.getEditSemesterList().setSelectedItem((Object)"Select Semester");
 		}
 		else 
 			adminCourseView.getCodeDeleteField().setText("");
+	}
+	public void addYearListAction() {
+		adminCourseView.getYearAddList().addItemListener(new ItemListener(){
+            @Override
+            public void itemStateChanged(ItemEvent e){
+            	adminCourseView.getAddSemesterList().setModel(new DefaultComboBoxModel<String>());
+            	String[] semesters=new String[3];
+            	semesters[0]="Select Semester";
+            	if(adminCourseView.getYearAddList().getSelectedItem()=="1") {
+            		semesters=adminCourseView.getYearOneSemesters();
+            	}
+            	else if(adminCourseView.getYearAddList().getSelectedItem()=="2") {
+            		semesters=adminCourseView.getYearTwoSemesters();
+            	}
+            	else if(adminCourseView.getYearAddList().getSelectedItem()=="3") {
+            		semesters=adminCourseView.getYearThreeSemesters();
+            	}
+            	adminCourseView.getAddSemesterList().setModel(new DefaultComboBoxModel<String>(semesters));
+            	
+            }
+            
+        });
+	}
+	public void editYearListAction() {
+		adminCourseView.getYearEditList().addItemListener(new ItemListener(){
+            @Override
+            public void itemStateChanged(ItemEvent e){
+            	adminCourseView.getEditSemesterList().setModel(new DefaultComboBoxModel<String>());
+            	String[] semesters=new String[3];
+            	semesters[0]="Select Semester";
+            	if(adminCourseView.getYearEditList().getSelectedItem()=="1") {
+            		semesters=adminCourseView.getYearOneSemesters();
+            	}
+            	else if(adminCourseView.getYearEditList().getSelectedItem()=="2") {
+            		semesters=adminCourseView.getYearTwoSemesters();
+            	}
+            	else if(adminCourseView.getYearEditList().getSelectedItem()=="3") {
+            		semesters=adminCourseView.getYearThreeSemesters();
+            	}
+            	adminCourseView.getEditSemesterList().setModel(new DefaultComboBoxModel<String>(semesters));
+            	
+            }
+            
+        });
 	}
 }

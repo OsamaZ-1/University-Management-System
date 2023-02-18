@@ -18,6 +18,7 @@ public class AdminCourseView{
 	private JLabel houresLabelAdd;
 	private JLabel majorLabelAdd;
 	private JLabel yearLabelAdd;
+	private JLabel semesterLabelAdd;
 	private JLabel codeLabel;
 	private JLabel editLabel;
 
@@ -26,6 +27,7 @@ public class AdminCourseView{
 	private JLabel houresLabelEdit;
 	private JLabel majorLabelEdit;
 	private JLabel yearLabelEdit;
+	private JLabel semesterLabelEdit;
 	private JLabel codeLabelEdit;
 	
     //Fields
@@ -33,17 +35,24 @@ public class AdminCourseView{
 	private JTextField creditsAdd;
 	private JTextField houresAdd;
 	private JComboBox<String> majorAdd;
-	private JTextField yearAdd;
+	private JComboBox<String> yearAdd;
+	private JComboBox<String> semesterAdd;
     private JTextField code;
     
 	private JTextField nameEdit;
 	private JTextField creditsEdit;
 	private JTextField houresEdit;
 	private JComboBox<String> majorEdit;
-	private JTextField yearEdit;
+	private JComboBox<String> yearEdit;
+	private JComboBox<String> semesterEdit;
     private JTextField codeEdit;
 	private JComboBox<String> actionFields;
 	
+	//Objects
+	String[] years;
+	String[] yearOne;
+	String[] yearTwo;
+	String[] yearThree;
     //Table
 	private JTable courseTable;
     private JScrollPane scrollPane;
@@ -82,6 +91,11 @@ public class AdminCourseView{
     	buttonFont = new Font("Arial",Font.BOLD,17);
         color = new Color(83,131,255);
 
+        years=new String[] {"Select Year","1","2","3"};
+    	yearOne=new String[] {"Select Semester","1","2"};
+    	yearTwo=new String[] {"Select Semester","3","4"};
+    	yearThree=new String[] {"Select Semester","5","6"};
+    	
     	title.setFont(new Font("Arial", Font.BOLD, 25));
     	
     	nameLabelAdd=new JLabel("Name: ");
@@ -94,6 +108,8 @@ public class AdminCourseView{
         majorLabelAdd.setFont(font);
         yearLabelAdd=new JLabel("Year: ");
         yearLabelAdd.setFont(font);
+        semesterLabelAdd=new JLabel("Semester: ");
+        semesterLabelAdd.setFont(font);
         codeLabel=new JLabel("Course Code: ");
         codeLabel.setFont(font);
         
@@ -108,8 +124,9 @@ public class AdminCourseView{
         houresAdd.setFont(font);
         majorAdd=new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
         majorAdd.setFont(font);
-        yearAdd=new JTextField();
-        yearAdd.setColumns(5);
+        semesterAdd=new JComboBox<String>(new String[]{"Select Semester"});
+        semesterAdd.setFont(font);
+        yearAdd=new JComboBox<String>(years);
         yearAdd.setFont(font);
         code=new JTextField();
         code.setColumns(5);
@@ -126,6 +143,8 @@ public class AdminCourseView{
         majorLabelEdit.setFont(font);
         yearLabelEdit=new JLabel("Year:");
         yearLabelEdit.setFont(font);
+        semesterLabelEdit=new JLabel("Semester: ");
+        semesterLabelEdit.setFont(font);
         codeLabelEdit=new JLabel("Code: ");
         codeLabelEdit.setFont(font);
         editLabel=new JLabel("Select Row To Fill Fields");
@@ -142,9 +161,10 @@ public class AdminCourseView{
         houresEdit.setFont(font);
         majorEdit=new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
         majorEdit.setFont(font);
-        yearEdit=new JTextField();
-        yearEdit.setColumns(5);
+        yearEdit=new JComboBox<String>(years);
         yearEdit.setFont(font);
+        semesterEdit=new JComboBox<String>(new String[]{"Select Semester"});
+        semesterEdit.setFont(font);
         codeEdit=new JTextField();
         codeEdit.setColumns(5);
         codeEdit.setFont(font);
@@ -163,7 +183,7 @@ public class AdminCourseView{
     	edit.setBackground(Color.green);
     	delete.setBackground(Color.red);
     	
-    	tableColumns = new Object[]{"CourseName","CourseCode","CourseCredits","CourseHours","CourseMajor","CourseYear"};
+    	tableColumns = new Object[]{"CourseName","CourseCode","CourseCredits","CourseHours","CourseMajor","CourseYear","CourseSemester"};
     	courseTable=new JTable();
     
     	courseTable.setFont(fontTable);
@@ -215,6 +235,8 @@ public class AdminCourseView{
         addPanel.add(yearLabelAdd);
         addPanel.add(yearAdd);
         addPanel.add(add);
+        addPanel.add(semesterLabelAdd);
+        addPanel.add(semesterAdd);
         
         springLayout.putConstraint(SpringLayout.NORTH,nameLabelAdd,25,SpringLayout.NORTH,addPanel);
         springLayout.putConstraint(SpringLayout.NORTH,nameAdd,20,SpringLayout.NORTH,addPanel);
@@ -232,18 +254,25 @@ public class AdminCourseView{
         springLayout.putConstraint(SpringLayout.WEST,creditsAdd,5,SpringLayout.EAST,creditsLabelAdd);
         
         springLayout.putConstraint(SpringLayout.NORTH,houresLabelAdd,40,SpringLayout.NORTH,nameLabelAdd);
-        springLayout.putConstraint(SpringLayout.WEST,houresLabelAdd,150,SpringLayout.WEST,creditsAdd);
+        springLayout.putConstraint(SpringLayout.WEST,houresLabelAdd,95,SpringLayout.WEST,creditsAdd);
         springLayout.putConstraint(SpringLayout.NORTH,houresAdd,35,SpringLayout.NORTH,nameLabelAdd);
         springLayout.putConstraint(SpringLayout.WEST,houresAdd,5,SpringLayout.EAST,houresLabelAdd);
         
         springLayout.putConstraint(SpringLayout.NORTH,yearLabelAdd,40,SpringLayout.NORTH,nameLabelAdd);
-        springLayout.putConstraint(SpringLayout.WEST,yearLabelAdd,150,SpringLayout.WEST,houresAdd);
+        springLayout.putConstraint(SpringLayout.WEST,yearLabelAdd,95,SpringLayout.WEST,houresAdd);
         springLayout.putConstraint(SpringLayout.NORTH,yearAdd,35,SpringLayout.NORTH,nameLabelAdd);
         springLayout.putConstraint(SpringLayout.WEST,yearAdd,5,SpringLayout.EAST,yearLabelAdd);
         
+        springLayout.putConstraint(SpringLayout.NORTH,semesterLabelAdd,40,SpringLayout.NORTH,nameLabelAdd);
+        springLayout.putConstraint(SpringLayout.WEST,semesterLabelAdd,140,SpringLayout.WEST,yearAdd);
+        springLayout.putConstraint(SpringLayout.NORTH,semesterAdd,35,SpringLayout.NORTH,nameLabelAdd);
+        springLayout.putConstraint(SpringLayout.WEST,semesterAdd,5,SpringLayout.EAST,semesterLabelAdd);
+        
         springLayout.putConstraint(SpringLayout.NORTH,add,50,SpringLayout.SOUTH,yearLabelAdd);
         springLayout.putConstraint(SpringLayout.WEST,add,310,SpringLayout.WEST,addPanel);
-       
+        
+        
+        
         addPanel.setPreferredSize(new Dimension(100,150));
         addPanel.setBackground(color);
         
@@ -263,6 +292,8 @@ public class AdminCourseView{
         editPanel.add(yearLabelEdit);
         editPanel.add(yearEdit);
         editPanel.add(edit);
+        editPanel.add(semesterLabelEdit);
+        editPanel.add(semesterEdit);
         
         springLayout2.putConstraint(SpringLayout.NORTH,editLabel,0,SpringLayout.NORTH,editPanel);
         springLayout2.putConstraint(SpringLayout.WEST,editLabel,0,SpringLayout.WEST,editPanel);
@@ -298,6 +329,11 @@ public class AdminCourseView{
         springLayout2.putConstraint(SpringLayout.NORTH,yearEdit,30,SpringLayout.NORTH,nameLabelEdit);
         springLayout2.putConstraint(SpringLayout.WEST,yearEdit,5,SpringLayout.EAST,yearLabelEdit);
         
+        springLayout2.putConstraint(SpringLayout.NORTH,semesterLabelEdit,35,SpringLayout.NORTH,nameLabelEdit);
+        springLayout2.putConstraint(SpringLayout.WEST,semesterLabelEdit,140,SpringLayout.WEST,yearEdit);
+        springLayout2.putConstraint(SpringLayout.NORTH,semesterEdit,30,SpringLayout.NORTH,nameLabelEdit);
+        springLayout2.putConstraint(SpringLayout.WEST,semesterEdit,5,SpringLayout.EAST,semesterLabelEdit);
+        
         springLayout2.putConstraint(SpringLayout.NORTH,edit,20,SpringLayout.SOUTH,yearLabelEdit);
         springLayout2.putConstraint(SpringLayout.WEST,edit,310,SpringLayout.WEST,editPanel);
        
@@ -330,7 +366,7 @@ public class AdminCourseView{
         
         mainPanel.setBackground(color);
         mainPanel.setTitle("Course Management");
-		mainPanel.setSize(720, 550);
+		mainPanel.setSize(800, 550);
 		mainPanel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		mainPanel.setVisible(true);
 		mainPanel.setLocationRelativeTo(null);
@@ -377,7 +413,7 @@ public class AdminCourseView{
     	return this.majorEdit;
     }
 
-    public JTextField getYearEditField() {
+    public JComboBox<String> getYearEditList() {
     	return this.yearEdit;
     }
 
@@ -401,7 +437,7 @@ public class AdminCourseView{
     	return this.majorAdd;
     }
 
-    public JTextField getYearAddField() {
+    public JComboBox getYearAddList() {
     	return this.yearAdd;
     }
 
@@ -412,7 +448,12 @@ public class AdminCourseView{
     public JComboBox<String> getComboBoxActionFields() {
     	return this.actionFields;
     }
-
+    public JComboBox<String> getAddSemesterList(){
+    	return this.semesterAdd;
+    }
+    public JComboBox<String> getEditSemesterList(){
+    	return this.semesterEdit;
+    }
     public CardLayout getCardLayout() {
     	return this.cardLayout;
     }
@@ -432,7 +473,15 @@ public class AdminCourseView{
     public String getDeletePanelCode() {
     	return this.DELETE_PANEL_CODE;
     }
-
+    public String[] getYearOneSemesters() {
+    	return this.yearOne;
+    }
+    public String[] getYearTwoSemesters() {
+    	return this.yearTwo;
+    }
+    public String[] getYearThreeSemesters() {
+    	return this.yearThree;
+    }
     public void displayMessage(String message){   
         JOptionPane.showMessageDialog(null, message);
     }
