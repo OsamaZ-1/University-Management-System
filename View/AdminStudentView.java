@@ -62,6 +62,7 @@ public class AdminStudentView{
         editButton = new JButton("Edit");
         manageButton = new JButton("Manage");
         deleteButton = new JButton("Delete");
+        deleteButton.setBackground(Color.red);
         managementType = new JComboBox<>(new String[]{"Select Manage Type","Student-Courses","Student-Grades"});
         editManage = new JComboBox<>(new String[]{"Edit","Manage","Delete"});
         majorField = new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});

@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -310,13 +311,28 @@ public class StudentDaoImplementation implements StudentDao {
         try{
             courseId = getCourseId(courseCode);
         }catch(SQLException e){e.printStackTrace();}
-
-        String query = "INSERT INTO "+TABLE_STUDENT_COURSE+" (Id, CourseId,Grade) VALUES(?,?,?)";
+        //get current year and month
+        LocalDate currentDate = LocalDate.now(); 
+	    int month=currentDate.getMonthValue();
+	    int year=currentDate.getYear();
+	    int year2=0;
+	    String yearRegister="";
+	    if(month>=1 && month<=8) {
+	    	year2=year-1;
+	    	yearRegister=Integer.toString(year2)+"-"+Integer.toString(year);
+	    }
+	    else {
+	    	year2=year+1;
+	    	yearRegister=Integer.toString(year)+"-"+Integer.toString(year2);
+	    }
+	    
+        String query = "INSERT INTO "+TABLE_STUDENT_COURSE+" (Id, CourseId,Grade,Year,Submitted) VALUES(?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1,Integer.parseInt(studentId));
         ps.setInt(2,courseId);
         ps.setDouble(3,Double.parseDouble("-1"));
-
+        ps.setString(4, yearRegister);
+        ps.setInt(5, 0);
         return ps.executeUpdate()>0;
     }
 
