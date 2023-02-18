@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import Model.Course;
 import Model.Student;
 import Model.UniversityMember;
 
@@ -45,5 +46,7 @@ interface StudentDao {
     public Object[][] getStudentGrades(String id)
         throws SQLException;
     public boolean updateStudentGrade(String studentId, String courseCode, String grade)
+        throws SQLException;
+   public List<Course> getNotRegistedCourses(String email,String password)
         throws SQLException;
 }

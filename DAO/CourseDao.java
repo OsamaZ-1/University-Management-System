@@ -15,4 +15,7 @@ public interface CourseDao {
 	   throws SQLException;
 	public List<Course> getMajorCourses(String major)
 		throws SQLException;
+	public List<Course> getSemesterMajorCourses(String major,int semester) 
+	    throws SQLException;
+	
 }

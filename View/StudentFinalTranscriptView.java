@@ -58,7 +58,7 @@ public class StudentFinalTranscriptView {
     			else if(value1.equals("Failed")) {
     				comp1.setForeground(Color.red);
     			}
-    			else if(value1.equals("grade not in Acc. history") || value1.equals("N/A")) {
+    			else if(value1.equals("N/A") || value1.equals("Not Registed")) {
     				comp1.setForeground(Color.black);
     			}
     			else {

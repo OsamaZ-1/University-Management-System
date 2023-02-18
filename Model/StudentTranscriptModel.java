@@ -5,37 +5,55 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import DAO.CourseDaoImplementation;
 import DAO.StudentDaoImplementation;
 
 public class StudentTranscriptModel {
 
-	private StudentDaoImplementation stdDao = new StudentDaoImplementation();
+	private StudentDaoImplementation stdDao;
+	private CourseDaoImplementation crseDao;
 	private String email,password;
-	private int[] totalCredits;
-	private boolean[] earnedCredits;
 	private double[] grades;
 	
-	private int[] totalSemesterCredits;
-	private boolean[] earnedSemesterCredits;
+	private int earnedCredits;
+	private int earnedSemesterCredits;
+	private int[] registerCredits;
+	private int[] registerSemesterCredits;
 	private double[] semesterGrades;
 	
+	private List<Course> semesterMajorCourses;
+	private List<Course> majorCourses;
 	public StudentTranscriptModel(String email,String password) {
-	this.email=email;
-	this.password=password;
+		stdDao = new StudentDaoImplementation();
+	    crseDao=new CourseDaoImplementation();
+	    this.email=email;
+	    this.password=password;
 	}
 	
 	public String[] getStudentInformation() throws SQLException {
 		return stdDao.getStudent(this.email,this.password);
 	}
-	
+	public Object[][] getNotRegistedCourses() throws SQLException{
+		List<Course> notRegistedCourses=stdDao.getNotRegistedCourses(this.email, this.password);
+		Object[][] notRegistedCoursesInfo=new Object[notRegistedCourses.size()][7];
+		for(int i=0;i<notRegistedCourses.size();i++) {
+			notRegistedCoursesInfo[i][0]="Not Registed";
+			notRegistedCoursesInfo[i][1]="can edit later";
+			notRegistedCoursesInfo[i][2]=notRegistedCourses.get(i).getCode();
+			notRegistedCoursesInfo[i][3]=notRegistedCourses.get(i).getName();
+			notRegistedCoursesInfo[i][4]=notRegistedCourses.get(i).getCredits();
+			notRegistedCoursesInfo[i][5]="Not Registed";
+			notRegistedCoursesInfo[i][6]="Not Registed";
+		}
+		return notRegistedCoursesInfo;
+	}
 	public Object[][] getStudentGrades() throws SQLException{
 		Object[][] info=stdDao.getStudentCoursesInformation(this.email,this.password);
-		totalCredits=new int[info.length];
-		earnedCredits=new boolean[info.length];
 		grades=new double[info.length];
+		registerCredits=new int[info.length];
+		earnedCredits=0;
 		for(int i=0;i<info.length;i++) {
-			totalCredits[i]=Integer.parseInt(String.valueOf(info[i][4]));
+			registerCredits[i]=Integer.parseInt(String.valueOf(info[i][4]));
 			if(info[i][5]!="N/A") {
 			grades[i]=Double.parseDouble(String.valueOf(info[i][5]));
 			}
@@ -43,19 +61,17 @@ public class StudentTranscriptModel {
 				grades[i]=0;
 			}
 			if(grades[i]>=50)
-				earnedCredits[i]=true;
-			else
-				earnedCredits[i]=false;
+				earnedCredits+=Integer.parseInt(String.valueOf(info[i][4]));
 		}
 		return info;
 	}
 	public Object[][] getStudentSemesterGrades(int semester) throws SQLException{
 		Object[][] info=stdDao.getStudentSemesterCoursesInformation(this.email, this.password, semester);
-		totalSemesterCredits=new int[info.length];
-		earnedSemesterCredits=new boolean[info.length];
+		earnedSemesterCredits=0;
+		registerSemesterCredits=new int[info.length];
 		semesterGrades=new double[info.length];
 		for(int i=0;i<info.length;i++) {
-			totalSemesterCredits[i]=Integer.parseInt(String.valueOf(info[i][3]));
+			registerSemesterCredits[i]=Integer.parseInt(String.valueOf(info[i][3]));
 			if(info[i][4]!="grade not in Acc. history") {
 				semesterGrades[i]=Double.parseDouble(String.valueOf(info[i][4]));
 			}
@@ -63,61 +79,55 @@ public class StudentTranscriptModel {
 				semesterGrades[i]=0;
 			}
 			if(semesterGrades[i]>=50)
-				earnedSemesterCredits[i]=true;
-			else
-				earnedSemesterCredits[i]=false;
+				earnedSemesterCredits+=Integer.parseInt(String.valueOf(info[i][3]));
+			
 		}
 		return info;
 	}
-	
-	public int getTotalCredits() {
+	//edit it
+	public int getTotalCredits() throws SQLException {
+		String[] studentInfo=this.getStudentInformation();
+		majorCourses=crseDao.getMajorCourses(studentInfo[3]);
 		int sum=0;
-		for(int i=0;i<totalCredits.length;i++) {
-			sum+=totalCredits[i];
+		for(int i=0;i<majorCourses.size();i++) {
+			sum+=majorCourses.get(i).getCredits();
 		}
 		return sum;
 	}
-	public int getEarnedCredits() {
-		int sum=0;
-		for(int i=0;i<totalCredits.length;i++) {
-			if(earnedCredits[i]) {
-				sum+=totalCredits[i];
-			}
-		}
-		return sum;
+	public int getEarnedCredits() throws SQLException {
+		
+		return this.earnedCredits;
 	}
-	public Double getStudentGpa() {
+	public Double getStudentGpa() throws SQLException {
 		double gpa=0;
-		for(int i=0;i<totalCredits.length;i++) {
-			gpa+=totalCredits[i]*grades[i];
+		for(int i=0;i<registerCredits.length;i++) {
+			gpa+=registerCredits[i]*grades[i];
 		}
 		double result=gpa/(double)this.getTotalCredits();
 		result=Math.round(result*100)/100.00;
 		return result;
 	}
 	
-	public int getTotalSemesterCredits() {
+	//edit it
+	public int getTotalSemesterCredits(int semester) throws SQLException {
+		String[] studentInfo=this.getStudentInformation();
+		semesterMajorCourses=crseDao.getSemesterMajorCourses(studentInfo[3], semester);
 		int sum=0;
-		for(int i=0;i<totalSemesterCredits.length;i++) {
-			sum+=totalSemesterCredits[i];
+		for(int i=0;i<semesterMajorCourses.size();i++) {
+			sum+=semesterMajorCourses.get(i).getCredits();
 		}
 		return sum;
+		
 	}
-	public int getEarnedSemesterCredits() {
-		int sum=0;
-		for(int i=0;i<totalSemesterCredits.length;i++) {
-			if(earnedSemesterCredits[i]) {
-				sum+=totalSemesterCredits[i];
-			}
-		}
-		return sum;
+	public int getEarnedSemesterCredits(int semester) throws SQLException {
+		return this.earnedSemesterCredits;
 	}
-	public Double getStudentSemesterGpa() {
+	public Double getStudentSemesterGpa(int semester) throws SQLException {
 		double gpa=0;
-		for(int i=0;i<totalSemesterCredits.length;i++) {
-			gpa+=totalSemesterCredits[i]*semesterGrades[i];
+		for(int i=0;i<registerSemesterCredits.length;i++) {
+			gpa+=registerSemesterCredits[i]*semesterGrades[i];
 		}
-		double result=gpa/(double)this.getTotalSemesterCredits();
+		double result=gpa/(double)this.getTotalSemesterCredits(semester);
 		result=Math.round(result*100)/100.00;
 		return result;
 	}

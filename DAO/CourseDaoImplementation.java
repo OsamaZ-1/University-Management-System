@@ -99,6 +99,24 @@ public class CourseDaoImplementation implements CourseDao{
 
 		return listCourses;
 	}
+
+	@Override
+	public List<Course> getSemesterMajorCourses(String major,int semester) throws SQLException {
+		// TODO Auto-generated method stub
+		String query = "SELECT Name,Code,Credits,Hours,Major,Year FROM " + TABLE_NAME + " WHERE Major = ? AND Semester=?";
+		PreparedStatement ps = connection.prepareStatement(query);
+		ps.setString(1,major);
+		ps.setInt(2,semester);
+        ResultSet res = ps.executeQuery();
+        List<Course> listCourses = new ArrayList<Course>();
+		while(res.next())
+        {
+            Course s = new Course(res.getString("Code"), res.getString("Name"),res.getInt("Credits"), res.getInt("Hours"), res.getString("Major"), res.getInt("Year"));
+            listCourses.add(s);
+        }
+
+		return listCourses;
+	}
 	
 
 }

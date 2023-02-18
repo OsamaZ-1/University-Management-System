@@ -19,6 +19,7 @@ public class StrudentTranscriptController {
 	private StudentTranscriptModel model;
 	private StudentFinalTranscriptView finalView;
 	private Object[][] grades;
+	private Object[][] notRegistedCourses;
 	private Object[][] semesterGrades;
 	private String[] studentInfo;
 
@@ -32,7 +33,6 @@ public class StrudentTranscriptController {
     	fillStudentSemesters();
     	studentSemestersListListener();
     	defaultChooseSemester();
-    	//fillStudentGradesTable();
     	finalTranscriptButtonAction();
     	logoutButtonAction();
 	}
@@ -52,6 +52,11 @@ public class StrudentTranscriptController {
        finalView.getTableModelInfo().setNumRows(0);
     	for(int i=0;i<grades.length;i++)
     		finalView.getTableModelInfo().addRow(grades[i]);
+    	finalView.getTableModelInfo().addRow(new Object[] {"","","","","","",""});
+    	notRegistedCourses=model.getNotRegistedCourses();
+    	for(int i=0;i<notRegistedCourses.length;i++) {
+    		finalView.getTableModelInfo().addRow(notRegistedCourses[i]);
+    	}
     	finalView.getTotalCredits().setText(Integer.toString(model.getTotalCredits()));
     	finalView.getEarnedCredits().setText(Integer.toString(model.getEarnedCredits()));
     	finalView.getGraduatedGPA().setText(String.valueOf(model.getStudentGpa())+"%");
@@ -61,9 +66,9 @@ public class StrudentTranscriptController {
 		semesterGrades=model.getStudentSemesterGrades(semester);
     	for(int i=0;i<semesterGrades.length;i++)
     	  view.getTableModel().addRow(semesterGrades[i]);
-    	view.getTotalCreditsLabel().setText(Integer.toString(model.getTotalSemesterCredits()));
-    	view.getEarnedCreditsLabel().setText(Integer.toString(model.getEarnedSemesterCredits()));
-    	view.getGpaLabel().setText(String.valueOf(model.getStudentSemesterGpa())+"%");
+    	view.getTotalCreditsLabel().setText(Integer.toString(model.getTotalSemesterCredits(getSemesterNumberSelected())));
+    	view.getEarnedCreditsLabel().setText(Integer.toString(model.getEarnedSemesterCredits(getSemesterNumberSelected())));
+    	view.getGpaLabel().setText(String.valueOf(model.getStudentSemesterGpa(getSemesterNumberSelected()))+"%");
 	}
 	public void logoutButtonAction() {
 		view.getLogoutButton().addActionListener(new ActionListener() {
