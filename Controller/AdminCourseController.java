@@ -61,7 +61,7 @@ public class AdminCourseController {
     			String year=adminCourseView.getYearAddList().getSelectedItem().toString();
     			String semester=adminCourseView.getAddSemesterList().getSelectedItem().toString();
     			
-    			if(!name.equals("") && !credits.equals("") && !hours.equals("") && !major.equals("Select Major") && !year.equals("") && !semester.equals(""))
+    			if(!name.equals("") && !credits.equals("") && !hours.equals("") && !major.equals("Select Major") && !year.equals("Select Year") && !semester.equals("Select Semester"))
 				{	Course course=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(hours),major,Integer.parseInt(year),Integer.parseInt(semester));
 					try {
 
@@ -116,7 +116,7 @@ public class AdminCourseController {
     			String year=adminCourseView.getYearEditList().getSelectedItem().toString();
     			String semester=adminCourseView.getEditSemesterList().getSelectedItem().toString();
     			
-				if(!code.equals("") && !name.equals("") && !major.equals("Select Major") && !credits.equals("") && !hours.equals("") && !major.equals("") && !year.equals("") && !semester.equals("") )
+				if(!code.equals("") && !name.equals("") && !major.equals("Select Major") && !credits.equals("") && !hours.equals("") && !year.equals("Select Year") && !semester.equals("Select Semester") )
     			{	Course course=new Course(code,name,Integer.parseInt(credits),Integer.parseInt(hours),major,Integer.parseInt(year),Integer.parseInt(semester));
 					try {
 						if(adminCourseModel.editCourse(course))

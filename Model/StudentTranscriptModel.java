@@ -38,7 +38,7 @@ public class StudentTranscriptModel {
 		Object[][] notRegistedCoursesInfo=new Object[notRegistedCourses.size()][7];
 		for(int i=0;i<notRegistedCourses.size();i++) {
 			notRegistedCoursesInfo[i][0]="Not Registed";
-			notRegistedCoursesInfo[i][1]="can edit later";
+			notRegistedCoursesInfo[i][1]=notRegistedCourses.get(i).getSemester();
 			notRegistedCoursesInfo[i][2]=notRegistedCourses.get(i).getCode();
 			notRegistedCoursesInfo[i][3]=notRegistedCourses.get(i).getName();
 			notRegistedCoursesInfo[i][4]=notRegistedCourses.get(i).getCredits();
