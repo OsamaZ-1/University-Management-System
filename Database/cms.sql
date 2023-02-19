@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 18, 2023 at 03:22 PM
+-- Generation Time: Feb 19, 2023 at 04:21 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -81,9 +81,8 @@ INSERT INTO `course` (`CourseId`, `Name`, `Code`, `Prerequisite`, `Credits`, `Ho
 -- Triggers `course`
 --
 DELIMITER $$
-CREATE TRIGGER `before_delete_course` BEFORE DELETE ON `course` FOR EACH ROW BEGIN
+CREATE TRIGGER `before_delete_course` AFTER DELETE ON `course` FOR EACH ROW BEGIN
 INSERT INTO CourseHistory VALUES(OLD.CourseId,OLD.Name,OLD.Code,OLD.Prerequisite,OLD.Credits,OLD.Hours,OLD.Major,OLD.Year,OLD.Semester,NOW());
-UPDATE course SET Prerequisite = 'none' WHERE Prerequisite = OLD.Code;
 DELETE FROM studentgrades WHERE studentgrades.CourseId = OLD.CourseId;
 DELETE FROM instructorteaches WHERE instructorteaches.CourseID = OLD.CourseId;
 END

@@ -89,6 +89,7 @@ public class AdminCourseController {
 					try {
 						if(adminCourseModel.deleteCourse(code))
 						{
+						 adminCourseModel.updateCoursePrerequisites(code);
 						 fillTable();
 						 refreshPage("Delete");
 						 adminCourseView.displayMessage("Successfully deleted course");

@@ -66,10 +66,10 @@ public class CourseDaoImplementation implements CourseDao{
 	public boolean delete(String code) throws SQLException {
 		// TODO Auto-generated method stub
 		String deletequery="DELETE FROM "+TABLE_NAME+" WHERE Code=?";
-		PreparedStatement preparedstatement=connection.prepareStatement(deletequery);
-		preparedstatement.setString(1, code);
+		PreparedStatement ps=connection.prepareStatement(deletequery);
+		ps.setString(1, code);
 		
-		return preparedstatement.executeUpdate()>0;
+		return ps.executeUpdate()>0;
 	}
 
 	@Override
@@ -120,6 +120,16 @@ public class CourseDaoImplementation implements CourseDao{
         }
 
 		return listCourses;
+	}
+
+	@Override
+	public void updateCoursePrerequisites(String code) throws SQLException{
+		
+		String query = "UPDATE "+TABLE_NAME+" SET Prerequisite = 'none' WHERE Prerequisite = ?";
+		PreparedStatement ps = connection.prepareStatement(query);
+		ps.setString(1,code);
+
+		ps.executeUpdate();
 	}
 	
 

@@ -20,4 +20,7 @@ public class AdminCourseModel {
 	public boolean addCourse(Course course) throws SQLException {
 		return crseDao.add(course);
 	}
+	public void updateCoursePrerequisites(String code) throws SQLException{
+	    crseDao.updateCoursePrerequisites(code);
+	}
 }
