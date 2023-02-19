@@ -479,7 +479,13 @@ public class StudentDaoImplementation implements StudentDao {
             studentGrades[i][2] = (Object)res.getString("Lname");
             studentGrades[i][3] = (Object)res.getString("Code");
             studentGrades[i][4] = (Object)res.getString("Name");
-            studentGrades[i][5] = (Object)res.getFloat("Grade");
+            double grade=res.getFloat("Grade");
+            if(grade==-1) {
+            	studentGrades[i][5] = (Object)"";
+            }
+            else {
+            	studentGrades[i][5] = (Object)grade;
+            }
             studentGrades[i][6] = (Object)res.getString("Year");
             i++;
         }
