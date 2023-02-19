@@ -19,5 +19,6 @@ public interface CourseDao {
 	    throws SQLException;
 	public void updateCoursePrerequisites(String code)
 		throws SQLException;
-	
+	public List<String> getPreRequisiteCourses(String major, int year)
+		throws SQLException;
 }

@@ -2,6 +2,9 @@ package DAO;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.ldap.LdapName;
+
 import java.sql.*;
 
 import Database.DatabaseConnection;
@@ -34,7 +37,7 @@ public class CourseDaoImplementation implements CourseDao{
         int numcode=course.getYear()*1000+maxid+1;
         String code=course.getMajor().toString().substring(0, 1)+""+Integer.toString(numcode);
         preparedstatement.setString(2, code);
-        preparedstatement.setString(3, "none");
+        preparedstatement.setString(3, course.getPreRequisite());
         preparedstatement.setInt(4, course.getCredits());
         preparedstatement.setInt(5, course.getHours());
         preparedstatement.setString(6, course.getMajor());
@@ -51,7 +54,7 @@ public class CourseDaoImplementation implements CourseDao{
 		PreparedStatement preparedstatement=connection.prepareStatement(updatequery);
 		
 		preparedstatement.setString(1, course.getName());
-		preparedstatement.setString(2, "none");
+		preparedstatement.setString(2, course.getPreRequisite());
 		preparedstatement.setInt(3, course.getCredits());
 		preparedstatement.setInt(4, course.getHours());
 		preparedstatement.setString(5, course.getMajor());
@@ -75,13 +78,13 @@ public class CourseDaoImplementation implements CourseDao{
 	@Override
 	public List<Course> getCourses() throws SQLException {
 		// TODO Auto-generated method stub/
-		String query = "SELECT Name,Code,Credits,Hours,Major,Year,Semester FROM " + TABLE_NAME;
+		String query = "SELECT Name,Code,Prerequisite,Credits,Hours,Major,Year,Semester FROM " + TABLE_NAME;
         PreparedStatement ps = connection.prepareStatement(query);
         ResultSet res = ps.executeQuery();
         List<Course> listCourses = new ArrayList<Course>();
         while(res.next())
         {
-            Course s = new Course(res.getString("Code"), res.getString("Name"),res.getInt("Credits"), res.getInt("Hours"), res.getString("Major"), res.getInt("Year"),res.getInt("Semester"));
+            Course s = new Course(res.getString("Code"), res.getString("Name"),res.getString("Prerequisite"),res.getInt("Credits"), res.getInt("Hours"), res.getString("Major"), res.getInt("Year"),res.getInt("Semester"));
             listCourses.add(s);
         }
         return listCourses;
@@ -90,14 +93,14 @@ public class CourseDaoImplementation implements CourseDao{
 	@Override
 	public List<Course> getMajorCourses(String major) throws SQLException
 	{
-		String query = "SELECT Name,Code,Credits,Hours,Major,Year,Semester FROM " + TABLE_NAME + " WHERE Major = ?";
+		String query = "SELECT Name,Code,Prerequisite,Credits,Hours,Major,Year,Semester FROM " + TABLE_NAME + " WHERE Major = ?";
 		PreparedStatement ps = connection.prepareStatement(query);
 		ps.setString(1,major);
         ResultSet res = ps.executeQuery();
         List<Course> listCourses = new ArrayList<Course>();
 		while(res.next())
         {
-			Course s = new Course(res.getString("Code"), res.getString("Name"),res.getInt("Credits"), res.getInt("Hours"), res.getString("Major"), res.getInt("Year"),res.getInt("Semester"));
+			Course s = new Course(res.getString("Code"), res.getString("Name"),res.getString("Prerequisite"),res.getInt("Credits"), res.getInt("Hours"), res.getString("Major"), res.getInt("Year"),res.getInt("Semester"));
             listCourses.add(s);
         }
 
@@ -107,7 +110,7 @@ public class CourseDaoImplementation implements CourseDao{
 	@Override
 	public List<Course> getSemesterMajorCourses(String major,int semester) throws SQLException {
 		// TODO Auto-generated method stub
-		String query = "SELECT Name,Code,Credits,Hours,Major,Year,Semester FROM " + TABLE_NAME + " WHERE Major = ? AND Semester=?";
+		String query = "SELECT Name,Code,Prerequisite,Credits,Hours,Major,Year,Semester FROM " + TABLE_NAME + " WHERE Major = ? AND Semester=?";
 		PreparedStatement ps = connection.prepareStatement(query);
 		ps.setString(1,major);
 		ps.setInt(2,semester);
@@ -115,7 +118,7 @@ public class CourseDaoImplementation implements CourseDao{
         List<Course> listCourses = new ArrayList<Course>();
 		while(res.next())
         {
-			Course s = new Course(res.getString("Code"), res.getString("Name"),res.getInt("Credits"), res.getInt("Hours"), res.getString("Major"), res.getInt("Year"),res.getInt("Semester"));
+			Course s = new Course(res.getString("Code"), res.getString("Name"),res.getString("Prerequisite"),res.getInt("Credits"), res.getInt("Hours"), res.getString("Major"), res.getInt("Year"),res.getInt("Semester"));
             listCourses.add(s);
         }
 
@@ -130,6 +133,22 @@ public class CourseDaoImplementation implements CourseDao{
 		ps.setString(1,code);
 
 		ps.executeUpdate();
+	}
+
+	@Override
+	public List<String> getPreRequisiteCourses(String major, int year) throws SQLException{
+		
+		String query ="SELECT Code FROM "+TABLE_NAME+" WHERE Major = ? AND Year = ?";
+		PreparedStatement ps = connection.prepareStatement(query);
+		ps.setString(1,major);
+		ps.setInt(2,year);
+		ResultSet res = ps.executeQuery();
+		List<String> coursesCodes = new ArrayList<>();
+		
+		while(res.next())
+			coursesCodes.add(res.getString("Code"));
+
+		return coursesCodes;
 	}
 	
 

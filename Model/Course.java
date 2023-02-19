@@ -2,12 +2,13 @@ package Model;
 
 public class Course {
 
-	private String code,name,major;
+	private String code,name,major,preRequisite;
 	private int credits,hours,year,semester;
 	
-	public Course(String code,String name,int credits,int hours,String major,int year,int semester) {
+	public Course(String code,String name,String preRequisite,int credits,int hours,String major,int year,int semester) {
 		this.code=code;
 		this.name=name;
+        this.preRequisite = preRequisite;
 		this.credits=credits;
 		this.hours=hours;
 		this.major=major;
@@ -55,5 +56,8 @@ public class Course {
     }
     public void setSemester(int semester) {
     	this.semester=semester;
+    }
+    public String getPreRequisite(){
+        return this.preRequisite;
     }
 }

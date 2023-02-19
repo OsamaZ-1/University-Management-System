@@ -370,7 +370,7 @@ public class AdminStudentController {
 							adminStudentManageView.displayMessage("Successfully added");
 						}
 						else
-							adminStudentManageView.displayMessage("Error adding student to course");
+							adminStudentManageView.displayMessage("Error adding student to course\nstudent must pass PreRrequisite Course");
 
 					}catch(SQLException ex){ex.printStackTrace();}
 				}

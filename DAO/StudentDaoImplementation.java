@@ -307,33 +307,45 @@ public class StudentDaoImplementation implements StudentDao {
     @Override
     public boolean addStudentToCourse(String studentId, String courseCode) throws SQLException
     {   
-        int courseId = 0;
+        boolean test = false;
+
         try{
-            courseId = getCourseId(courseCode);
+            test = checkStudentGrade(courseCode);
         }catch(SQLException e){e.printStackTrace();}
-        //get current year and month
-        LocalDate currentDate = LocalDate.now(); 
-	    int month=currentDate.getMonthValue();
-	    int year=currentDate.getYear();
-	    int year2=0;
-	    String yearRegister="";
-	    if(month>=1 && month<=8) {
-	    	year2=year-1;
-	    	yearRegister=Integer.toString(year2)+"-"+Integer.toString(year);
-	    }
-	    else {
-	    	year2=year+1;
-	    	yearRegister=Integer.toString(year)+"-"+Integer.toString(year2);
-	    }
+
+        if(test)
+        {   
+            int courseId = 0;
+            try{
+                courseId = getCourseId(courseCode);
+            }catch(SQLException e){e.printStackTrace();}
+            //get current year and month
+            LocalDate currentDate = LocalDate.now(); 
+	        int month=currentDate.getMonthValue();
+	        int year=currentDate.getYear();
+	        int year2=0;
+	        String yearRegister="";
+	        if(month>=1 && month<=8) 
+	    	{   year2=year-1;
+	    	    yearRegister=Integer.toString(year2)+"-"+Integer.toString(year);
+	        }
+	        else 
+	    	{   
+                year2=year+1;
+	    	    yearRegister=Integer.toString(year)+"-"+Integer.toString(year2);
+	        }
 	    
-        String query = "INSERT INTO "+TABLE_STUDENT_COURSE+" (Id, CourseId,Grade,Year,Submitted) VALUES(?,?,?,?,?)";
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setInt(1,Integer.parseInt(studentId));
-        ps.setInt(2,courseId);
-        ps.setDouble(3,Double.parseDouble("-1"));
-        ps.setString(4, yearRegister);
-        ps.setInt(5, 0);
-        return ps.executeUpdate()>0;
+             String query = "INSERT INTO "+TABLE_STUDENT_COURSE+" (Id, CourseId,Grade,Year,Submitted) VALUES(?,?,?,?,?)";
+             PreparedStatement ps = con.prepareStatement(query);
+             ps.setInt(1,Integer.parseInt(studentId));
+             ps.setInt(2,courseId);
+             ps.setDouble(3,Double.parseDouble("-1"));
+             ps.setString(4, yearRegister);
+             ps.setInt(5, 0);
+             return ps.executeUpdate()>0;
+        }
+
+        return false;
     }
 
     @Override 
@@ -510,6 +522,7 @@ public class StudentDaoImplementation implements StudentDao {
 				+"course.Semester,"
 				+ "	course.Code,"
 				+ "	course.Name,"
+                + " course.Prerequisite"
 				+ "	course.Credits,"
 				+ "	course.Hours,"
 				+ "	course.Major,"
@@ -535,10 +548,39 @@ public class StudentDaoImplementation implements StudentDao {
 		prep.setString(3, password);
 		ResultSet res=prep.executeQuery();
 		while(res.next()) {
-			courses.add(new Course(res.getString("Code"), res.getString("Name"),res.getInt("Credits"), res.getInt("Hours"), res.getString("Major"), res.getInt("Year"),res.getInt("Semester")));
+			courses.add(new Course(res.getString("Code"), res.getString("Name"),res.getString("Prerequisite"),res.getInt("Credits"), res.getInt("Hours"), res.getString("Major"), res.getInt("Year"),res.getInt("Semester")));
 		}
 		return courses;
 	}
 
+    public boolean checkStudentGrade(String courseCode) throws SQLException
+    {   
+        double grade = 0.0;
+        String query = "SELECT Prerequisite FROM "+TABLE_COURSE+" WHERE Code = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1,courseCode);
+        ResultSet res = ps.executeQuery();
+        res.next();
+        String preRequisite = res.getString("Prerequisite");
+        
+        if(!preRequisite.equals("none"))
+        {
+            int courseId = getCourseId(preRequisite);
+            System.out.println(courseId);
+            String queryGrade = "SELECT Grade FROM "+TABLE_STUDENT_COURSE+" WHERE CourseId = ?";
+            ps = con.prepareStatement(queryGrade);
+            ps.setInt(1,courseId);
+            res = ps.executeQuery();
+            res.next();
+            grade = res.getDouble("Grade");
+            
+            return grade>=50;
+        }
+
+        return true;
+        
+        
+
+    }
     
 }

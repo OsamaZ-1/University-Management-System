@@ -23,4 +23,7 @@ public class AdminCourseModel {
 	public void updateCoursePrerequisites(String code) throws SQLException{
 	    crseDao.updateCoursePrerequisites(code);
 	}
+	public List<String> getPreRequisiteCourses(String major, int year) throws SQLException{
+		return crseDao.getPreRequisiteCourses(major,year);
+	}
 }
