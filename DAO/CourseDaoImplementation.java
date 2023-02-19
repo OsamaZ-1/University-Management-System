@@ -21,7 +21,7 @@ public class CourseDaoImplementation implements CourseDao{
 		resultmaxid.next();
 		int maxid=Integer.parseInt(resultmaxid.getString(1));
 		
-		String query= "INSERT INTO "+TABLE_NAME+"(Name,Code,Credits,Hours,Major,Year,Semester) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String query= "INSERT INTO "+TABLE_NAME+"(Name,Code,Prerequisite,Credits,Hours,Major,Year,Semester) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedstatement = connection.prepareStatement(query);
         preparedstatement.setString(1, course.getName());
         
@@ -34,12 +34,12 @@ public class CourseDaoImplementation implements CourseDao{
         int numcode=course.getYear()*1000+maxid+1;
         String code=course.getMajor().toString().substring(0, 1)+""+Integer.toString(numcode);
         preparedstatement.setString(2, code);
-        
-        preparedstatement.setInt(3, course.getCredits());
-        preparedstatement.setInt(4, course.getHours());
-        preparedstatement.setString(5, course.getMajor());
-        preparedstatement.setInt(6, course.getYear());
-        preparedstatement.setInt(7, course.getSemester());
+        preparedstatement.setString(3, "none");
+        preparedstatement.setInt(4, course.getCredits());
+        preparedstatement.setInt(5, course.getHours());
+        preparedstatement.setString(6, course.getMajor());
+        preparedstatement.setInt(7, course.getYear());
+        preparedstatement.setInt(8, course.getSemester());
         int n = preparedstatement.executeUpdate();
         return n>0;
 	}
@@ -47,16 +47,17 @@ public class CourseDaoImplementation implements CourseDao{
 	@Override
 	public boolean update(Course course) throws SQLException {
 		// TODO Auto-generated method stub
-		String updatequery="UPDATE "+TABLE_NAME+" SET Name=?,Credits=?,Hours=?,Major=?,Year=?,Semester=? WHERE Code=?";
+		String updatequery="UPDATE "+TABLE_NAME+" SET Name=?,Prerequisite=?,Credits=?,Hours=?,Major=?,Year=?,Semester=? WHERE Code=?";
 		PreparedStatement preparedstatement=connection.prepareStatement(updatequery);
 		
 		preparedstatement.setString(1, course.getName());
-		preparedstatement.setInt(2, course.getCredits());
-		preparedstatement.setInt(3, course.getHours());
-		preparedstatement.setString(4, course.getMajor());
-		preparedstatement.setInt(5, course.getYear());
-		preparedstatement.setInt(6, course.getSemester());
-		preparedstatement.setString(7, course.getCode());
+		preparedstatement.setString(2, "none");
+		preparedstatement.setInt(3, course.getCredits());
+		preparedstatement.setInt(4, course.getHours());
+		preparedstatement.setString(5, course.getMajor());
+		preparedstatement.setInt(6, course.getYear());
+		preparedstatement.setInt(7, course.getSemester());
+		preparedstatement.setString(8, course.getCode());
 		
 		return preparedstatement.executeUpdate()>0;
 	}
