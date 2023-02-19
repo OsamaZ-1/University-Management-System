@@ -1,13 +1,18 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
 -- Generation Time: Feb 19, 2023 at 04:21 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
+-- Host: 127.0.0.1
+-- Generation Time: Feb 18, 2023 at 09:29 PM
+-- Server version: 5.7.17
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -34,7 +39,7 @@ CREATE TABLE `admin` (
   `Email` varchar(100) NOT NULL,
   `Password` varchar(100) NOT NULL,
   `Phone` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
@@ -60,7 +65,7 @@ CREATE TABLE `course` (
   `Major` varchar(50) NOT NULL,
   `Year` int(10) NOT NULL,
   `Semester` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `course`
@@ -70,17 +75,18 @@ INSERT INTO `course` (`CourseId`, `Name`, `Code`, `Prerequisite`, `Credits`, `Ho
 (1, 'intro CS', 'I1001', 'none', 3, 30, 'Informatics', 1, 1),
 (2, 'Algorithm', 'I1002', 'none', 6, 60, 'Informatics', 1, 1),
 (3, 'Algorithm2', 'I1003', 'none', 5, 50, 'Informatics', 1, 2),
-(4, 'web1', 'I2004', 'none', 4, 40, 'Informatics', 2, 1),
-(5, 'java oop', 'I2005', 'none', 5, 50, 'Informatics', 2, 2),
-(6, 'web2', 'I3006', 'none', 4, 40, 'Informatics', 3, 1),
-(7, 'Graphical user interphase', 'I3007', 'none', 3, 30, 'Informatics', 3, 1),
-(10, 'Analysis', 'M2008', 'none', 3, 30, 'Math', 2, 1),
-(11, 'Algebra', 'M2011', 'none', 4, 35, 'Math', 2, 1);
+(4, 'web1', 'I2004', 'none', 4, 40, 'Informatics', 2, 3),
+(5, 'java oop', 'I2005', 'none', 5, 50, 'Informatics', 2, 4),
+(6, 'web2', 'I3006', 'none', 4, 40, 'Informatics', 3, 5),
+(7, 'Graphical user interphase', 'I3007', 'none', 3, 30, 'Informatics', 3, 5),
+(10, 'Analysis', 'M2008', 'none', 3, 30, 'Math', 2, 3),
+(11, 'Algebra', 'M2011', 'none', 4, 35, 'Math', 2, 3);
 
 --
 -- Triggers `course`
 --
 DELIMITER $$
+
 CREATE TRIGGER `before_delete_course` AFTER DELETE ON `course` FOR EACH ROW BEGIN
 INSERT INTO CourseHistory VALUES(OLD.CourseId,OLD.Name,OLD.Code,OLD.Prerequisite,OLD.Credits,OLD.Hours,OLD.Major,OLD.Year,OLD.Semester,NOW());
 DELETE FROM studentgrades WHERE studentgrades.CourseId = OLD.CourseId;
@@ -92,10 +98,10 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `CourseHistory`
+-- Table structure for table `coursehistory`
 --
 
-CREATE TABLE `CourseHistory` (
+CREATE TABLE `coursehistory` (
   `CourseId` int(100) NOT NULL,
   `Name` varchar(100) NOT NULL,
   `Code` varchar(50) NOT NULL,
@@ -106,27 +112,27 @@ CREATE TABLE `CourseHistory` (
   `Year` int(10) NOT NULL,
   `Semester` int(10) NOT NULL,
   `Date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `InstructorCourseHistory`
+-- Table structure for table `instructorcoursehistory`
 --
 
-CREATE TABLE `InstructorCourseHistory` (
+CREATE TABLE `instructorcoursehistory` (
   `InstID` int(11) NOT NULL,
   `CourseID` int(11) NOT NULL,
   `Date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `InstructorHistory`
+-- Table structure for table `instructorhistory`
 --
 
-CREATE TABLE `InstructorHistory` (
+CREATE TABLE `instructorhistory` (
   `Id` int(100) NOT NULL,
   `Fname` varchar(100) NOT NULL,
   `Lname` varchar(100) NOT NULL,
@@ -135,7 +141,7 @@ CREATE TABLE `InstructorHistory` (
   `Phone` varchar(20) NOT NULL,
   `Accepted` tinyint(1) NOT NULL,
   `Date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -150,8 +156,8 @@ CREATE TABLE `instructors` (
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Phone` varchar(20) NOT NULL,
-  `Accepted` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Accepted` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `instructors`
@@ -183,7 +189,7 @@ DELIMITER ;
 CREATE TABLE `instructorteaches` (
   `InstID` int(11) NOT NULL,
   `CourseID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `instructorteaches`
@@ -218,8 +224,8 @@ CREATE TABLE `student` (
   `Password` varchar(100) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Phone` varchar(20) NOT NULL,
-  `Accepted` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Accepted` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `student`
@@ -256,7 +262,7 @@ CREATE TABLE `studentgrades` (
   `Grade` decimal(65,2) DEFAULT NULL,
   `Year` varchar(15) NOT NULL,
   `Submitted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `studentgrades`
@@ -286,25 +292,25 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `StudentGradesHistory`
+-- Table structure for table `studentgradeshistory`
 --
 
-CREATE TABLE `StudentGradesHistory` (
+CREATE TABLE `studentgradeshistory` (
   `Id` int(100) NOT NULL,
   `CourseId` int(100) NOT NULL,
   `Grade` decimal(65,2) NOT NULL,
   `Year` varchar(15) NOT NULL,
   `Submitted` tinyint(1) NOT NULL,
   `Date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `StudentHistory`
+-- Table structure for table `studenthistory`
 --
 
-CREATE TABLE `StudentHistory` (
+CREATE TABLE `studenthistory` (
   `Id` int(100) NOT NULL,
   `Fname` varchar(100) NOT NULL,
   `Lname` varchar(100) NOT NULL,
@@ -314,13 +320,13 @@ CREATE TABLE `StudentHistory` (
   `Phone` varchar(20) NOT NULL,
   `Accepted` tinyint(1) NOT NULL,
   `Date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `StudentHistory`
+-- Dumping data for table `studenthistory`
 --
 
-INSERT INTO `StudentHistory` (`Id`, `Fname`, `Lname`, `Major`, `Password`, `Email`, `Phone`, `Accepted`, `Date`) VALUES
+INSERT INTO `studenthistory` (`Id`, `Fname`, `Lname`, `Major`, `Password`, `Email`, `Phone`, `Accepted`, `Date`) VALUES
 (13, 'Ali', 'Siblani', 'Informatics', 'Siblani', 'siblani@hotmail.com', '3303990', 0, '2023-02-18');
 
 --
@@ -335,21 +341,21 @@ ALTER TABLE `course`
   ADD UNIQUE KEY `Code` (`Code`);
 
 --
--- Indexes for table `CourseHistory`
+-- Indexes for table `coursehistory`
 --
-ALTER TABLE `CourseHistory`
+ALTER TABLE `coursehistory`
   ADD PRIMARY KEY (`CourseId`);
 
 --
--- Indexes for table `InstructorCourseHistory`
+-- Indexes for table `instructorcoursehistory`
 --
-ALTER TABLE `InstructorCourseHistory`
+ALTER TABLE `instructorcoursehistory`
   ADD PRIMARY KEY (`InstID`,`CourseID`);
 
 --
--- Indexes for table `InstructorHistory`
+-- Indexes for table `instructorhistory`
 --
-ALTER TABLE `InstructorHistory`
+ALTER TABLE `instructorhistory`
   ADD PRIMARY KEY (`Id`);
 
 --
@@ -379,15 +385,15 @@ ALTER TABLE `studentgrades`
   ADD KEY `CourseId` (`CourseId`);
 
 --
--- Indexes for table `StudentGradesHistory`
+-- Indexes for table `studentgradeshistory`
 --
-ALTER TABLE `StudentGradesHistory`
+ALTER TABLE `studentgradeshistory`
   ADD PRIMARY KEY (`Id`,`CourseId`);
 
 --
--- Indexes for table `StudentHistory`
+-- Indexes for table `studenthistory`
 --
-ALTER TABLE `StudentHistory`
+ALTER TABLE `studenthistory`
   ADD PRIMARY KEY (`Id`);
 
 --
@@ -399,19 +405,16 @@ ALTER TABLE `StudentHistory`
 --
 ALTER TABLE `course`
   MODIFY `CourseId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
 --
 -- AUTO_INCREMENT for table `instructors`
 --
 ALTER TABLE `instructors`
   MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-COMMIT;
+  MODIFY `Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

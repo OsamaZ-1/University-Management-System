@@ -109,26 +109,34 @@ public class StrudentTranscriptController {
 					double totalGPA=model.getStudentGpa();
 					int remainingCredits=model.getTotalCredits()-model.getEarnedCredits();
 					String graduate="";
-					
 					finalView.getRemainingCredits().setText(Integer.toString(remainingCredits));
 					if(remainingCredits>0) {
 						finalView.getAppreciation().setForeground(Color.red);
 						graduate=view.getNameLabel().getText()+" Did Not Graduate";
 					}
-					else {
-						finalView.getAppreciation().setForeground(Color.green);
+					
+					if(remainingCredits==0) {
 						if(totalGPA>=90) {
-							graduate=view.getNameLabel().getText()+" Graduate With Excelent GPA";
+							finalView.getAppreciation().setForeground(Color.green);
+							graduate=view.getNameLabel().getText()+" Graduate With Excellent Average";
 						}
 						else if(totalGPA>=80) {
-							graduate=view.getNameLabel().getText()+" Graduate With Very Good GPA";
+							finalView.getAppreciation().setForeground(Color.green);
+							graduate=view.getNameLabel().getText()+" Graduate With Very Good Average";
 						}
 						else if(totalGPA>=70) {
-							graduate=view.getNameLabel().getText()+" Graduate With Good GPA";
+							finalView.getAppreciation().setForeground(Color.green);
+							graduate=view.getNameLabel().getText()+" Graduate With Good Average";
 						}
-						else 
+						else if(totalGPA>=60) {
+							finalView.getAppreciation().setForeground(Color.green);
+							graduate=view.getNameLabel().getText()+" Graduate With acceptable Average";
+						}
+						else {
+							finalView.getAppreciation().setForeground(Color.green);
 							graduate=view.getNameLabel().getText()+" Graduate";
 						}
+					}
 					finalView.getAppreciation().setText(graduate);
 					finalView.getsFTFrame().setVisible(true);
 	

@@ -155,7 +155,7 @@ public class StudentFinalTranscriptView {
         sFTFrame.setBackground(color);
         sFTFrame.add(mainPanel);
         sFTFrame.setTitle("Student Transcript");
-        sFTFrame.setSize(700, 700);
+        sFTFrame.setSize(800, 700);
         sFTFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         sFTFrame.setVisible(true);
         sFTFrame.setLocationRelativeTo(null);
