@@ -307,18 +307,21 @@ public class StudentDaoImplementation implements StudentDao {
     @Override
     public boolean addStudentToCourse(String studentId, String courseCode) throws SQLException
     {   
-        boolean test = false;
-
+        int courseId = 0;
         try{
-            test = checkStudentGrade(courseCode);
+                courseId = getCourseId(courseCode);
         }catch(SQLException e){e.printStackTrace();}
 
-        if(test)
+        boolean passedCourse = false;
+        boolean isStudentInCourse = false;
+        try{
+            passedCourse = checkStudentGrade(courseCode);
+            isStudentInCourse = isStudentInCourse(studentId,courseId);
+        }catch(SQLException e){e.printStackTrace();}
+
+        if(passedCourse && !isStudentInCourse)
         {   
-            int courseId = 0;
-            try{
-                courseId = getCourseId(courseCode);
-            }catch(SQLException e){e.printStackTrace();}
+            
             //get current year and month
             LocalDate currentDate = LocalDate.now(); 
 	        int month=currentDate.getMonthValue();
@@ -583,10 +586,21 @@ public class StudentDaoImplementation implements StudentDao {
             return grade>=50;
         }
 
-        return true;
-        
-        
+        return true;   
 
     }
+
+    public boolean isStudentInCourse(String studentId, int courseId) throws SQLException
+    {
+        String query = "SELECT COUNT(*) FROM "+TABLE_STUDENT_COURSE+" WHERE Id = ? AND CourseId = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1,Integer.parseInt(studentId));
+        ps.setInt(2,courseId);
+        ResultSet res = ps.executeQuery();
+        res.next();
+
+        return res.getInt(1)>0;
+    }
+
     
 }
