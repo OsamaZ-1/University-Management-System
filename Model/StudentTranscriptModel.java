@@ -34,7 +34,7 @@ public class StudentTranscriptModel {
 		return stdDao.getStudent(this.email,this.password);
 	}
 	public Object[][] getNotRegistedCourses() throws SQLException{
-		List<Course> notRegistedCourses=stdDao.getNotRegistedCourses(this.email, this.password);
+		List<Course> notRegistedCourses=stdDao.getNonRegisteredCourses(this.email, this.password);
 		Object[][] notRegistedCoursesInfo=new Object[notRegistedCourses.size()][7];
 		for(int i=0;i<notRegistedCourses.size();i++) {
 			notRegistedCoursesInfo[i][0]="Not Registed";

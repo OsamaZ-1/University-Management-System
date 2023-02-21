@@ -523,7 +523,7 @@ public class StudentDaoImplementation implements StudentDao {
     }
 
 	@Override
-	public List<Course> getNotRegistedCourses(String email, String password) throws SQLException {
+	public List<Course> getNonRegisteredCourses(String email, String password) throws SQLException {
 		// TODO Auto-generated method stub
 		List<Course> courses=new ArrayList<>();
 		String[] student=this.getStudent(email,password);
@@ -531,26 +531,26 @@ public class StudentDaoImplementation implements StudentDao {
 				+"course.Semester,"
 				+ "	course.Code,"
 				+ "	course.Name,"
-                + " course.Prerequisite"
+                + " course.Prerequisite,"
 				+ "	course.Credits,"
 				+ "	course.Hours,"
 				+ "	course.Major,"
 				+ "	course.Year "
 				+ " FROM "
-				+ "    course "
+				+ "course "
 				+ "WHERE "
-				+ "    course.Major=? AND course.CourseId NOT IN( "
-				+ "    SELECT "
-				+ "        course.CourseId "
-				+ "    FROM "
-				+ "        student "
-				+ "    INNER JOIN studentgrades ON studentgrades.Id = student.Id "
-				+ "    INNER JOIN course ON studentgrades.CourseId = course.CourseId "
-				+ "    WHERE "
-				+ "        student.Email =? AND student.Password =?"
-				+ ") "
+				+ "    course.Major=? AND course.CourseId NOT IN("
+				+ "SELECT "
+				+ "course.CourseId "
+				+ "FROM "
+				+ "student "
+				+ "INNER JOIN studentgrades ON studentgrades.Id = student.Id "
+				+ "INNER JOIN course ON studentgrades.CourseId = course.CourseId "
+				+ "WHERE "
+				+ "student.Email =? AND student.Password =?"
+				+ ")"
 				+ "ORDER BY "
-				+ "    course.Semester ASC";
+				+ "course.Semester ASC";
 		PreparedStatement prep=con.prepareStatement(query);
 		prep.setString(1, student[3]);
 		prep.setString(2, email);

@@ -47,6 +47,6 @@ interface StudentDao {
         throws SQLException;
     public boolean updateStudentGrade(String studentId, String courseCode, String grade)
         throws SQLException;
-   public List<Course> getNotRegistedCourses(String email,String password)
+   public List<Course> getNonRegisteredCourses(String email,String password)
         throws SQLException;
 }
