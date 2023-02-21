@@ -151,18 +151,17 @@ public class HistoryView {
 
         switch(table){
             case "Student":
-                columns = studentTableColumns;
+                columns = studentTableColumns; break;
             case "Instructor":
-                columns = instructorTableColumns;
+                columns = instructorTableColumns; break;
             case "Course":
-                columns = courseTableColumns;
+                columns = courseTableColumns; break;
             case "Instructors Courses":
-                columns = instCrsTableColumns;
+                columns = instCrsTableColumns; break;
             case "Students Grades":
-                columns = stdGradeTableColumns;
+                columns = stdGradeTableColumns; break;
         }
 
         return columns;
-            
     }
 }

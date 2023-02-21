@@ -9,8 +9,6 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthUI;
-
 import Model.AdminStudentModel;
 import Model.Course;
 import View.AdminStudentCourseView;
