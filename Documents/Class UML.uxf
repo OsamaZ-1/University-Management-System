@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>117</x>
+      <y>144</y>
+      <w>189</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>UniversityMember
+-
+-fname: String
+-lname: String
+-email: String
+-password: String
+-phone: String
+-
++register()
++login()
++logout()
++getters and setters
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>396</x>
+      <y>0</y>
+      <w>117</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>Student
+-
+major: String
+-
++checkTranscript()
+getMajor(): String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>396</x>
+      <y>207</y>
+      <w>99</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Instructor
+-
++giveGrades()
++saveGrades()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>396</x>
+      <y>378</y>
+      <w>279</w>
+      <h>261</h>
+    </coordinates>
+    <panel_attributes>Admin
+-
++AcceptRegisteredStudents()
++UnacceptRegisteredStudents()
++enrollStudentInCourse()
++takeStudentOutOfCourse()
++editStudentInformation()
++editSavedStudentGrades()
++deleteStudent()
++makeInstructorTeachCourse()
++removeInstructorFromTeachingCourse()
++editInstructorInformation()
++deleteInstructor()
++addNewCourse()
++deleteOldCourse()
++editCourseInformation()
++retrieveDeletedInformationFromHistory()
++deleteInformationFromHistory()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>297</x>
+      <y>72</y>
+      <w>117</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>297</x>
+      <y>216</y>
+      <w>117</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>297</x>
+      <y>261</y>
+      <w>117</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>117</y>
+      <w>189</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>Course
+-
+code: String
+name: String
+major: String
+preRequisite: String
+credits: int
+hours: int
+year: int
+semseter: int
+-
++getters and setters</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>0</y>
+      <w>234</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1..n
+        studies</panel_attributes>
+    <additional_attributes>10.0;10.0;240.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>486</x>
+      <y>162</y>
+      <w>252</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1..n
+teaches</panel_attributes>
+    <additional_attributes>10.0;60.0;260.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>666</x>
+      <y>252</y>
+      <w>99</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+manages</panel_attributes>
+    <additional_attributes>10.0;150.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>486</x>
+      <y>261</y>
+      <w>135</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+manages</panel_attributes>
+    <additional_attributes>130.0;130.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>72</y>
+      <w>153</w>
+      <h>324</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n
+manages</panel_attributes>
+    <additional_attributes>150.0;340.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
