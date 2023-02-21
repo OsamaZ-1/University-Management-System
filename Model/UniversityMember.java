@@ -1,10 +1,9 @@
 package Model;
 
 public class UniversityMember {
-    private String fname,lname,password,email;
-    private int phone;
+    private String fname,lname,password,email,phone;
 
-    public UniversityMember(String fname, String lname, String email,String password,int phone){
+    public UniversityMember(String fname, String lname, String email,String password,String phone){
         this.fname = fname;
         this.lname = lname;
         this.password = password;
@@ -24,7 +23,7 @@ public class UniversityMember {
     public String getEmail() {
         return email;
     }
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
     public void setFname(String fname) {
@@ -39,7 +38,7 @@ public class UniversityMember {
     public void setEmail(String email) {
         this.email = email;
     }
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }

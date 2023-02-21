@@ -115,7 +115,7 @@ public class StudentTranscriptView extends JFrame{
     			else if(value.equals("Failed")) {
     				comp.setForeground(Color.red);
     			}
-    			else if(value.equals("grade not in Acc. history") || value.equals("N/A")) {
+    			else if(value.equals("grade not in Acc. history")) {
     				comp.setForeground(Color.black);
     			}
     			else {

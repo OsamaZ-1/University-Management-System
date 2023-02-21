@@ -144,13 +144,18 @@ public class AdminStudentGradesView {
         return mainPanel;
     }
 
-    public JTextField getStudentIdField() {
+    public JTextField getStudentId() {
     	return this.studentId;
     }
     
     public JTextField getCourseCode()
     {
         return this.courseCode;
+    }
+
+    public JTextField getStudentGrade()
+    {
+        return this.grade;
     }
 
     public JTable getStudentTable() {

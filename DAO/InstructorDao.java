@@ -14,7 +14,7 @@ interface InstructorDao {
         throws SQLException;
     public int uniqueInstructorExists(String email, String pass)
         throws SQLException;
-    public int instructorEmailPhoneExist(String email, int phone)
+    public int instructorEmailPhoneExist(String email, String phone)
         throws SQLException;
     public List<Instructor> getInstructors()
         throws SQLException;
@@ -41,5 +41,7 @@ interface InstructorDao {
     public Object[][] getEnrolledStudents(String courseCode) 
         throws SQLException;
     public boolean updateStudentGrade(String studentId, String courseCode, String grade)
+        throws SQLException;
+    public boolean saveStudentsGrades(String courseCode)
         throws SQLException;
 }

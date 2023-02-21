@@ -55,6 +55,7 @@ public class AdminInstructorView {
         editButton = new JButton("Edit");
         manageButton = new JButton("Manage");
         deleteButton = new JButton("Delete");
+        deleteButton.setBackground(Color.red);
         editManage = new JComboBox<String>(new String[]{"Edit","Manage","Delete"});
         fnameField = new JTextField(10);
         lnameField = new JTextField(10);

@@ -288,7 +288,7 @@ public class AdminInstructorController {
 	}
 
 	public void fillCoursesList()
-		{	
+	{	
 			List<Course> courses = null;
 			instManageView.getCoursesList().removeAllItems();
 			try{
@@ -299,5 +299,5 @@ public class AdminInstructorController {
 			{
 			 courses.forEach(course -> instManageView.getCoursesList().addItem(course.getCode()));
 			}
-		}
+	}
 }

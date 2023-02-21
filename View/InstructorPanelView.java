@@ -24,6 +24,7 @@ public class InstructorPanelView{
     private JTextField studentGrade;
     private JButton addButton;
     private JButton logoutButton;
+    private JButton saveButton;
     
     private JFrame instructorFrame;
     private JPanel mainPanel;
@@ -46,6 +47,9 @@ public class InstructorPanelView{
     private Font font,fontTable;
     private Color color;
 
+    //Layout
+    SpringLayout springLayout;
+
     public InstructorPanelView() {
     	instructorFrame = new JFrame();
     	font = new Font("Arial", Font.BOLD, 17);
@@ -63,12 +67,13 @@ public class InstructorPanelView{
     	courseCodeLabel.setFont(font);
     	studentGradeLabel=new JLabel("Grade:");
     	studentGradeLabel.setFont(font);
+        springLayout = new SpringLayout();
 
     	instrutorCourses= new JComboBox<String>(new String[]{"Courses"});
     	instrutorCourses.setPreferredSize(new Dimension(150,40));
     	instrutorCourses.setFont(font);
     	
-    	tableColumns = new Object[]{"ID","First Name","Last Name","Grade"};
+    	tableColumns = new Object[]{"ID","First Name","Last Name","Grade","Submitted"};
     	studentsCourseGradesTable=new JTable();
         scrollPane = new JScrollPane(studentsCourseGradesTable);
         tableModel = new DefaultTableModel();
@@ -97,6 +102,8 @@ public class InstructorPanelView{
         addButton.setBackground(Color.yellow);
         logoutButton=new JButton("Logout");
         logoutButton.setFont(font);
+        saveButton = new JButton("Save");
+        saveButton.setFont(font);
         
         headPanel=new JPanel();
         headPanel.setBackground(color);
@@ -110,6 +117,7 @@ public class InstructorPanelView{
         instructorLogoutPanel.setBackground(color);
         coursesListPanel=new JPanel();
         coursesListPanel.setBackground(color);
+        coursesListPanel.setPreferredSize(new Dimension(920,70));
         tablePanel=new JPanel();
         tablePanel.setBackground(color);
         northPanel=new JPanel();
@@ -133,11 +141,9 @@ public class InstructorPanelView{
         headPanel.add(header);
         
         instructorNamePanel.setLayout(new FlowLayout(FlowLayout.LEFT,1,3));
-        //instructorNamePanel.add(nameLabel);
         instructorNamePanel.add(nameLabel);
         
         instructorIdPanel.setLayout(new FlowLayout(FlowLayout.CENTER,1,3));
-        //instructorIdPanel.add(idLabel);
         instructorIdPanel.add(idLabel);
         
         instructorLogoutPanel.setLayout(new FlowLayout(FlowLayout.RIGHT,1,3));
@@ -151,9 +157,18 @@ public class InstructorPanelView{
         northPanel.add(headPanel);
         northPanel.add(instructorInfoPanel);
         
-        coursesListPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        springLayout.putConstraint(SpringLayout.WEST, instrutorCourses, 390, SpringLayout.WEST, coursesListPanel);
+        springLayout.putConstraint(SpringLayout.NORTH, instrutorCourses, 5, SpringLayout.NORTH, coursesListPanel);
+        springLayout.putConstraint(SpringLayout.EAST, saveButton, 0, SpringLayout.EAST, mainPanel);
+        springLayout.putConstraint(SpringLayout.NORTH, saveButton, 5, SpringLayout.NORTH, coursesListPanel);
+        springLayout.putConstraint(SpringLayout.EAST, logoutButton, -5, SpringLayout.WEST, saveButton);
+        springLayout.putConstraint(SpringLayout.NORTH, logoutButton, 5, SpringLayout.NORTH, coursesListPanel);
+
+        coursesListPanel.setLayout(springLayout);
         coursesListPanel.add(instrutorCourses);
-        
+        coursesListPanel.add(logoutButton);
+        coursesListPanel.add(saveButton);
+
         tablePanel.setLayout(new BorderLayout());
         tablePanel.add(scrollPane,BorderLayout.CENTER);
         
@@ -178,8 +193,7 @@ public class InstructorPanelView{
         addButtonPanel.setLayout(new BoxLayout(addButtonPanel,BoxLayout.Y_AXIS));
         addButtonPanel.add(addButton);
         addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        addButtonPanel.add(logoutButton);
-        logoutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
         
         southPanel.setLayout(new GridLayout(4,1,1,1));
         southPanel.add(courseCodePanel);
@@ -195,7 +209,7 @@ public class InstructorPanelView{
         instructorFrame.add(mainPanel);
     	instructorFrame.setBackground(color);
         instructorFrame.setTitle("Instructor Panel");
-		instructorFrame.setSize(900, 700);
+		instructorFrame.setSize(920, 700);
 		instructorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		instructorFrame.setLocationRelativeTo(null);
 		instructorFrame.setVisible(true);
@@ -242,6 +256,10 @@ public class InstructorPanelView{
 
     public JButton getAddButton() {
     	return this.addButton;
+    }
+
+    public JButton getSaveButton()
+    {   return this.saveButton;
     }
 
     public JComboBox<String> getCoursesList()

@@ -28,6 +28,7 @@ public class AdminPanel {
     private JButton studentButton;
     private JButton professorButton;
     private JButton courseButton;
+    private JButton historyButton;
     private JButton logoutButton;
     private JButton refreshActivity;
     private JButton submitChanges;
@@ -75,6 +76,7 @@ public class AdminPanel {
         professorButton = new JButton("Instructors");
         courseButton = new JButton("Courses");
         logoutButton = new JButton("Logout");
+        historyButton = new JButton("History");
         refreshActivity = new JButton("<html><center>Refresh<br/>Activities</center></html>");
         submitChanges = new JButton("<html><center>Submit<br/>Changes</center></html>");
 
@@ -112,6 +114,7 @@ public class AdminPanel {
         courseButton.setPreferredSize(new Dimension(90,50));
         studentButton.setPreferredSize(new Dimension(90,50));
         logoutButton.setPreferredSize(new Dimension(90,50));
+        historyButton.setPreferredSize(new Dimension(90,50));
         refreshActivity.setPreferredSize(new Dimension(100,50));
         submitChanges.setPreferredSize(new Dimension(100,50));
 
@@ -148,14 +151,16 @@ public class AdminPanel {
         springLayout.putConstraint(SpringLayout.WEST, studentButton, 20, SpringLayout.WEST, leftNavbar);
         springLayout.putConstraint(SpringLayout.WEST, professorButton, 15, SpringLayout.WEST, leftNavbar);
         springLayout.putConstraint(SpringLayout.WEST, courseButton, 22, SpringLayout.WEST, leftNavbar);
+        springLayout.putConstraint(SpringLayout.WEST, historyButton, 22, SpringLayout.WEST, leftNavbar);
         springLayout.putConstraint(SpringLayout.WEST, logoutButton, 22, SpringLayout.WEST, leftNavbar);
 
         springLayout.putConstraint(SpringLayout.NORTH, mainIcon, 30, SpringLayout.NORTH, leftNavbar);
         springLayout.putConstraint(SpringLayout.NORTH, dashboardLabel, 20, SpringLayout.SOUTH, mainIcon);
-        springLayout.putConstraint(SpringLayout.NORTH, studentButton, 90, SpringLayout.SOUTH, dashboardLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, studentButton, 60, SpringLayout.SOUTH, dashboardLabel);
         springLayout.putConstraint(SpringLayout.NORTH, professorButton, 30, SpringLayout.SOUTH, studentButton);
         springLayout.putConstraint(SpringLayout.NORTH, courseButton, 30, SpringLayout.SOUTH, professorButton);
-        springLayout.putConstraint(SpringLayout.NORTH, logoutButton, 120, SpringLayout.SOUTH, courseButton);
+        springLayout.putConstraint(SpringLayout.NORTH, historyButton, 30, SpringLayout.SOUTH, courseButton);
+        springLayout.putConstraint(SpringLayout.NORTH, logoutButton, 70, SpringLayout.SOUTH, historyButton);
 
         //Adding components to leftNavbar
         leftNavbar.add(mainIcon);
@@ -163,6 +168,7 @@ public class AdminPanel {
         leftNavbar.add(studentButton);
         leftNavbar.add(professorButton);
         leftNavbar.add(courseButton);
+        leftNavbar.add(historyButton);
         leftNavbar.add(logoutButton);
         
         //topPanel Layout Constraints
@@ -235,6 +241,11 @@ public class AdminPanel {
     public JButton getCourseButton()
     {
         return this.courseButton;
+    }
+
+    public JButton getHistoryButton()
+    {
+        return this.historyButton;
     }
 
     public JButton getLogoutButton()

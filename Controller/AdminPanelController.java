@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import Model.Student;
 import Model.UniversityMember;
 import View.AdminPanel;
+import View.HistoryView;
 import Model.AdminPanelModel;
 
 public class AdminPanelController {
@@ -27,6 +28,7 @@ public class AdminPanelController {
         studentButtonAction();
         instructorButtonAction();
         courseButtonAction();
+        historyButtonAction();
         totalCIS();
         logout();
     }
@@ -113,6 +115,19 @@ public class AdminPanelController {
             public void actionPerformed(ActionEvent e){
             	try {
 					new AdminCourseController();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+            }
+            });
+    }
+
+    public void historyButtonAction() {
+    	adminPanelView.getHistoryButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+            	try {
+					new HistoryController();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

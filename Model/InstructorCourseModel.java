@@ -28,4 +28,9 @@ public class InstructorCourseModel {
     {
         return instDao.updateStudentGrade(studentId, courseCode, grade);
     }
+
+    public boolean saveStudentsGrades(String courseCode) throws SQLException
+    {
+        return instDao.saveStudentsGrades(courseCode);
+    }
 }
