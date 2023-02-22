@@ -92,4 +92,12 @@ public class AdminDaoImplementation implements AdminDao{
         int res = ps.executeUpdate();
         return res;
     }
+
+    @Override
+    public int deleteAllFromHistory(String chosenTable) throws SQLException{
+        String query = "DELETE FROM "+chosenTable;
+        PreparedStatement ps = con.prepareStatement(query);
+        return ps.executeUpdate();
+    }
+
 }

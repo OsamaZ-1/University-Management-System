@@ -26,6 +26,7 @@ public class HistoryController {
 
         setDropDownListener();
         setRetrieveButtonListener();
+        setDeleteAllButtonListener();
         fillTable(chosenTable);
     }
 
@@ -111,6 +112,23 @@ public class HistoryController {
                     fillTable(chosenTable);
                 }
                 catch(SQLException e1){e1.printStackTrace();}
+            }
+        });
+    }
+
+    public void setDeleteAllButtonListener()
+    {
+        historyView.getDeleteAllButton().addActionListener(new ActionListener(){
+
+            public void actionPerformed(ActionEvent e)
+            {
+                try{
+                    historyModel.deleteAll(getHistoryTableName(chosenTable));
+                    fillTable(chosenTable);
+                }catch(SQLException e1)
+                {e1.printStackTrace();
+                 historyView.displayMessage("Error deleting records");
+                }
             }
         });
     }

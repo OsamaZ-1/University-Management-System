@@ -17,4 +17,8 @@ public class HistoryModel {
     public int delete(String chosenTable, String[] info) throws SQLException{
         return adminDao.deleteFromHistory(chosenTable, info);
     }
+
+    public int deleteAll(String chosenTable) throws SQLException{
+        return adminDao.deleteAllFromHistory(chosenTable);
+    }
 }

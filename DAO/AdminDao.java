@@ -12,4 +12,6 @@ public interface AdminDao {
         throws SQLException;
     public int deleteFromHistory(String chosenTable, String[] info)
         throws SQLException;
+    public int deleteAllFromHistory(String chosenTable)
+        throws SQLException;
 }

@@ -15,6 +15,7 @@ public class HistoryView {
     //Button
     private JButton retrieveButton;
     private JButton deleteButton;
+    private JButton deleteAllButton;
 
     //Panels
     private JFrame mainFrame;
@@ -62,6 +63,9 @@ public class HistoryView {
         deleteButton = new JButton("Delete");
         deleteButton.setFont(font);
         deleteButton.setPreferredSize(new Dimension(90,40));
+        deleteAllButton = new JButton("Delete All");
+        deleteAllButton.setFont(font);
+        deleteAllButton.setPreferredSize(new Dimension(100,40));
 
         table = new JTable();
         table.setFont(fontTable);
@@ -97,11 +101,14 @@ public class HistoryView {
         bodyPanel.add(scrollPane);
         footPanel.add(retrieveButton);
         footPanel.add(deleteButton);
+        footPanel.add(deleteAllButton);
 
         springLayout.putConstraint(SpringLayout.NORTH, retrieveButton, 20, SpringLayout.NORTH, footPanel);
-        springLayout.putConstraint(SpringLayout.WEST, retrieveButton, 300, SpringLayout.WEST, footPanel);
+        springLayout.putConstraint(SpringLayout.WEST, retrieveButton, 250, SpringLayout.WEST, footPanel);
         springLayout.putConstraint(SpringLayout.NORTH, deleteButton, 20, SpringLayout.NORTH, footPanel);
         springLayout.putConstraint(SpringLayout.WEST, deleteButton, 20, SpringLayout.EAST, retrieveButton);
+        springLayout.putConstraint(SpringLayout.NORTH, deleteAllButton, 20, SpringLayout.NORTH, footPanel);
+        springLayout.putConstraint(SpringLayout.WEST, deleteAllButton, 20, SpringLayout.EAST, deleteButton);
 
         mainFrame.add(headPanel,BorderLayout.NORTH);
         mainFrame.add(bodyPanel,BorderLayout.CENTER);
@@ -135,6 +142,11 @@ public class HistoryView {
         return this.deleteButton;
     }
 
+    public JButton getDeleteAllButton()
+    {
+        return this.deleteAllButton;
+    }
+
     public JTable getTable()
     {
         return this.table;
@@ -163,5 +175,10 @@ public class HistoryView {
         }
 
         return columns;
+    }
+
+    public void displayMessage(String message)
+    {
+        JOptionPane.showMessageDialog(null, message);
     }
 }
