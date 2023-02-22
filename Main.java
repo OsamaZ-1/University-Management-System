@@ -6,8 +6,8 @@ import View.StudentTranscriptView;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-    	//new InstructorController("charbel_rahal@gmail.com","Rahal@123");
-        new AdminPanelController();
+    	new InstructorController("charbel_rahal@gmail.com","Rahal@123");
+        //new AdminPanelController();
         //new RegisterController();
         //new AdminPanelController();
         //new RegisterController();
