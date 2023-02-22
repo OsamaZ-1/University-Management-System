@@ -75,7 +75,10 @@ public class AdminDaoImplementation implements AdminDao{
         PreparedStatement ps;
 
         if (!chosenTable.equals("instructorcoursehistory") && !chosenTable.equals("studentgradeshistory")){
-            query += "Id = ?";
+            if (chosenTable.equals("coursehistory"))
+                query += "CourseId = ?";
+            else
+                query += "Id = ?";
             ps = con.prepareStatement(query);
             ps.setString(1, info[0]);
         }
