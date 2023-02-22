@@ -11,7 +11,7 @@ public class Main {
         //new RegisterController();
         //new AdminPanelController();
         //new RegisterController();
-        new StrudentTranscriptController("ammarobaida@gmail.com","ObAmmar99");
+        new StrudentTranscriptController("ammarobaida@gmail.com","ObAm123");
     	//new StudentTranscriptView();
     	//new AdminStudentView();
         //new AdminStudentView();

@@ -31,8 +31,8 @@ public class StrudentTranscriptController {
     	
     	fillStudentInfo();
     	fillStudentSemesters();
-    	studentSemestersListListener();
     	defaultChooseSemester();
+    	studentSemestersListListener();
     	finalTranscriptButtonAction();
     	logoutButtonAction();
 	}
@@ -65,7 +65,7 @@ public class StrudentTranscriptController {
 		view.getTableModel().setNumRows(0);
 		semesterGrades=model.getStudentSemesterGrades(semester);
     	for(int i=0;i<semesterGrades.length;i++)
-    	  view.getTableModel().addRow(semesterGrades[i]);
+    	  view.getTableModel().addRow((Object[])semesterGrades[i]);
     	view.getTotalCreditsLabel().setText(Integer.toString(model.getTotalSemesterCredits(getSemesterNumberSelected())));
     	view.getEarnedCreditsLabel().setText(Integer.toString(model.getEarnedSemesterCredits(getSemesterNumberSelected())));
     	view.getGpaLabel().setText(String.valueOf(model.getStudentSemesterGpa(getSemesterNumberSelected()))+"%");
@@ -98,7 +98,8 @@ public class StrudentTranscriptController {
         });
 	}
 	public void defaultChooseSemester() throws SQLException {
-		view.getStudentSemestersList().setSelectedIndex(view.getStudentSemestersList().getItemCount()-1);
+		int defualtItem=view.getStudentSemestersList().getItemCount()-1;
+		view.getStudentSemestersList().setSelectedIndex(defualtItem);
 		fillStudentSemesterGrades(getSemesterNumberSelected());
 	}
 	public void finalTranscriptButtonAction() {

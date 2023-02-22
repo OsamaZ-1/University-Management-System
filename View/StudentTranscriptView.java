@@ -60,7 +60,8 @@ public class StudentTranscriptView extends JFrame{
     private Font font,fontTable;
     private Color color;
 
-    public StudentTranscriptView() {
+    @SuppressWarnings("serial")
+	public StudentTranscriptView() {
     	
     	font=new Font ("Arial", Font.BOLD, 17);
     	fontTable=new Font("Arial", Font.BOLD, 15);
@@ -108,6 +109,7 @@ public class StudentTranscriptView extends JFrame{
     	transcriptTable = new JTable() {
     		public Component prepareRenderer(TableCellRenderer render,int row,int col) {
     			Component comp=super.prepareRenderer(render, row, col);
+    			if(this.getModel().getRowCount()>0) {
     			Object value=getModel().getValueAt(row, col);
     			if(value.equals("Passed")) {
     				comp.setForeground(Color.green);
@@ -121,8 +123,9 @@ public class StudentTranscriptView extends JFrame{
     			else {
     				comp.setForeground(Color.blue);
     			}
-    			
+    			}
     			return comp;
+    			
     		}};
     		
     	transcriptTable.setFont(fontTable);
