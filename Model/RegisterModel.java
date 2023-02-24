@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import DAO.InstructorDaoImplementation;
 import DAO.StudentDaoImplementation;
 
-public class RegisterModel {
+public class RegisterModel implements Model{
     private StudentDaoImplementation stdDao = new StudentDaoImplementation();
     private InstructorDaoImplementation instDao = new InstructorDaoImplementation();
 

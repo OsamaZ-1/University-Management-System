@@ -7,7 +7,7 @@ import DAO.CourseDaoImplementation;
 import DAO.InstructorDaoImplementation;
 import DAO.StudentDaoImplementation;
 
-public class AdminPanelModel {
+public class AdminPanelModel implements Model{
     private StudentDaoImplementation stdDao = new StudentDaoImplementation();
     private InstructorDaoImplementation insDao = new InstructorDaoImplementation();
     private CourseDaoImplementation crsDao = new CourseDaoImplementation();

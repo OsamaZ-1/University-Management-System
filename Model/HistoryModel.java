@@ -3,7 +3,7 @@ package Model;
 import java.sql.SQLException;
 import DAO.AdminDaoImplementation;
 
-public class HistoryModel {
+public class HistoryModel implements Model{
     AdminDaoImplementation adminDao = new AdminDaoImplementation();
 
     public Object[][] getRows(String chosenTable) throws SQLException{

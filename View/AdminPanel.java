@@ -4,7 +4,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.*;
 import java.awt.*;
 
-public class AdminPanel {
+public class AdminPanel implements View{
     //Icons
     private ImageIcon logo;
     private ImageIcon studentLogo;

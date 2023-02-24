@@ -6,7 +6,7 @@ import java.util.List;
 
 import DAO.InstructorDaoImplementation;
 
-public class InstructorCourseModel {
+public class InstructorCourseModel implements Model{
     InstructorDaoImplementation instDao=new InstructorDaoImplementation();
 
     public List<String> getInstructorCourses(String instEmail, String instPass) throws SQLException

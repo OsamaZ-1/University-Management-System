@@ -1,11 +1,9 @@
 package View;
 
 import javax.swing.*;
-import javax.swing.plaf.DimensionUIResource;
-
 import java.awt.*;
 
-public class Register{
+public class Register implements View{
     //Icons
     private ImageIcon logo;
     private ImageIcon userLogo;

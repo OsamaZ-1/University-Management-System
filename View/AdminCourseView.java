@@ -5,7 +5,7 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 
-public class AdminCourseView{
+public class AdminCourseView implements View{
 	//Buttons
 	private JButton add;
 	private JButton delete;

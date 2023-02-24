@@ -12,15 +12,20 @@ import java.util.List;
 
 import Model.InstructorCourseModel;
 import View.InstructorPanelView;
+import Factory.*;
 
-public class InstructorController {
+public class InstructorController implements Controller{
     InstructorCourseModel instructorModel;
     InstructorPanelView instructorView;
 
+    private ControllerFactory cf = (ControllerFactory) FactoryProducer.createFactory("Controller");
+    private ModelFactory mf = (ModelFactory) FactoryProducer.createFactory("Model");
+    private ViewFactory vf = (ViewFactory) FactoryProducer.createFactory("View");
+
     public InstructorController(String email, String pass) throws SQLException
     {
-        instructorModel = new InstructorCourseModel();
-        instructorView = new InstructorPanelView();
+        instructorModel = (InstructorCourseModel) mf.createModel("InstCourse");
+        instructorView = (InstructorPanelView) vf.createView("InstPanel");
         logout();
         fillCoursesList(email,pass);
         fillInstructorInfo(email, pass);
@@ -37,7 +42,11 @@ public class InstructorController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 instructorView.getInstructorFrame().dispose();
-                new LoginController();   
+                try{
+                    cf.createController("Logout");
+                } catch (SQLException e1){
+                    e1.printStackTrace();
+                }
             }
             
         });

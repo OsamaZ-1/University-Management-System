@@ -10,17 +10,21 @@ import java.awt.event.ActionListener;
 import Model.Student;
 import Model.UniversityMember;
 import View.AdminPanel;
-import View.HistoryView;
 import Model.AdminPanelModel;
+import Factory.*;
 
-public class AdminPanelController {
-    AdminPanel adminPanelView;
-    AdminPanelModel adminPanelModel;
-    ArrayList<UniversityMember> unaccepted;
+public class AdminPanelController implements Controller{
+    private AdminPanel adminPanelView;
+    private AdminPanelModel adminPanelModel;
+    private ArrayList<UniversityMember> unaccepted;
+    
+    private ControllerFactory cf = (ControllerFactory) FactoryProducer.createFactory("Controller");
+    private ModelFactory mf = (ModelFactory) FactoryProducer.createFactory("Model");
+    private ViewFactory vf = (ViewFactory) FactoryProducer.createFactory("View");
     
     public AdminPanelController(){
-        adminPanelView = new AdminPanel();
-        adminPanelModel = new AdminPanelModel();
+        adminPanelView = (AdminPanel) vf.createView("AdminPanel");
+        adminPanelModel = (AdminPanelModel) mf.createModel("AdminPanel");
         
         setUnacceptedIntoTable();
         submitChanges();
@@ -92,7 +96,7 @@ public class AdminPanelController {
             @Override
             public void actionPerformed(ActionEvent e){
             	try {
-					new AdminStudentController();
+					cf.createController("AdminStudent");
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -104,7 +108,11 @@ public class AdminPanelController {
         adminPanelView.getProfessorButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                new AdminInstructorController();
+                try{
+                    cf.createController("AdminInst");
+                } catch (SQLException e1){
+                    e1.printStackTrace();
+                }
             }
         });
     }
@@ -114,7 +122,7 @@ public class AdminPanelController {
             @Override
             public void actionPerformed(ActionEvent e){
             	try {
-					new AdminCourseController();
+					cf.createController("AdminCourse");
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -127,7 +135,7 @@ public class AdminPanelController {
             @Override
             public void actionPerformed(ActionEvent e){
             	try {
-					new HistoryController();
+					cf.createController("History");
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -169,7 +177,11 @@ public class AdminPanelController {
             public void actionPerformed(ActionEvent e)
             {
                 adminPanelView.getAdminPanelFrame().dispose();
-                new LoginController();
+                try {
+                    cf.createController("Login");
+                } catch (SQLException e1){
+                    e1.printStackTrace();
+                }
             }
         });
     }

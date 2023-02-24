@@ -5,7 +5,7 @@ import javax.swing.table.TableCellRenderer;
 
 import java.awt.*;
 
-public class StudentTranscriptView extends JFrame{
+public class StudentTranscriptView extends JFrame implements View{
 
 	//Frame
 	//private JFrame 
@@ -285,7 +285,7 @@ public class StudentTranscriptView extends JFrame{
     public JButton getFinalTranscriptButton() {
     	return this.finalTranscript;
     }
-    public JComboBox getStudentSemestersList() {
+    public JComboBox<String> getStudentSemestersList() {
     	return this.studentSemesters;
     }
     

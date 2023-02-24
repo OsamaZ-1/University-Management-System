@@ -6,7 +6,7 @@ import java.util.List;
 import DAO.CourseDaoImplementation;
 import DAO.StudentDaoImplementation;
 
-public class AdminStudentModel {
+public class AdminStudentModel implements Model{
 
 	private StudentDaoImplementation stdDao = new StudentDaoImplementation();
 	private CourseDaoImplementation coursesDao = new CourseDaoImplementation();

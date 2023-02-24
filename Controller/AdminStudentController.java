@@ -14,8 +14,9 @@ import Model.Course;
 import View.AdminStudentCourseView;
 import View.AdminStudentGradesView;
 import View.AdminStudentView;
+import Factory.*;
 
-public class AdminStudentController {
+public class AdminStudentController implements Controller{
 
 	private AdminStudentCourseView adminStudentManageView;
 	private AdminStudentView adminStudentView;
@@ -24,11 +25,14 @@ public class AdminStudentController {
 	private Object[][] tableInfo;
 	private String studentMajor;
 	
+    private ModelFactory mf = (ModelFactory) FactoryProducer.createFactory("Model");
+    private ViewFactory vf = (ViewFactory) FactoryProducer.createFactory("View");
+	
 	public AdminStudentController() throws SQLException {
-		adminStudentManageView= new AdminStudentCourseView();
-		adminStudentView = new AdminStudentView();
-		adminStudentGrade = new AdminStudentGradesView();
-		adminStudentModel=new AdminStudentModel();
+		adminStudentManageView= (AdminStudentCourseView) vf.createView("AdminStudentCourse");
+		adminStudentView = (AdminStudentView) vf.createView("AdminStudent");
+		adminStudentGrade = (AdminStudentGradesView) vf.createView("AdminStudentGrades");
+		adminStudentModel = (AdminStudentModel) mf.createModel("AdminStudent");
 		adminStudentManageView.getMainFrame().setVisible(false);
 		fillStudentsTable();
 		editDeleteManageListener();
@@ -220,7 +224,6 @@ public class AdminStudentController {
 				if(!id.equals("") && !fname.equals("") && !lname.equals("") && !major.equals("Select Major") && !email.equals("") && !password.equals("") && !phone.equals(""))
 				{	
 					try{	
-							int phoneCasted = Integer.parseInt(phone);
 							String[] studentInfo = new String[]{id,fname,lname,major,email,password,phone};
 							try
 							{	if(adminStudentModel.updateStudent(studentInfo))

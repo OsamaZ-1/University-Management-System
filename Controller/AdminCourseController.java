@@ -6,7 +6,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.nio.file.AtomicMoveNotSupportedException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,15 +14,19 @@ import javax.swing.DefaultComboBoxModel;
 import Model.AdminCourseModel;
 import Model.Course;
 import View.AdminCourseView;
+import Factory.*;
 
-public class AdminCourseController {
+public class AdminCourseController implements Controller{
 	private AdminCourseModel adminCourseModel;
 	private AdminCourseView adminCourseView;
 	private List<Course> tableInfo;
 
+    private ModelFactory mf = (ModelFactory) FactoryProducer.createFactory("Model");
+    private ViewFactory vf = (ViewFactory) FactoryProducer.createFactory("View");
+
 	public AdminCourseController() throws SQLException {
-		adminCourseModel=new AdminCourseModel();
-		adminCourseView=new AdminCourseView();
+		adminCourseModel = (AdminCourseModel) mf.createModel("AdminCourse");
+		adminCourseView = (AdminCourseView) vf.createView("AdminCourse");
 		fillTable();
 		addButtonAction();
 		yearListAction("Add");

@@ -5,7 +5,7 @@ import java.util.List;
 
 import DAO.CourseDaoImplementation;
 
-public class AdminCourseModel {
+public class AdminCourseModel implements Model{
 
 	CourseDaoImplementation crseDao=new CourseDaoImplementation();
 	public List<Course> getAllCourses() throws SQLException {

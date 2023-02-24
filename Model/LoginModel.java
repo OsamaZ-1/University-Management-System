@@ -6,7 +6,7 @@ import DAO.AdminDaoImplementation;
 import DAO.InstructorDaoImplementation;
 import DAO.StudentDaoImplementation;
 
-public class LoginModel {
+public class LoginModel implements Model{
     private StudentDaoImplementation stdDao = new StudentDaoImplementation();
     private InstructorDaoImplementation instDao = new InstructorDaoImplementation();
     private AdminDaoImplementation adminDao = new AdminDaoImplementation();

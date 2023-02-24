@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.table.DefaultTableModel;
 
-public class HistoryView {
+public class HistoryView implements View{
     
     //Labels
     private JLabel title;

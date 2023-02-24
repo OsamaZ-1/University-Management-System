@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class AdminInstructorView {
+public class AdminInstructorView implements View{
     private JPanel head;
     private JPanel center;
     private JPanel footEdit;

@@ -4,7 +4,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import java.awt.*;
-public class StudentFinalTranscriptView {
+public class StudentFinalTranscriptView implements View{
 
 	private JFrame sFTFrame;
 	

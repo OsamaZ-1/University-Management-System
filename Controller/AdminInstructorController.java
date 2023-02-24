@@ -3,7 +3,6 @@ package Controller;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.swing.JOptionPane;
 import View.AdminInstructorView;
 import View.AdminInstManageView;
 import Model.AdminInstructorModel;
@@ -15,17 +14,21 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Factory.*;
 
-public class AdminInstructorController {
+public class AdminInstructorController implements Controller{
     private AdminInstructorView instView;
     private AdminInstructorModel instModel;
     private AdminInstManageView instManageView;
-    private Object[][] tableInfo;
+	private Object[][] tableInfo;
 
+    private ModelFactory mf = (ModelFactory) FactoryProducer.createFactory("Model");
+    private ViewFactory vf = (ViewFactory) FactoryProducer.createFactory("View");
+    
     public AdminInstructorController(){
-        instView = new AdminInstructorView();
-        instModel = new AdminInstructorModel();
-        instManageView = new AdminInstManageView();
+        instView = (AdminInstructorView) vf.createView("AdminInst");
+        instModel = (AdminInstructorModel) mf.createModel("AdminInst");
+        instManageView = (AdminInstManageView) vf.createView("AdminInstManage");
         instManageView.getMainFrame().setVisible(false);
 
         placeInfoInTable();

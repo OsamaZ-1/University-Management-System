@@ -6,22 +6,27 @@ import javax.swing.JTable;
 
 import Model.HistoryModel;
 import View.HistoryView;
+import Factory.*;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HistoryController {
+public class HistoryController implements Controller{
    
-    HistoryView historyView;
-    HistoryModel historyModel;
-    String chosenTable;
+    private HistoryView historyView;
+    private HistoryModel historyModel;
+    private String chosenTable;
+
+    private ModelFactory mf = (ModelFactory) FactoryProducer.createFactory("Model");
+    private ViewFactory vf = (ViewFactory) FactoryProducer.createFactory("View");
+    
 
     public HistoryController() throws SQLException
     {   
-        historyView = new HistoryView();
-        historyModel = new HistoryModel();
+        historyView = (HistoryView) vf.createView("History");
+        historyModel = (HistoryModel) mf.createModel("History");
         chosenTable = "Student";
 
         setDropDownListener();

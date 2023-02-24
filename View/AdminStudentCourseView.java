@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class AdminStudentCourseView{
+public class AdminStudentCourseView implements View{
     //Labels
 	private JLabel title;
     private JLabel studentIdLabel;

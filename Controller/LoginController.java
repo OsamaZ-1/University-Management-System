@@ -5,14 +5,19 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import Model.LoginModel;
 import View.Login;
+import Factory.*;
 
-public class LoginController {
+public class LoginController implements Controller{
     private LoginModel loginModel;
     private Login loginView;
 
+    private ControllerFactory cf = (ControllerFactory) FactoryProducer.createFactory("Controller");
+    private ModelFactory mf = (ModelFactory) FactoryProducer.createFactory("Model");
+    private ViewFactory vf = (ViewFactory) FactoryProducer.createFactory("View");
+
     public LoginController(){
-        loginModel = new LoginModel();
-        loginView = new Login();
+        loginModel = (LoginModel) mf.createModel("Login");
+        loginView = (Login) vf.createView("Login");
 
         logMemberIn();
         goToRegisterPage();
@@ -39,17 +44,19 @@ public class LoginController {
                         else if (res == 1)
                              {  //successfull student login
                                 loginView.getLoginFrame().dispose();
-                                 new StrudentTranscriptController(email,pass);
+                                cf.setInfo(email, pass);
+                                cf.createController("StudentTrans");
                              }
                         else if (res == 2)
                              {  //successfull instructor login
                                 loginView.getLoginFrame().dispose();
-                                new InstructorController(email,pass);
+                                cf.setInfo(email, pass);
+                                cf.createController("Inst");
                              }
                         else if (res == 3)
                              {   //successfull admin login
                                 loginView.getLoginFrame().dispose();
-                                new AdminPanelController();
+                                cf.createController("AdminPanel");
                              }
                     }catch(SQLException ex){ex.printStackTrace();}
                 }
@@ -64,7 +71,11 @@ public class LoginController {
             @Override
             public void actionPerformed(ActionEvent e){
                 loginView.getLoginFrame().dispose();
-                new RegisterController();
+                try{
+                    cf.createController("Register");
+                } catch (SQLException e1){
+                    e1.printStackTrace();
+                }
             }
         });
     }

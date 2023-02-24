@@ -6,23 +6,26 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.util.regex.*;
-import javax.lang.model.util.ElementScanner14;
-import javax.swing.JOptionPane;
 
 import Model.Instructor;
 import Model.RegisterModel;
 import Model.Student;
 import Model.UniversityMember;
 import View.Register;
+import Factory.*;
 
-public class RegisterController {
+public class RegisterController implements Controller{
 
     private RegisterModel registerModel;
     private Register registerView;
 
+    private ControllerFactory cf = (ControllerFactory) FactoryProducer.createFactory("Controller");
+    private ModelFactory mf = (ModelFactory) FactoryProducer.createFactory("Model");
+    private ViewFactory vf = (ViewFactory) FactoryProducer.createFactory("View");
+
     public RegisterController(){
-        registerModel = new RegisterModel();
-        registerView = new Register();
+        registerModel = (RegisterModel) mf.createModel("Register");
+        registerView = (Register) vf.createView("Register");
 
         registerMember();
         goToLoginPage();
@@ -102,7 +105,11 @@ public class RegisterController {
             @Override
             public void actionPerformed(ActionEvent e){
                 registerView.getRegisterFrame().dispose();
-                new LoginController();
+                try{
+                    cf.createController("Login");
+                } catch (SQLException e1){
+                    e1.printStackTrace();
+                }
             }
         });
     }

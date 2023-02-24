@@ -6,6 +6,7 @@ import java.util.List;
 import Model.StudentTranscriptModel;
 import View.StudentFinalTranscriptView;
 import View.StudentTranscriptView;
+import Factory.*;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -13,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-public class StrudentTranscriptController {
+public class StrudentTranscriptController implements Controller{
 
 	private StudentTranscriptView view;
 	private StudentTranscriptModel model;
@@ -23,10 +24,15 @@ public class StrudentTranscriptController {
 	private Object[][] semesterGrades;
 	private String[] studentInfo;
 
+	private ControllerFactory cf = (ControllerFactory) FactoryProducer.createFactory("Controller");
+    private ModelFactory mf = (ModelFactory) FactoryProducer.createFactory("Model");
+    private ViewFactory vf = (ViewFactory) FactoryProducer.createFactory("View");
+
 	public StrudentTranscriptController(String email,String password) throws SQLException {
-    	view=new StudentTranscriptView();
-    	model=new StudentTranscriptModel(email,password);
-    	finalView=new StudentFinalTranscriptView();
+    	view = (StudentTranscriptView) vf.createView("StudentTrans");
+		mf.setInfo(email, password);
+    	model = (StudentTranscriptModel) mf.createModel("StudentTrans");
+    	finalView = (StudentFinalTranscriptView) vf.createView("StudentFinalTrans");
     	finalView.getsFTFrame().setVisible(false);
     	
     	fillStudentInfo();
@@ -74,7 +80,11 @@ public class StrudentTranscriptController {
 		view.getLogoutButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				view.getMainFrame().dispose();
-                new LoginController();   
+                try{
+                    cf.createController("Login");
+                } catch (SQLException e1){
+                    e1.printStackTrace();
+				}
 			}
 		});
 	}

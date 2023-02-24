@@ -2,7 +2,7 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 
-public class Login{
+public class Login implements View{
     //Icons
     private ImageIcon logo;
     private ImageIcon userLogo;

@@ -5,7 +5,7 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 
-public class AdminInstManageView{
+public class AdminInstManageView implements View{
 
     //Labels
 	private JLabel title;

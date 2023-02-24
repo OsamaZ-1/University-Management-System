@@ -3,7 +3,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
-public class InstructorPanelView{
+public class InstructorPanelView implements View{
 
 	private JLabel header;
 	private JLabel idLabel;

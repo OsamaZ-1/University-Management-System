@@ -1,14 +1,12 @@
 package Model;
 
 import java.sql.SQLException;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import DAO.CourseDaoImplementation;
 import DAO.StudentDaoImplementation;
 
-public class StudentTranscriptModel {
+public class StudentTranscriptModel implements Model{
 
 	private StudentDaoImplementation stdDao;
 	private CourseDaoImplementation crseDao;
