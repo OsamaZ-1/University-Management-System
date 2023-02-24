@@ -2,9 +2,6 @@ package DAO;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.naming.ldap.LdapName;
-
 import java.sql.*;
 
 import Database.DatabaseConnection;
