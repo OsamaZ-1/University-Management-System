@@ -1,6 +1,6 @@
 1- Open your MYSQL database server and import the cms.sql (Project > Database > cms.sql) file into it.
 
-2- Open the Main.java (Project > Main.java) file and run the file.
+2- Open the project in your editor and run the Main.java file (Project > Main.java).
 
 3- Login into the system or Register if you don't have an account.
 
