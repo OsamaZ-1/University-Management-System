@@ -1,0 +1,42 @@
+1- Open your MYSQL database server and import the ums.sql (Project > Database > cms.sql) file into it.
+
+2- Run the application by clicking on the University Management System .JAR file.
+
+3- Login into the system or Register if you don't have an account.
+
+4- Students check their grades in the student transcripts tab and logout when done.
+
+5- Instructors first choose the course they want to grade the students in from the Courses drop down list.
+   Then they choose the student they want to grade from the table and add a grade for that student.
+   After finishing grading students, the instructor presses the Save button to submit the grades which he will not be able to edit anymore.
+   When finished the instructor logs out.
+
+6- Admins are first introduced into the dashboard where they can see the number of students, instrucotrs, and courses.
+   There, they can also accept or unaccept newly registered students by checking the checkbox next to the student's row and pressing the Submit button.
+   Also, the dashboard is refreshed whenever the Admin presses the Refresh button.
+
+7- Admins can also manage students by pressing the Students button.
+   There they can choose what they want to do from the drop down list, either edit, delete, or manage.
+   By choosing edit, the admin will be able to choose a student from the table whose information will be filled into the text boxes, then he can edit that information and update it by pressing the Edit button.
+   By choosing delete, the admin will be able to choose a student to delete from the system and deleting them by pressing the Delete button.
+   By choosing manage, the admin will be able to choose what they want to manage from the Manage drop down list.
+      If they choose Student-Courses, choose a student, then press the Manage button, they will be able to enroll students into courses by choosing a course from the drop down list and pressing the Add button, or deleting them from a course by pressing the Delete button.
+      If they choose Student-Grades, choose a student, then press the Edit button, they will be able to edit the already submitted grades of students.
+
+8- Admins can manage Instructors as well by pressing the Instructors button.
+   There they can choose what they want to do from the drop down list, either edit, delete, or manage.
+   By choosing edit, the admin will be able to choose an instructor from the table whose information will be filled into the text boxes, then he can edit that information and update it by pressing the Edit button.
+   By choosing delete, the admin will be able to choose an instructor to delete from the system and deleting them by pressing the Delete button.
+   By choosing manage, the admin will be able to choose what instructor to add or delete into or from teaching courses after pressing the Manage button, then choosing which course from the drop down list and pressing the Add or Delete buttons.
+
+9- Admins can also manage Courses by pressing the Courses button.
+   There they can choose either add, delete, or edit from the drop down list.
+   By choosing add, the admin can enter the information of a course and add it into the system by pressing the Add button.
+   By choosing delete, the admin can choose a course from the table and delete it from the system by pressing the Delete button.
+   By choosing edit, the admin can choose a course from the table and edit its information then update it by pressing the Edit button.
+
+10- Admins can also check the system's history by pressing the History button.
+    There they can choose which history table to check.
+    Then they can either choose a row from the table to retreive into the main table by pressing the Retrieve button.
+    Or they can delete the selected row from the history table by pressing the Delete button.
+    Or they can delete all the rows from the history table by pressing the DeleteAll button.
