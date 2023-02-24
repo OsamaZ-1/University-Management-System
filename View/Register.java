@@ -56,12 +56,12 @@ public class Register implements View{
     public Register()
     {   
         //Initializations
-        logo = new ImageIcon("INFO404-PROJECT/Images/main_Icon.png");
-        userModeLogo = new ImageIcon("INFO404-PROJECT/Images/person.png");
-        mailLogo = new ImageIcon("INFO404-PROJECT/Images/mail.png");
-        keyLogo = new ImageIcon("INFO404-PROJECT/Images/key.png");
-        phoneLogo = new ImageIcon("INFO404-PROJECT/Images/phone.png");
-        userLogo = new ImageIcon("INFO404-PROJECT/Images/user.png");
+        logo = new ImageIcon("./Images/main_Icon.png");
+        userModeLogo = new ImageIcon("./Images/person.png");
+        mailLogo = new ImageIcon("./Images/mail.png");
+        keyLogo = new ImageIcon("./Images/key.png");
+        phoneLogo = new ImageIcon("./Images/phone.png");
+        userLogo = new ImageIcon("./Images/user.png");
         font = new Font("Arial",Font.PLAIN,17);
         color = new Color(83,131,255);
         firstNameField = new JTextField(15);
@@ -70,7 +70,7 @@ public class Register implements View{
         emailField = new JTextField(15);
         phoneNumberField = new JTextField(15);
         userModeField = new JComboBox<String>(new String[]{"Select User Mode","Student","Instructor"});
-        userMajorField = new JComboBox<String>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
+        userMajorField = new JComboBox<String>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry", "BioChemistry"});
         userMajorField.setVisible(false);
         mainIcon = new JLabel(logo);
         emailIcon = new JLabel(mailLogo);
