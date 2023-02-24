@@ -7,7 +7,7 @@ public class DatabaseConnection {
   
     static
     {
-        String url = "jdbc:mysql://localhost:3306/CMS";
+        String url = "jdbc:mysql://localhost:3306/UMS";
         String user = "root";
         String pass = "";
         try {
