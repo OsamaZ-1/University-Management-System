@@ -43,7 +43,7 @@ public class InstructorController implements Controller{
             public void actionPerformed(ActionEvent e) {
                 instructorView.getInstructorFrame().dispose();
                 try{
-                    cf.createController("Logout");
+                    cf.createController("Login");
                 } catch (SQLException e1){
                     e1.printStackTrace();
                 }
