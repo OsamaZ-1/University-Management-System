@@ -56,10 +56,10 @@ public class AdminPanel implements View{
     public AdminPanel()
     {  
         //Initialization of components
-        logo = new ImageIcon("./Images/main_Icon.png");
-        studentLogo = new ImageIcon("./Images/student.png");
-        professorLogo = new ImageIcon("./Images/professor.png");
-        coursesLogo = new ImageIcon("./Images/courses.png");
+        logo = new ImageIcon("INFO404-PROJECT/Images/main_Icon.png");
+        studentLogo = new ImageIcon("INFO404-PROJECT/Images/student.png");
+        professorLogo = new ImageIcon("INFO404-PROJECT/Images/professor.png");
+        coursesLogo = new ImageIcon("INFO404-PROJECT/Images/courses.png");
         font = new Font("Arial",Font.BOLD,17);
         blue = new Color(83,131,255);
         lightBlue = new Color(131, 165, 252);
@@ -175,9 +175,9 @@ public class AdminPanel implements View{
         springLayout.putConstraint(SpringLayout.WEST, studentIcon, 170,SpringLayout.WEST, topPanel);
         springLayout.putConstraint(SpringLayout.WEST, nbStudents, 140,SpringLayout.WEST, topPanel);
         springLayout.putConstraint(SpringLayout.WEST, professorIcon, 200,SpringLayout.EAST, studentIcon);
-        springLayout.putConstraint(SpringLayout.WEST, nbProfessors, 130,SpringLayout.EAST, nbStudents);
+        springLayout.putConstraint(SpringLayout.WEST, nbProfessors, 110,SpringLayout.EAST, nbStudents);
         springLayout.putConstraint(SpringLayout.WEST, coursesIcon, 200,SpringLayout.EAST, professorIcon);
-        springLayout.putConstraint(SpringLayout.WEST, nbCourses, 130,SpringLayout.EAST, nbProfessors);
+        springLayout.putConstraint(SpringLayout.WEST, nbCourses, 115,SpringLayout.EAST, nbProfessors);
         springLayout.putConstraint(SpringLayout.NORTH, studentIcon, 20,SpringLayout.NORTH, topPanel);
         springLayout.putConstraint(SpringLayout.NORTH, professorIcon, 20,SpringLayout.NORTH, topPanel);
         springLayout.putConstraint(SpringLayout.NORTH, coursesIcon, 20,SpringLayout.NORTH, topPanel);

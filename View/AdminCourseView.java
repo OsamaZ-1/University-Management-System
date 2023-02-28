@@ -129,7 +129,7 @@ public class AdminCourseView implements View{
         houresAdd=new JTextField();
         houresAdd.setColumns(5);
         houresAdd.setFont(font);
-        majorAdd=new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
+        majorAdd=new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry","BioChemistry"});
         majorAdd.setFont(font);
         semesterAdd=new JComboBox<String>(new String[]{"Select Semester"});
         semesterAdd.setFont(font);
@@ -169,7 +169,7 @@ public class AdminCourseView implements View{
         houresEdit=new JTextField();
         houresEdit.setColumns(5);
         houresEdit.setFont(font);
-        majorEdit=new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
+        majorEdit=new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry","BioChemistry"});
         majorEdit.setFont(font);
         yearEdit=new JComboBox<String>(years);
         yearEdit.setFont(font);

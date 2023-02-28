@@ -56,12 +56,12 @@ public class Register implements View{
     public Register()
     {   
         //Initializations
-        logo = new ImageIcon("./Images/main_Icon.png");
-        userModeLogo = new ImageIcon("./Images/person.png");
-        mailLogo = new ImageIcon("./Images/mail.png");
-        keyLogo = new ImageIcon("./Images/key.png");
-        phoneLogo = new ImageIcon("./Images/phone.png");
-        userLogo = new ImageIcon("./Images/user.png");
+        logo = new ImageIcon("INFO404-PROJECT/Images/main_Icon.png");
+        userModeLogo = new ImageIcon("INFO404-PROJECT/Images/person.png");
+        mailLogo = new ImageIcon("INFO404-PROJECT/Images/mail.png");
+        keyLogo = new ImageIcon("INFO404-PROJECT/Images/key.png");
+        phoneLogo = new ImageIcon("INFO404-PROJECT/Images/phone.png");
+        userLogo = new ImageIcon("INFO404-PROJECT/Images/user.png");
         font = new Font("Arial",Font.PLAIN,17);
         color = new Color(83,131,255);
         firstNameField = new JTextField(15);

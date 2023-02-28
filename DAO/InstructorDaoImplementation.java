@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.print.DocFlavor.INPUT_STREAM;
+
 import Database.DatabaseConnection;
 import Model.Instructor;
 import Model.UniversityMember;
@@ -173,16 +175,34 @@ public class InstructorDaoImplementation implements InstructorDao{
     public boolean addInstructorToCourse(String instID, String courseCode) throws SQLException
     {   
         int courseId = 0;
+        boolean test = false;
         try{
             courseId = getCourseId(courseCode);
+            test = instructorTeachCourse(instID, courseId);
         }catch(SQLException e){e.printStackTrace();}
 
-        String query = "INSERT INTO " + TABLE_INST_TEACH + " (InstID, CourseId) VALUES(?,?)";
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setInt(1,Integer.parseInt(instID));
-        ps.setInt(2,courseId);
+        if(!test && courseId!=0)
+        {
+            String query = "INSERT INTO " + TABLE_INST_TEACH + " (InstID, CourseId) VALUES(?,?)";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1,Integer.parseInt(instID));
+            ps.setInt(2,courseId);
 
-        return ps.executeUpdate()>0;
+            return ps.executeUpdate()>0;
+        }
+        return false;
+    }
+
+    public boolean instructorTeachCourse(String instID, int courseId) throws SQLException
+    {
+        String query = "SELECT * FROM "+TABLE_INST_TEACH+" WHERE InstID = ? AND CourseID = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, Integer.parseInt(instID));
+        ps.setInt(2, courseId);
+        ResultSet res = ps.executeQuery();
+
+        if(res.next()) return true;
+        return false;
     }
 
     @Override 
