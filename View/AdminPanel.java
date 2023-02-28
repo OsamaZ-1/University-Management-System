@@ -56,10 +56,10 @@ public class AdminPanel implements View{
     public AdminPanel()
     {  
         //Initialization of components
-        logo = new ImageIcon("INFO404-PROJECT/Images/main_Icon.png");
-        studentLogo = new ImageIcon("INFO404-PROJECT/Images/student.png");
-        professorLogo = new ImageIcon("INFO404-PROJECT/Images/professor.png");
-        coursesLogo = new ImageIcon("INFO404-PROJECT/Images/courses.png");
+        logo = new ImageIcon("./Images/main_Icon.png");
+        studentLogo = new ImageIcon("./Images/student.png");
+        professorLogo = new ImageIcon("./Images/professor.png");
+        coursesLogo = new ImageIcon("./Images/courses.png");
         font = new Font("Arial",Font.BOLD,17);
         blue = new Color(83,131,255);
         lightBlue = new Color(131, 165, 252);
