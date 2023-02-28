@@ -98,7 +98,7 @@ public class StudentFinalTranscriptView implements View{
         
         appreciationLabel=new JLabel("Graduated");
         appreciationLabel.setFont(bigFont);
-        appreciation=new JLabel("Graduted with goog average");
+        appreciation=new JLabel("Graduted with good average");
         appreciation.setFont(bigFont);
         
         northPanel=new JPanel();

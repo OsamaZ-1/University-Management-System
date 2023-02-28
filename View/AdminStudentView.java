@@ -19,7 +19,7 @@ public class AdminStudentView implements View{
     private JButton editButton;
     private JButton manageButton;
     private JButton deleteButton;
-
+    private JButton generateTranscript; 
     //Fields
     private JComboBox<String> editManage;
     private JComboBox<String> majorField;
@@ -62,10 +62,11 @@ public class AdminStudentView implements View{
         editButton = new JButton("Edit");
         manageButton = new JButton("Manage");
         deleteButton = new JButton("Delete");
+        generateTranscript = new JButton("Transcript");
         deleteButton.setBackground(Color.red);
         managementType = new JComboBox<>(new String[]{"Select Manage Type","Student-Courses","Student-Grades"});
         editManage = new JComboBox<>(new String[]{"Edit","Manage","Delete"});
-        majorField = new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry"});
+        majorField = new JComboBox<>(new String[]{"Select Major","Informatics","Math","Physics","Biology","Chemistry","BioChemistry"});
         fnameField = new JTextField(10);
         lnameField = new JTextField(10);
         emailField = new JTextField(15);
@@ -131,6 +132,9 @@ public class AdminStudentView implements View{
         manageButton.setBackground(Color.cyan);
         deleteButton.setFont(font);
         deleteButton.setPreferredSize(new Dimension(90,40));
+        generateTranscript.setFont(font);
+        generateTranscript.setPreferredSize(new Dimension(100,50));
+        generateTranscript.setBackground(Color.green);
         studentTable.setFont(font);
     	studentTable.getTableHeader().setFont(font);
     	studentTable.getTableHeader().setForeground(Color.BLUE);
@@ -204,11 +208,13 @@ public class AdminStudentView implements View{
 
         springLayout.putConstraint(SpringLayout.NORTH, studentIdLabel2, 25, SpringLayout.NORTH, footManage);
         springLayout.putConstraint(SpringLayout.NORTH, studentIdField2, 20, SpringLayout.NORTH, footManage);
+        springLayout.putConstraint(SpringLayout.NORTH, generateTranscript, 10, SpringLayout.NORTH, footManage);
         springLayout.putConstraint(SpringLayout.NORTH, managementType, 20, SpringLayout.SOUTH, studentIdField2);
         springLayout.putConstraint(SpringLayout.NORTH, manageButton, 20, SpringLayout.SOUTH, managementType);
 
         springLayout.putConstraint(SpringLayout.WEST, studentIdLabel2, 330, SpringLayout.WEST, footManage);
         springLayout.putConstraint(SpringLayout.WEST, studentIdField2, 5, SpringLayout.EAST, studentIdLabel2);
+        springLayout.putConstraint(SpringLayout.WEST, generateTranscript, 175, SpringLayout.EAST, studentIdField2);
         springLayout.putConstraint(SpringLayout.WEST, managementType, 300, SpringLayout.WEST, footManage);
         springLayout.putConstraint(SpringLayout.WEST, manageButton, 350, SpringLayout.WEST, footManage);
 
@@ -237,6 +243,7 @@ public class AdminStudentView implements View{
         footManage.add(studentIdField2);
         footManage.add(managementType);
         footManage.add(manageButton);
+        footManage.add(generateTranscript);
         footCombo.add(footManage, BorderLayout.NORTH);
         footCombo.add(footEdit, BorderLayout.CENTER);
         footCombo.add(footDelete, BorderLayout.SOUTH);
@@ -266,6 +273,11 @@ public class AdminStudentView implements View{
     public JButton getDeleButton()
     {
         return this.deleteButton;
+    }
+
+    public JButton getGenerateTranscriptButton()
+    {
+        return this.generateTranscript;
     }
 
     public JTextField getStudentFname()

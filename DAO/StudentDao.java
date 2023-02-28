@@ -2,6 +2,7 @@ package DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import Model.Course;
@@ -44,6 +45,8 @@ interface StudentDao {
     public List<String> getStudentSemesters(String email,String password)
         throws SQLException;
     public Object[][] getStudentGrades(String id)
+        throws SQLException;
+    public HashMap<String,String> getStudentEmailPassword(String id)
         throws SQLException;
     public boolean updateStudentGrade(String studentId, String courseCode, String grade)
         throws SQLException;
