@@ -1,6 +1,7 @@
 package Model;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import DAO.CourseDaoImplementation;
@@ -52,6 +53,11 @@ public class AdminStudentModel implements Model{
     {
         return stdDao.updateStudentGrade(studentId, courseCode, grade);
     }
+
+	public HashMap<String,String> getStudentEmailPassword(String id) throws SQLException
+	{
+		return stdDao.getStudentEmailPassword(id);
+	}
 
 	
 }

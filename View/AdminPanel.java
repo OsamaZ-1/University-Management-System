@@ -175,9 +175,9 @@ public class AdminPanel implements View{
         springLayout.putConstraint(SpringLayout.WEST, studentIcon, 170,SpringLayout.WEST, topPanel);
         springLayout.putConstraint(SpringLayout.WEST, nbStudents, 140,SpringLayout.WEST, topPanel);
         springLayout.putConstraint(SpringLayout.WEST, professorIcon, 200,SpringLayout.EAST, studentIcon);
-        springLayout.putConstraint(SpringLayout.WEST, nbProfessors, 130,SpringLayout.EAST, nbStudents);
+        springLayout.putConstraint(SpringLayout.WEST, nbProfessors, 110,SpringLayout.EAST, nbStudents);
         springLayout.putConstraint(SpringLayout.WEST, coursesIcon, 200,SpringLayout.EAST, professorIcon);
-        springLayout.putConstraint(SpringLayout.WEST, nbCourses, 130,SpringLayout.EAST, nbProfessors);
+        springLayout.putConstraint(SpringLayout.WEST, nbCourses, 115,SpringLayout.EAST, nbProfessors);
         springLayout.putConstraint(SpringLayout.NORTH, studentIcon, 20,SpringLayout.NORTH, topPanel);
         springLayout.putConstraint(SpringLayout.NORTH, professorIcon, 20,SpringLayout.NORTH, topPanel);
         springLayout.putConstraint(SpringLayout.NORTH, coursesIcon, 20,SpringLayout.NORTH, topPanel);

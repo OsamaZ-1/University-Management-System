@@ -42,6 +42,7 @@ public class StrudentTranscriptController implements Controller{
     	finalTranscriptButtonAction();
     	logoutButtonAction();
 	}
+
 	public void fillStudentInfo() throws SQLException {
 		studentInfo=model.getStudentInformation();
 		view.getIdLabel().setText(studentInfo[0]);
@@ -49,10 +50,12 @@ public class StrudentTranscriptController implements Controller{
     	view.getEmailLabel().setText(studentInfo[4]);
     	view.getPhoneLabel().setText(studentInfo[5]);
 	}
+
 	public void fillStudentSemesters() throws SQLException {
 		List<String> studentSemesters = model.getStudentSemesters();
         studentSemesters.forEach(code -> view.getStudentSemestersList().addItem(code));
 	}
+	
 	public void fillStudentGradesTable() throws SQLException {
        grades=model.getStudentGrades();
        finalView.getTableModelInfo().setNumRows(0);

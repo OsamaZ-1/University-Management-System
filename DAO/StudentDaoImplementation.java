@@ -3,6 +3,7 @@ package DAO;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import Database.DatabaseConnection;
@@ -561,6 +562,22 @@ public class StudentDaoImplementation implements StudentDao {
 		}
 		return courses;
 	}
+
+    @Override
+    public HashMap<String,String> getStudentEmailPassword(String id) throws SQLException
+    {   
+        HashMap<String,String> studentInfo = new HashMap<>();
+        String query = "SELECT Email,Password FROM "+TABLE_STUDENT+" WHERE Id = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, Integer.parseInt(id));
+        ResultSet res = ps.executeQuery();
+        res.next();
+        studentInfo.put("email", res.getString("Email"));
+        studentInfo.put("password",res.getString("Password"));
+
+        return studentInfo;
+
+    }
 
     public boolean checkStudentGrade(String courseCode) throws SQLException
     {   

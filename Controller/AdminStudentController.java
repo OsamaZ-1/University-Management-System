@@ -7,6 +7,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import Model.AdminStudentModel;
@@ -27,6 +28,7 @@ public class AdminStudentController implements Controller{
 	
     private ModelFactory mf = (ModelFactory) FactoryProducer.createFactory("Model");
     private ViewFactory vf = (ViewFactory) FactoryProducer.createFactory("View");
+	private ControllerFactory cf = (ControllerFactory) FactoryProducer.createFactory("Controller");
 	
 	public AdminStudentController() throws SQLException {
 		adminStudentManageView= (AdminStudentCourseView) vf.createView("AdminStudentCourse");
@@ -38,6 +40,7 @@ public class AdminStudentController implements Controller{
 		editDeleteManageListener();
 		studentTableListener();
 		manageButtonListener();
+		transcriptButtonListener();
 		editButtonListener();
 		addButtonListener();
 		deleteButtonListener();
@@ -408,6 +411,28 @@ public class AdminStudentController implements Controller{
 					adminStudentManageView.displayMessage("Choose Course Id");
 			}
 
+		});
+	}
+
+	public void transcriptButtonListener()
+	{
+		adminStudentView.getGenerateTranscriptButton().addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e)
+			{
+				String id = adminStudentView.getStudentId2().getText().toString();
+				if(!id.equals(""))
+				{	
+					try{
+						HashMap<String,String> emailPass = adminStudentModel.getStudentEmailPassword(id);
+						cf.setInfo(emailPass.get("email"),emailPass.get("password"));
+						cf.createController("StudentTrans");
+
+					}catch(SQLException ex){ex.printStackTrace();}
+				}
+				else 
+					adminStudentView.displayMessage("you must select a student to generate a transcript");
+			}
 		});
 	}
 
