@@ -54,6 +54,25 @@ public class HistoryController implements Controller{
         return t;
     }
 
+    public String getTableName(String table){
+        String t = null;
+
+        switch(table){
+            case "Student":
+                t = "student"; break;
+            case "Instructor":
+                t = "instructors"; break;
+            case "Course":
+                t = "course"; break;
+            case "Instructors Courses":
+                t = "instructorteaches"; break;
+            case "Students Grades":
+                t = "studentgrades"; break;
+        }
+        
+        return t;
+    }
+
     public void fillTable(String table){
         historyView.getTableModel().setRowCount(0);
         String tname = getHistoryTableName(chosenTable);
@@ -91,7 +110,7 @@ public class HistoryController implements Controller{
                     info[i] = String.valueOf(t.getValueAt(selectedRow, i));
                 
                 try{
-                    historyModel.retrieve(chosenTable, info);
+                    historyModel.retrieve(getTableName(chosenTable), info);
                     historyModel.delete(getHistoryTableName(chosenTable), info);
                     fillTable(chosenTable);
                 }

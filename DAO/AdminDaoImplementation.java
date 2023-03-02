@@ -56,11 +56,11 @@ public class AdminDaoImplementation implements AdminDao{
         String query = "INSERT INTO " + chosenTable + " VALUES(";
         
         switch (chosenTable){
-            case "Student": query += info[0] + ", \"" + info[1] + "\", \"" + info[2] + "\", \"" + info[3] + "\", \"" + info[4] + "\", \"" + info[5] + "\", \"" + info[6] + "\", " + info[7]; break;
-            case "Instructor": query += info[0] + ", \"" + info[1] + "\", \"" + info[2] + "\", \"" + info[3] + "\", \"" + info[4] + "\", \"" + info[5] + "\", " + info[6]; break;
-            case "Course": query += info[0] + ", \"" + info[1] + "\", \"" + info[2] + "\", \"" + info[3] + "\", " + info[4] + ", " + info[5] + ", \"" + info[6] + "\", " + info[7] + ", " + info[8]; break;
-            case "Instructors Courses": query += info[0] + ", " + info[1];
-            case "Students Grades": query += info[0] +", " + info[1] + ", " + info[2] + ", \"" + info[3] + "\", " + info[4];
+            case "student": query += info[0] + ", \"" + info[1] + "\", \"" + info[2] + "\", \"" + info[3] + "\", \"" + info[4] + "\", \"" + info[5] + "\", \"" + info[6] + "\", " + info[7]; break;
+            case "instructors": query += info[0] + ", \"" + info[1] + "\", \"" + info[2] + "\", \"" + info[3] + "\", \"" + info[4] + "\", \"" + info[5] + "\", " + info[6]; break;
+            case "course": query += info[0] + ", \"" + info[1] + "\", \"" + info[2] + "\", \"" + info[3] + "\", " + info[4] + ", " + info[5] + ", \"" + info[6] + "\", " + info[7] + ", " + info[8]; break;
+            case "instructorteaches": query += info[0] + ", " + info[1]; break;
+            case "studentgrades": query += info[0] +", " + info[1] + ", " + info[2] + ", \"" + info[3] + "\", " + info[4];
         }
 
         query += ")";
