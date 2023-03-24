@@ -7,6 +7,7 @@ public class Main {
     	
     	ControllerFactory cf = (ControllerFactory) FactoryProducer.createFactory("Controller");
         cf.createController("Login");
+        
     }
 
 }
