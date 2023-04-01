@@ -53,14 +53,22 @@ public class AdminDaoImplementation implements AdminDao{
 
     @Override
     public int retrieveFromHistory(String chosenTable, String[] info) throws SQLException {
+<<<<<<< HEAD
+    	
+=======
         
+>>>>>>> 251393bcb806fc71389c27b2ac5d3cddeac2e69e
         String query = "INSERT INTO " + chosenTable + " VALUES(";
         
         switch (chosenTable){
             case "student": query += info[0] + ", \"" + info[1] + "\", \"" + info[2] + "\", \"" + info[3] + "\", \"" + info[4] + "\", \"" + info[5] + "\", \"" + info[6] + "\", " + info[7]; break;
             case "instructors": query += info[0] + ", \"" + info[1] + "\", \"" + info[2] + "\", \"" + info[3] + "\", \"" + info[4] + "\", \"" + info[5] + "\", " + info[6]; break;
             case "course": query += info[0] + ", \"" + info[1] + "\", \"" + info[2] + "\", \"" + info[3] + "\", " + info[4] + ", " + info[5] + ", \"" + info[6] + "\", " + info[7] + ", " + info[8]; break;
+<<<<<<< HEAD
+            case "instructorteaches": query += info[0] + "," + info[1]; break;
+=======
             case "instructorteaches": query += info[0] + ", " + info[1]; break;
+>>>>>>> 251393bcb806fc71389c27b2ac5d3cddeac2e69e
             case "studentgrades": query += info[0] +", " + info[1] + ", " + info[2] + ", \"" + info[3] + "\", " + info[4]; break;
         }
 

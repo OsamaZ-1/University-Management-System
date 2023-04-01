@@ -133,7 +133,7 @@ public class AdminStudentView implements View{
         deleteButton.setFont(font);
         deleteButton.setPreferredSize(new Dimension(90,40));
         generateTranscript.setFont(font);
-        generateTranscript.setPreferredSize(new Dimension(100,50));
+        generateTranscript.setPreferredSize(new Dimension(120,50));
         generateTranscript.setBackground(Color.green);
         studentTable.setFont(font);
     	studentTable.getTableHeader().setFont(font);

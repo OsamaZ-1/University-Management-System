@@ -34,7 +34,23 @@ public class HistoryController implements Controller{
         setDeleteAllButtonListener();
         fillTable(chosenTable);
     }
-
+ 
+    public String getTableName(String chosenTable) {
+    	String t="";
+    	switch(chosenTable) {
+    	case "Student":
+            t = "student"; break;
+        case "Instructor":
+            t = "instructors"; break;
+        case "Course":
+            t = "course"; break;
+        case "Instructors Courses":
+            t = "instructorteaches"; break;
+        case "Students Grades":
+            t = "studentgrades"; break;
+    }
+    	return t;
+    }
     public String getHistoryTableName(String table){
         String t = null;
 

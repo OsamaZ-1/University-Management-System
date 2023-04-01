@@ -59,13 +59,13 @@ public class HistoryView implements View{
 
         retrieveButton = new JButton("Retrieve");
         retrieveButton.setFont(font);
-        retrieveButton.setPreferredSize(new Dimension(90,40));
+        retrieveButton.setPreferredSize(new Dimension(120,40));
         deleteButton = new JButton("Delete");
         deleteButton.setFont(font);
-        deleteButton.setPreferredSize(new Dimension(90,40));
+        deleteButton.setPreferredSize(new Dimension(120,40));
         deleteAllButton = new JButton("Delete All");
         deleteAllButton.setFont(font);
-        deleteAllButton.setPreferredSize(new Dimension(100,40));
+        deleteAllButton.setPreferredSize(new Dimension(120,40));
 
         table = new JTable();
         table.setFont(fontTable);
